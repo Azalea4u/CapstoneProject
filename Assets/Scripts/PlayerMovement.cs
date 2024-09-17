@@ -20,13 +20,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public LayerMask whatIsGround;
     [SerializeField] public CircleCollider2D RightCollider;
     [SerializeField] public CircleCollider2D LeftCollider;
+    [SerializeField] public CircleCollider2D Right_LedgeCollider;
+    [SerializeField] public CircleCollider2D Left_LedgeCollider;
 
     public bool isGrounded = true;
     public bool wallDetected = false;
-
-    [Header("Ledge")]
-    [SerializeField] public CircleCollider2D Right_LedgeCollider;
-    [SerializeField] public CircleCollider2D Left_LedgeCollider;
+    public bool ledgeDetected = false;
 
     private Rigidbody2D rb;
 
