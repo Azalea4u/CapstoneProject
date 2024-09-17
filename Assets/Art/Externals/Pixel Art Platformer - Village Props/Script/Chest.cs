@@ -22,6 +22,22 @@ namespace Cainos.PixelArtPlatformer_VillageProps
         }
         private bool isOpened;
 
+        private void Update()
+        {
+            // Check if the right mouse button is pressed
+            if (Input.GetMouseButtonDown(1))  // 1 is for the right mouse button
+            {
+                if (!IsOpened)
+                {
+                    IsOpened = true;
+                }
+                else
+                {
+                    IsOpened = false;
+                }
+            }
+        }
+
         [FoldoutGroup("Runtime"),Button("Open"), HorizontalGroup("Runtime/Button")]
         public void Open()
         {

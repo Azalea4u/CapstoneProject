@@ -10,18 +10,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public Animator animator;
     [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] private float speed;
+    [SerializeField] private float jumpingPower;
 
     public static PlayerMovement instance;
-    public bool FacingRight = true;
     public bool isAttacking = false;
 
     [Header("Collision")]
     [SerializeField] public CircleCollider2D GroundCollider;
     [SerializeField] public LayerMask whatIsGround;
-    [SerializeField] public CircleCollider2D RightCollider;
-    [SerializeField] public CircleCollider2D LeftCollider;
-    [SerializeField] public CircleCollider2D Right_LedgeCollider;
-    [SerializeField] public CircleCollider2D Left_LedgeCollider;
+    [SerializeField] public CircleCollider2D FrontCollider;
+    [SerializeField] public CircleCollider2D BackCollider;
+    [SerializeField] public CircleCollider2D LedgeCollider;
 
     public bool isGrounded = true;
     public bool wallDetected = false;
@@ -40,14 +39,15 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
+
 
         CheckDirection();
         CheckCollision();
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
+            if (isGrounded)
+                Jump();
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking)
@@ -57,12 +57,12 @@ public class PlayerMovement : MonoBehaviour
 
         // Set animator parameters
         animator.SetBool("IsMoving", horizontalInput != 0);
-        animator.SetBool("FacingRight", FacingRight);
         animator.SetBool("OnGround", isGrounded);
     }
 
     private void FixedUpdate()
     {
+        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
         animator.SetFloat("yVelocity", rb.velocity.y);
     }
 
@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, speed);
+        rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         animator.SetBool("OnGround", false);
     }
 
@@ -82,22 +82,23 @@ public class PlayerMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
 
         // Detect direction change and trigger the direction change animation
-        if (horizontalInput > 0.01f && !animator.GetBool("FacingRight"))
+        if (horizontalInput > 0.01f)
         {
             // Moving right
-            FacingRight = true;
+            transform.localScale = Vector3.one;
         }
-        else if (horizontalInput < -0.01f && animator.GetBool("FacingRight"))
+        else if (horizontalInput < -0.01f)
         {
             // Moving left
-            FacingRight = false;
+            transform.localScale = new Vector3(-1, 1, 1);
         }
     }
 
     private void CheckCollision()
     {
         isGrounded = Physics2D.Raycast(GroundCollider.bounds.center, Vector2.down, GroundCollider.radius, whatIsGround);
-        wallDetected = Physics2D.Raycast(RightCollider.bounds.center, Vector2.right, RightCollider.radius, whatIsGround) ||
-                      Physics2D.Raycast(LeftCollider.bounds.center, Vector2.left, LeftCollider.radius, whatIsGround);
+
+        wallDetected = Physics2D.Raycast(FrontCollider.bounds.center, Vector2.right, FrontCollider.radius, whatIsGround) ||
+                      Physics2D.Raycast(BackCollider.bounds.center, Vector2.left, BackCollider.radius, whatIsGround);
     }
 }
