@@ -37,7 +37,7 @@ public class LevelGeneration : MonoBehaviour
         public GameObject[] bottomEdge;
     }
 
-    [SerializeField] LayerMask tileLayer;
+    [SerializeField] public LayerMask tileLayer = 1 << 8; // Assuming the "Tile" layer is at index 8
     public string tileTag = "LevelTile";
 
     private void Start()
@@ -165,39 +165,51 @@ public class LevelGeneration : MonoBehaviour
         int processedTiles = 0;
         int replacedTiles = 0;
 
-        foreach (Transform child in transform)
+        // Get all the child objects with the specified tag
+        GameObject[] tiles = GameObject.FindGameObjectsWithTag(tileTag);
+
+        foreach (GameObject tile in tiles)
         {
-            if (child.CompareTag(tileTag))
+            processedTiles++;
+            Vector2 pos = tile.transform.position;
+            bool left = CheckForTile(pos + Vector2.left);
+            bool right = CheckForTile(pos + Vector2.right);
+            bool up = CheckForTile(pos + Vector2.up);
+            bool down = CheckForTile(pos + Vector2.down);
+
+            // If the tile is surrounded, skip replacing it
+            if (left && right && up && down)
             {
-                processedTiles++;
-                Vector2 pos = child.position;
-                bool left = CheckForTile(pos + Vector2.left);
-                bool right = CheckForTile(pos + Vector2.right);
-                bool up = CheckForTile(pos + Vector2.up);
-                bool down = CheckForTile(pos + Vector2.down);
+                continue;
+            }
 
-                GameObject newTile = null;
+            GameObject newTile = null;
 
-                // Check for corner tiles
-                if (!left && !up) newTile = topLeftCorner;
-                else if (!right && !up) newTile = topRightCorner;
-                else if (!left && !down) newTile = bottomLeftCorner;
-                else if (!right && !down) newTile = bottomRightCorner;
+            // Check for corner tiles
+            if (!left && !up) newTile = topLeftCorner;
+            else if (!right && !up) newTile = topRightCorner;
+            else if (!left && !down) newTile = bottomLeftCorner;
+            else if (!right && !down) newTile = bottomRightCorner;
 
-                // Check for edge tiles
-                else if (!left) newTile = GetRandomTile(edgeTiles.leftEdge);
-                else if (!right) newTile = GetRandomTile(edgeTiles.rightEdge);
-                else if (!up) newTile = GetRandomTile(edgeTiles.topEdge);
-                else if (!down) newTile = GetRandomTile(edgeTiles.bottomEdge);
+            // Check for edge tiles
+            else if (!left) newTile = GetRandomTile(edgeTiles.leftEdge);
+            else if (!right) newTile = GetRandomTile(edgeTiles.rightEdge);
+            else if (!up) newTile = GetRandomTile(edgeTiles.topEdge);
+            else if (!down) newTile = GetRandomTile(edgeTiles.bottomEdge);
 
-                // Replace the tile if it's an edge or corner
-                if (newTile != null)
-                {
-                    GameObject instance = Instantiate(newTile, child.position, Quaternion.identity);
-                    instance.transform.SetParent(transform);
-                    Destroy(child.gameObject);
-                    replacedTiles++;
-                }
+            // Replace the tile if it's an edge or corner
+            if (newTile != null)
+            {
+                GameObject instance = Instantiate(newTile, tile.transform.position, Quaternion.identity);
+                instance.transform.SetParent(transform);
+                Destroy(tile);
+                replacedTiles++;
+            }
+
+            // If all proper tiles have been replaced, exit the loop
+            if (replacedTiles == processedTiles - 1)
+            {
+                break;
             }
         }
 
@@ -206,8 +218,15 @@ public class LevelGeneration : MonoBehaviour
 
     private bool CheckForTile(Vector2 position)
     {
-        Collider2D hit = Physics2D.OverlapCircle(position, 0.1f);
-        return hit != null && hit.CompareTag(tileTag);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(position, 0.1f);
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.CompareTag(tileTag))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private GameObject GetRandomTile(GameObject[] tileSet)
