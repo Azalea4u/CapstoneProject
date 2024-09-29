@@ -61,10 +61,10 @@ public class LevelGeneration : MonoBehaviour
             timeBtwRoom -= Time.deltaTime;
         }
 
-        if (stopGeneration && !IsInvoking("DetectAndReplaceEdges"))
-        {
-            Invoke("DetectAndReplaceEdges", 0.5f);
-        }
+        //if (stopGeneration && !IsInvoking("DetectAndReplaceEdges"))
+        //{
+        //    //Invoke("DetectAndReplaceEdges", 0.5f);
+        //}
     }
 
     private void Move()
