@@ -6,7 +6,10 @@ public class LevelGeneration : MonoBehaviour
 {
     [SerializeField] public Transform[] startingPositions;
     [SerializeField] public LayerMask room;
-    [SerializeField] public GameObject[] rooms; // index 0 --> LR, index 1 --> LRB, index 2 --> LRT, index 3 --> LRBT
+    [SerializeField] public GameObject[] rooms;
+    // index 0 --> LR, index 1 --> LRB, index 2 --> LRT, index 3 --> LRBT
+    // index 4 --> EntranceLR, index 5 --> EntranceLRB, index 6 --> EntranceLRT, index 7 --> EntranceLRBT
+    // index 8 --> ExitLR, index 9 --> ExitLRB, index 10 --> ExitLRT, index 11 --> ExitLRBT
 
     public float moveAmount;
 
@@ -159,6 +162,7 @@ public class LevelGeneration : MonoBehaviour
         }
     }
 
+    /*
     private void DetectAndReplaceEdges()
     {
         Debug.Log("Starting edge detection...");
@@ -215,6 +219,7 @@ public class LevelGeneration : MonoBehaviour
 
         Debug.Log($"Edge detection complete. Processed {processedTiles} tiles, replaced {replacedTiles} tiles.");
     }
+    */
 
     private bool CheckForTile(Vector2 position)
     {
