@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 919729926244591036}
   - component: {fileID: 7957584337479260412}
   m_Layer: 9
-  m_Name: RoomEtranceLRT_Templates
+  m_Name: RoomEntranceLRT_Templates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca9859e1354ea3d4dace5f828acc5faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objects: []
+  objects:
+  - {fileID: 3515545514600618984, guid: 676b1817f11e70e48bf669221692a027, type: 3}
+  - {fileID: 3515545514600618984, guid: 5576031ba86de534cbb5798c7487b002, type: 3}
 --- !u!114 &7957584337479260412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,4 +60,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99b2ca3ab89ef344a9e5d1e246f9f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 7
+  type: 6
