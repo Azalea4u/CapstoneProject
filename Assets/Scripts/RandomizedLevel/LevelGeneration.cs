@@ -5,8 +5,7 @@ using UnityEngine;
 public class LevelGeneration : MonoBehaviour
 {
     [Header("Level Generation")]
-    [SerializeField] public GameObject PlayerSpawnPoint;
-    [SerializeField] public GameObject Player;
+    [SerializeField] public GameObject playerPrefab;
     [SerializeField] public Transform[] startingPositions;
     [SerializeField] public LayerMask room;
     [SerializeField] public GameObject[] rooms;
@@ -44,6 +43,8 @@ public class LevelGeneration : MonoBehaviour
 
         direction = Random.Range(1, 6);
         isFirstRoom = false;
+
+        playerPrefab.SetActive(false);
     }
 
     private void Update()
@@ -58,17 +59,41 @@ public class LevelGeneration : MonoBehaviour
             timeBtwRoom -= Time.deltaTime;
         }
 
-        if (stopGeneration && playerSpawned)
+        if (stopGeneration && !playerSpawned)
         {
-            SpawnPlayer();
+            ActivatePlayer();
         }
     }
 
-    private void SpawnPlayer()
+    private void ActivatePlayer()
     {
         // spawn player
-        Debug.Log("Spawning player");
-        playerSpawned = true;
+        GameObject entranceRoom = GameObject.FindGameObjectWithTag("EntranceRoom");
+
+        if (entranceRoom != null)
+        {
+            // Find the PlayerSpawn game object within the entrance room
+            GameObject playerSpawn = entranceRoom.transform.Find("PlayerSpawn").gameObject;
+
+            if (playerSpawn != null)
+            {
+                // Set the player's position to the PlayerSpawn position
+                playerPrefab.transform.position = playerSpawn.transform.position;
+
+                // Set the player active
+                playerPrefab.SetActive(true);
+            }
+            else
+            {
+                Debug.LogError("PlayerSpawn not found within the entrance room!");
+            }
+
+            playerSpawned = true;
+        }
+        else
+        {
+            Debug.LogError("Entrance room not found!");
+        }
     }
 
     private void Move()

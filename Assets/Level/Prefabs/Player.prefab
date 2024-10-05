@@ -256,7 +256,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9196538709246006387}
-  - component: {fileID: 5828914404254577338}
+  - component: {fileID: 2931341396314028155}
   - component: {fileID: 8961119042189131128}
   - component: {fileID: 659910686442138463}
   - component: {fileID: 9101250467146650008}
@@ -281,7 +281,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 790101629078760507}
   - {fileID: 4593310991780854658}
@@ -289,7 +289,7 @@ Transform:
   - {fileID: 2228631351938076156}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5828914404254577338
+--- !u!114 &2931341396314028155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 8961119042189131128}
   animator: {fileID: 7141768812605631476}
-  healthText: {fileID: 0}
+  healthText: {fileID: 3586536332368269705, guid: dc5ac3042ec712246b74d8344522a8c0, type: 3}
   currentHealth: 3
 --- !u!114 &8961119042189131128
 MonoBehaviour:

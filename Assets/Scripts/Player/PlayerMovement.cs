@@ -184,7 +184,23 @@ public class PlayerMovement : MonoBehaviour
         {
             // Calculate the current position based on the dash progress
             float dashProgress = (Time.time - dashStartTime) / dashDuration;
-            transform.position = Vector2.Lerp(dashStartPosition, dashStartPosition + dashingDirection * dashDistance, dashProgress);
+            Vector2 targetPosition = Vector2.Lerp(dashStartPosition, dashStartPosition + dashingDirection * dashDistance, dashProgress);
+            //transform.position = Vector2.Lerp(dashStartPosition, dashStartPosition + dashingDirection * dashDistance, dashProgress);
+
+            RaycastHit2D hit = Physics2D.Linecast(transform.position, targetPosition, whatIsGround);
+
+            if (hit.collider != null)
+            {
+                // Stop the dash if a collision is detected
+                isDashing = false;
+                currentDashRechargeTime = dashRechargeTime;
+                trailRenderer.emitting = false;
+                transform.position = hit.point; // Set the player's position to the collision point
+            }
+            else
+            {
+                transform.position = targetPosition;
+            }
 
             if (dashProgress >= 1f)
             {
