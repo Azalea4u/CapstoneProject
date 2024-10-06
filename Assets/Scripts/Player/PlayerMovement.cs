@@ -38,6 +38,12 @@ public class PlayerMovement : MonoBehaviour
     private float currentDashRechargeTime;
     private Vector2 dashStartPosition;
 
+    [Header("Crouch")]
+    [SerializeField] private BoxCollider2D standingCollider;
+    [SerializeField] private BoxCollider2D crouchCollider;
+    public bool isCrouching;
+    private bool canCrouch = true;
+
     [Header("Collision")]
     [SerializeField] public CircleCollider2D GroundCollider;
     [SerializeField] public LayerMask whatIsGround;
@@ -73,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             canDash = true;
+            canCrouch = true;
         }
 
         // Check for collisions
@@ -83,8 +90,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Set animator parameters
         animator.SetBool("IsMoving", facingDirection != 0);
-        animator.SetBool("OnGround", isGrounded);
         animator.SetBool("IsDashing", isDashing);
+        animator.SetBool("OnGround", isGrounded);
+        animator.SetBool("IsCrouching", isCrouching);
     }
 
     private void FixedUpdate()
@@ -100,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
             ContinueMovement();
         }
 
-        if (!isDashing)
+        if (!isDashing && !isCrouching)
         {
             rb.velocity = new Vector2(facingDirection * speed, rb.velocity.y);
         }
@@ -128,24 +136,44 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckInputs()
     {
-        // JUMP
-        if (Input.GetKeyDown(KeyCode.Space) && canMove)
+        if (canMove)
         {
-            if (isGrounded)
-                Jump();
-        }
+            // JUMP
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (isGrounded)
+                    Jump();
+            }
 
-        // ATTACK
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking && canMove)
-        {
-            Attack();
-        }
+            // ATTACK
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking)
+            {
+                Attack();
+            }
 
-        // DASH
-        if (Input.GetButtonDown("Dash") && canMove)
-        {
-            if (canDash)
-                Dash();
+            // DASH
+            if (Input.GetButtonDown("Dash"))
+            {
+                if (canDash)
+                    Dash();
+            }
+
+            // CROUCH
+            if (Input.GetButtonDown("Crouch"))
+            {
+                if (canCrouch)
+                    Crouch();
+            }
+            else if (Input.GetButtonUp("Crouch"))
+            {
+                ContinueMovement();
+                isCrouching = false;
+                animator.SetTrigger("Stand");
+
+                standingCollider.enabled = true;
+                crouchCollider.enabled = false;
+
+            }
         }
     }
 
@@ -157,11 +185,13 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-        animator.SetBool("OnGround", false);
+        isGrounded = false;
     }
 
     private void Dash()
     {
+        animator.SetTrigger("Dash");
+
         isDashing = true;
         canDash = false;
         dashStartTime = Time.time;
@@ -176,6 +206,20 @@ public class PlayerMovement : MonoBehaviour
 
         // Normalize the dashing direction
         dashingDirection.Normalize();
+    }
+
+    private void Crouch()
+    {
+        isCrouching = !isCrouching;
+        StopMovement();
+
+        if (isCrouching)
+        {
+            animator.SetTrigger("Crouch");
+
+            standingCollider.enabled = false;
+            crouchCollider.enabled = true;
+        }
     }
 
     private void CheckDash()
@@ -245,6 +289,7 @@ public class PlayerMovement : MonoBehaviour
                       Physics2D.Raycast(BackCollider.bounds.center, Vector2.left, BackCollider.radius, whatIsGround);
     }
 
+    #region STAGGER
     public void Stagger(Vector2 knockbackDirection)
     {
         if (!isAlive) return; // Don't stagger if the player is dead
@@ -263,11 +308,5 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(staggerDuration); // Wait for stagger duration
         isStaggered = false; // Re-enable player input
     }
-
-    private IEnumerator StopDashing()
-    {
-        yield return new WaitForSeconds(dashDuration);
-        trailRenderer.emitting = false;
-        isDashing = false;
-    }
+    #endregion
 }
