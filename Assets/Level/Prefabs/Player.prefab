@@ -305,6 +305,7 @@ MonoBehaviour:
   player: {fileID: 8961119042189131128}
   animator: {fileID: 7141768812605631476}
   healthText: {fileID: 0}
+  _currentHealth: {fileID: 11400000, guid: 5ae9667ecef10984c941800656cf9635, type: 2}
   currentHealth: 3
 --- !u!114 &8961119042189131128
 MonoBehaviour:
@@ -332,6 +333,7 @@ MonoBehaviour:
   dashSpeed: 20
   dashDuration: 0.2
   dashRechargeTime: 1
+  isDashing: 0
   standingCollider: {fileID: 9101250467146650008}
   crouchCollider: {fileID: 252029607386930036}
   isCrouching: 0

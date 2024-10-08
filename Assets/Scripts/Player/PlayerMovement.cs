@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashRechargeTime = 1.0f;
     private Vector2 dashingDirection;
     private bool canDash = true;
-    private bool isDashing;
+    public bool isDashing;
     private float dashStartTime;
     private float currentDashRechargeTime;
     private Vector2 dashStartPosition;
@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     {
         instance = this;
         rb = GetComponent<Rigidbody2D>();
+        crouchCollider.enabled = false;
     }
 
     private void Update()
@@ -112,10 +113,14 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(facingDirection * speed, rb.velocity.y);
         }
-        else
+        else if (isDashing)
         {
             // Set the velocity to the dashing speed
             rb.velocity = dashingDirection * dashSpeed;
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
         }
 
         animator.SetFloat("yVelocity", rb.velocity.y);
@@ -211,7 +216,6 @@ public class PlayerMovement : MonoBehaviour
     private void Crouch()
     {
         isCrouching = !isCrouching;
-        StopMovement();
 
         if (isCrouching)
         {

@@ -7,7 +7,8 @@ public class Health : MonoBehaviour
     [SerializeField] public PlayerMovement player;
     [SerializeField] public Animator animator;
     [SerializeField] public TMPro.TextMeshProUGUI healthText;
-    public int currentHealth = 3;
+    [SerializeField] public Int_SO _currentHealth;
+    public int currentHealth;
 
     // Getters and Setters
     public int CurrentHealth
@@ -15,6 +16,11 @@ public class Health : MonoBehaviour
         // max health to 99
         get => currentHealth;
         set => currentHealth = Mathf.Clamp(value, 0, 99);
+    }
+
+    private void Awake()
+    {
+        currentHealth = _currentHealth.value;
     }
 
     public void Update()
