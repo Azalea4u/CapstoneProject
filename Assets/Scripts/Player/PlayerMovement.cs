@@ -49,10 +49,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public LayerMask whatIsGround;
     [SerializeField] public CircleCollider2D FrontCollider;
     [SerializeField] public CircleCollider2D BackCollider;
-    [SerializeField] public CircleCollider2D LedgeCollider;
 
     public bool isGrounded;
     public bool wallDetected;
+
+    [Header("Ledge Detection")]
+    [SerializeField] private Vector2 offset1;
+    [SerializeField] private Vector2 offset2;
+    private Vector2 climbBeginPosition;
+    private Vector2 climbOverPosition;
+    public bool canGrabLedge = true;
+    public bool isClimbing; // Check if the player can climb
+    public bool climbingAllowed = true;
     public bool ledgeDetected;
 
     private Rigidbody2D rb;
@@ -83,17 +91,32 @@ public class PlayerMovement : MonoBehaviour
             canCrouch = true;
         }
 
+        if (isClimbing)
+        {
+            // if right mouse button is clicked
+            if (Input.GetMouseButtonDown(1))
+            {
+                animator.SetTrigger("Climbing");
+            }
+        }
+
         // Check for collisions
-        CheckDirection();
+        if (!isClimbing)
+        {
+            CheckDirection();
+        }
         CheckCollision();
         CheckInputs();
         CheckDash();
+        CheckForLedge();
 
         // Set animator parameters
         animator.SetBool("IsMoving", facingDirection != 0);
         animator.SetBool("IsDashing", isDashing);
         animator.SetBool("OnGround", isGrounded);
         animator.SetBool("IsCrouching", isCrouching);
+        animator.SetBool("IsClimbing", isClimbing);
+        animator.SetBool("ClimbingAllowed", climbingAllowed);
     }
 
     private void FixedUpdate()
@@ -118,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
             // Set the velocity to the dashing speed
             rb.velocity = dashingDirection * dashSpeed;
         }
-        else
+        else // If the player is crouching
         {
             rb.velocity = Vector2.zero;
         }
@@ -292,6 +315,41 @@ public class PlayerMovement : MonoBehaviour
         wallDetected = Physics2D.Raycast(FrontCollider.bounds.center, Vector2.right, FrontCollider.radius, whatIsGround) ||
                       Physics2D.Raycast(BackCollider.bounds.center, Vector2.left, BackCollider.radius, whatIsGround);
     }
+
+    #region LEDGE
+    private void CheckForLedge()
+    {
+        if (ledgeDetected && canGrabLedge)
+        {
+            canGrabLedge = false;
+
+            Vector2 ledgePosition = GetComponentInChildren<LedgeDetection>().transform.position;
+
+            climbBeginPosition = ledgePosition + offset1;
+            climbOverPosition = ledgePosition + offset2;
+            isClimbing = true;
+        }
+
+        if (isClimbing)
+        {
+            isGrounded = false;
+            transform.position = climbBeginPosition;
+            //animator.Play("Ledge_ToGrab");
+        }
+    }
+
+    public void LedgeClimbOver()
+    {
+        canGrabLedge = false;
+        climbingAllowed = true;
+
+        isClimbing = false;
+        transform.position = climbOverPosition;
+        Invoke(nameof(AllowLedgeGrab), 0.5f);
+    }
+
+    private void AllowLedgeGrab() => canGrabLedge = true;
+    #endregion
 
     #region STAGGER
     public void Stagger(Vector2 knockbackDirection)
