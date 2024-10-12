@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isAttacking = false;
     public bool isAlive = true;
 
+    private bool facingRight = true;
     private bool isStaggered = false;
     private bool canMove = true;
     private bool canFlip = true;
@@ -54,14 +55,17 @@ public class PlayerMovement : MonoBehaviour
     public bool wallDetected;
 
     [Header("Ledge Detection")]
-    [SerializeField] private Vector2 offset1;
-    [SerializeField] private Vector2 offset2;
-    private Vector2 climbBeginPosition;
-    private Vector2 climbOverPosition;
+    [SerializeField] private Vector2 Right_offset1;
+    [SerializeField] private Vector2 Right_offset2;
+    [SerializeField] private Vector2 Left_offset1;
+    [SerializeField] private Vector2 Left_offset2;
+    public Vector2 climbBeginPosition;
+    public Vector2 climbOverPosition;
     public bool canGrabLedge = true;
     public bool isClimbing; // Check if the player can climb
     public bool climbingAllowed = true;
     public bool ledgeDetected;
+    private bool ledgePositionSet = false;
 
     private Rigidbody2D rb;
 
@@ -89,15 +93,6 @@ public class PlayerMovement : MonoBehaviour
         {
             canDash = true;
             canCrouch = true;
-        }
-
-        if (isClimbing)
-        {
-            // if right mouse button is clicked
-            if (Input.GetMouseButtonDown(1))
-            {
-                animator.SetTrigger("Climbing");
-            }
         }
 
         // Check for collisions
@@ -180,7 +175,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // DASH
-            if (Input.GetButtonDown("Dash"))
+            if (Input.GetButtonDown("Dash") && !isClimbing)
             {
                 if (canDash)
                     Dash();
@@ -203,6 +198,15 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
+
+        if (isClimbing)
+        {
+            // if right mouse button is clicked
+            if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                animator.SetTrigger("Climbing");
+            }
+        }
     }
 
     private void Attack()
@@ -218,8 +222,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash()
     {
-        animator.SetTrigger("Dash");
-
         isDashing = true;
         canDash = false;
         dashStartTime = Time.time;
@@ -300,11 +302,13 @@ public class PlayerMovement : MonoBehaviour
         {
             // Moving right
             transform.localScale = Vector3.one;
+            facingRight = true;
         }
         else if (facingDirection < -0.01f && canFlip)
         {
             // Moving left
             transform.localScale = new Vector3(-1, 1, 1);
+            facingRight = false;
         }
     }
 
@@ -319,14 +323,24 @@ public class PlayerMovement : MonoBehaviour
     #region LEDGE
     private void CheckForLedge()
     {
-        if (ledgeDetected && canGrabLedge)
+        if (ledgeDetected && canGrabLedge && !ledgePositionSet)
         {
             canGrabLedge = false;
+            ledgePositionSet = true;
 
             Vector2 ledgePosition = GetComponentInChildren<LedgeDetection>().transform.position;
 
-            climbBeginPosition = ledgePosition + offset1;
-            climbOverPosition = ledgePosition + offset2;
+
+            if (facingRight) // FACING RIGHT
+            {
+                climbBeginPosition = ledgePosition + Right_offset1;
+                climbOverPosition = ledgePosition + Right_offset2;
+            }
+            else // FACING LEFT
+            {
+                climbBeginPosition = new Vector2(ledgePosition.x - Left_offset1.x, ledgePosition.y + Left_offset1.y);
+                climbOverPosition = new Vector2(ledgePosition.x - Left_offset2.x, ledgePosition.y + Left_offset2.y);
+            }
             isClimbing = true;
         }
 
@@ -334,7 +348,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = false;
             transform.position = climbBeginPosition;
-            //animator.Play("Ledge_ToGrab");
         }
     }
 
@@ -342,9 +355,13 @@ public class PlayerMovement : MonoBehaviour
     {
         canGrabLedge = false;
         climbingAllowed = true;
-
         isClimbing = false;
         transform.position = climbOverPosition;
+
+        climbBeginPosition = Vector2.zero;
+        climbOverPosition = Vector2.zero;
+        ledgePositionSet = false;
+
         Invoke(nameof(AllowLedgeGrab), 0.5f);
     }
 

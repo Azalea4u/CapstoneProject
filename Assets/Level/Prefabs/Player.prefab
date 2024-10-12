@@ -41,7 +41,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 2063931928921405977}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: abc88b4e6bf1df7449486bb3dbbfe944, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -108,7 +108,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 2891411068184673133}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: abc88b4e6bf1df7449486bb3dbbfe944, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -143,8 +143,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2228631351938076156}
+  - component: {fileID: 4766614501566114587}
   - component: {fileID: 5340675863546709182}
   - component: {fileID: 1253936823044467070}
+  - component: {fileID: 8708873942163387208}
   m_Layer: 3
   m_Name: LedgeCheck
   m_TagString: Untagged
@@ -161,12 +163,31 @@ Transform:
   m_GameObject: {fileID: 5896544121221884434}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.706, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9196538709246006387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4766614501566114587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5896544121221884434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e4fbdc550aa4e813b684b33b49ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 8961119042189131128}
+  ledgeCheck: {fileID: 5340675863546709182}
+  wallCheck: {fileID: 1253936823044467070}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 1024
+  canDetectLedge: 1
 --- !u!58 &5340675863546709182
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -201,7 +222,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.125
 --- !u!61 &1253936823044467070
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -234,7 +255,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.11374341, y: 0.21768852}
+  m_Offset: {x: 0.113743424, y: 0.25093997}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -245,8 +266,35 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.77251315, y: 0.4364777}
+  m_Size: {x: 0.77251315, y: 0.36997476}
   m_EdgeRadius: 0
+--- !u!50 &8708873942163387208
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5896544121221884434}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 3
 --- !u!1 &6590205253365238009
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +330,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 790101629078760507}
   - {fileID: 4593310991780854658}
@@ -343,9 +391,17 @@ MonoBehaviour:
     m_Bits: 1024
   FrontCollider: {fileID: 2138205188050100801}
   BackCollider: {fileID: 2897118172316307446}
-  LedgeCollider: {fileID: 5340675863546709182}
   isGrounded: 1
   wallDetected: 0
+  Right_offset1: {x: -0.503, y: -0.633}
+  Right_offset2: {x: 0.35, y: 0.669}
+  Left_offset1: {x: -0.498, y: -0.761}
+  Left_offset2: {x: 0.484, y: 0.602}
+  climbBeginPosition: {x: 0, y: 0}
+  climbOverPosition: {x: 0, y: 0}
+  canGrabLedge: 1
+  isClimbing: 0
+  climbingAllowed: 1
   ledgeDetected: 0
 --- !u!50 &659910686442138463
 Rigidbody2D:
@@ -502,8 +558,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 132396111
+  m_SortingLayer: 1
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 5dcea5cb707511a4ea9fa84fa42870e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -691,7 +747,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 8695169641154868356}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: abc88b4e6bf1df7449486bb3dbbfe944, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

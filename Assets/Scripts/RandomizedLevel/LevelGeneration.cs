@@ -26,7 +26,6 @@ public class LevelGeneration : MonoBehaviour
     [SerializeField] public float minY;
     public bool stopGeneration;
 
-    private bool isFirstRoom = true;
     private bool isLastRoom = false;
     private int downCounter;
 
@@ -42,7 +41,6 @@ public class LevelGeneration : MonoBehaviour
         Instantiate(entranceRooms[randomEntranceRoom], transform.position, Quaternion.identity);
 
         direction = Random.Range(1, 6);
-        isFirstRoom = false;
 
         playerPrefab.SetActive(false);
     }

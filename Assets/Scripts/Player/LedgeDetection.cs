@@ -6,11 +6,12 @@ public class LedgeDetection : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private CircleCollider2D ledgeCheck;
+    [SerializeField] private BoxCollider2D wallCheck;
     [SerializeField] private LayerMask whatIsGround;
 
-    private bool canDetectLedge = true;
+    public bool canDetectLedge = true;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (canDetectLedge)
         {
@@ -35,10 +36,5 @@ public class LedgeDetection : MonoBehaviour
             canDetectLedge = true;
         }
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(transform.position, radius);
-    }
 }
+                                                     
