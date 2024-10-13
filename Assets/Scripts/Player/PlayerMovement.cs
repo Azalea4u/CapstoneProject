@@ -19,13 +19,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float staggerDuration = 0.5f;
     [SerializeField] private float facingDirection;
 
+    // REQUIRED TO BE PUBLIC
     public bool isAttacking = false;
     public bool isAlive = true;
 
-    private bool facingRight = true;
     private bool isStaggered = false;
     private bool canMove = true;
     private bool canFlip = true;
+    private bool facingRight = true;
 
     [Header("Dash")]
     [SerializeField] private float dashDistance = 3.0f;
@@ -46,10 +47,10 @@ public class PlayerMovement : MonoBehaviour
     private bool canCrouch = true;
 
     [Header("Collision")]
-    [SerializeField] public CircleCollider2D GroundCollider;
-    [SerializeField] public LayerMask whatIsGround;
-    [SerializeField] public CircleCollider2D FrontCollider;
-    [SerializeField] public CircleCollider2D BackCollider;
+    [SerializeField] private CircleCollider2D GroundCollider;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private CircleCollider2D FrontCollider;
+    [SerializeField] private CircleCollider2D BackCollider;
 
     public bool isGrounded;
     public bool wallDetected;
@@ -79,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // Check to allow Player to move
+        // SET DEATH
         if (!isAlive)
         {
             animator.SetBool("IsDead", true);
@@ -95,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
             canCrouch = true;
         }
 
-        // Check for collisions
+        // CHECK COLLISION
         if (!isClimbing)
         {
             CheckDirection();
@@ -105,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         CheckDash();
         CheckForLedge();
 
-        // Set animator parameters
+        // ANIMATOR
         animator.SetBool("IsMoving", facingDirection != 0);
         animator.SetBool("IsDashing", isDashing);
         animator.SetBool("OnGround", isGrounded);
@@ -116,13 +117,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // If the player is dead, stop all movement
+        // STOP MOVEMENT
         if (!isAlive || isStaggered)
         {
             StopMovement();
             return;
         }
-        else
+        else // CONTINUE MOVEMENT
         {
             ContinueMovement();
         }
