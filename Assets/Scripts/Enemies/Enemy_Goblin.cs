@@ -1,88 +1,123 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy_Goblin : MonoBehaviour
+public class Enemy_Goblin : EnemyBase
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private float walkSpeed = 3.0f;
-    [SerializeField] private float facingDirection;
-    [SerializeField] private CircleCollider2D FrontCollider;
-    [SerializeField] private CircleCollider2D CliffCollider;
+    [Header("GoblinSpecific")]
+    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private int attackDamage = 1;
+    [SerializeField] private float attackCooldown = 3.0f;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private LayerMask playerLayer;
 
-    private bool canFlip = true;
-    private bool facingRight = true;
+    private bool canAttack = true;
+    private Transform player;
 
-
-    private Rigidbody2D rb;
-
-    private void Awake()
+    protected override void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        base.Awake();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    private void Update()
+    protected override void Update()
     {
-        facingDirection = rb.velocity.x;
+        base.Update();
 
-        CheckForFlip();
-
-        animator.SetBool("IsMoving", facingDirection != 0);
-    }
-
-    private void FixedUpdate()
-    {
-        if (facingRight)
+        CheckPlayerInRange();
+        if (hasTarget && canAttack)
         {
-            //MoveRight();
-            rb.velocity = new Vector2(walkSpeed * Vector2.right.x, rb.velocity.y);
+            Attack();
+        }
+    }
 
+    private void CheckPlayerInRange()
+    {
+        if (player != null)
+        {
+            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+            hasTarget = distanceToPlayer <= attackRange;
+
+            // Flip towards player if in range
+            if (hasTarget)
+            {
+                bool playerOnRight = player.position.x > transform.position.x;
+                if (facingRight != playerOnRight)
+                {
+                    FlipDirection();
+                }
+            }
+        }
+    }
+
+    private void Attack()
+    {
+        animator.SetTrigger("Attack");
+        canAttack = false;
+        StartCoroutine(AttackCooldown());
+
+        // Perform the attack
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, 0.5f, playerLayer);
+        foreach (Collider2D player in hitPlayers)
+        {
+            player.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
+        }
+    }
+
+    private IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
+    }
+
+    protected override void Move()
+    {
+        if (!hasTarget)
+        {
+            base.Move();
         }
         else
         {
-            //MoveLeft();
-            rb.velocity = new Vector2(walkSpeed * Vector2.left.x, rb.velocity.y);
-
+            // Stop moving when in attack range
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
 
-    private void CheckForFlip()
+    // Goblin-specific death behavior
+    protected override void HandleDeath()
     {
-        // if the FrontCollider is touching something, flip the direction
-        if (FrontCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-        {
-            FlipDirection();
-        }
-
-        // check if the CliffCollider is not touching anything, flip the direction
-        if (!CliffCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-        {
-            FlipDirection();
-        }
+        base.HandleDeath();
+        // Add any additional death logic, like dropping items
+        StartCoroutine(DeathSequence());
     }
 
-    private void CheckDirection()
+    private IEnumerator DeathSequence()
     {
-        // Detect direction change and trigger the direction change animation
-        if (facingDirection > 0.01f && canFlip)
-        {
-            // Moving right
-            transform.localScale = Vector3.one;
-            facingRight = true;
-        }
-        else if (facingDirection < -0.01f && canFlip)
-        {
-            // Moving left
-            transform.localScale = new Vector3(-1, 1, 1);
-            facingRight = false;
-        }
+        // Play death animation
+        animator.SetTrigger("Die");
+
+        // Wait for the animation to finish
+        yield return new WaitForSeconds(1f); // Adjust time based on your death animation length
+
+        // Optionally, drop loot here
+        DropLoot();
+
+        // Destroy the goblin object
+        Destroy(gameObject);
     }
 
-    private void FlipDirection()
+    private void DropLoot()
     {
-        if (!canFlip) return;
+        // Implement loot dropping logic here
+        // For example:
+        // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
+    }
 
-        facingRight = !facingRight;
-        transform.localScale = new Vector3(transform.localScale.x * -1, 1, 1);
+
+    public override void Stagger(Vector2 knockbackDirection)
+    {
+        base.Stagger(knockbackDirection);
+        animator.SetTrigger("TakeHit");
     }
 }

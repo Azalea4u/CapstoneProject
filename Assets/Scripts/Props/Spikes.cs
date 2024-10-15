@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Spikes : MonoBehaviour
 {
-    [SerializeField] private LayerMask damagingLayer; // aka the player
+    [SerializeField] private LayerMask damagingLayer; // aka the enemy
     [SerializeField] private int damage = 1;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            Health health = other.GetComponent<Health>();
+            PlayerHealth health = other.GetComponent<PlayerHealth>();
             if (health != null)
             {
                 health.TakeDamage(damage);

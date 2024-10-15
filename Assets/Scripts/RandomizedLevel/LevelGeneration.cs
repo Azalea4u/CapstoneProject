@@ -65,7 +65,7 @@ public class LevelGeneration : MonoBehaviour
 
     private void ActivatePlayer()
     {
-        // spawn player
+        // spawn enemy
         GameObject entranceRoom = GameObject.FindGameObjectWithTag("EntranceRoom");
 
         if (entranceRoom != null)
@@ -75,10 +75,10 @@ public class LevelGeneration : MonoBehaviour
 
             if (playerSpawn != null)
             {
-                // Set the player's position to the PlayerSpawn position
+                // Set the enemy's position to the PlayerSpawn position
                 playerPrefab.transform.position = playerSpawn.transform.position;
 
-                // Set the player active
+                // Set the enemy active
                 playerPrefab.SetActive(true);
             }
             else

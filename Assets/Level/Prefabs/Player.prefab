@@ -304,8 +304,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9196538709246006387}
-  - component: {fileID: 2931341396314028155}
   - component: {fileID: 8961119042189131128}
+  - component: {fileID: 2931341396314028155}
   - component: {fileID: 659910686442138463}
   - component: {fileID: 9101250467146650008}
   - component: {fileID: 252029607386930036}
@@ -338,23 +338,6 @@ Transform:
   - {fileID: 2228631351938076156}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2931341396314028155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6590205253365238009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd6e180a2b769504287057ed36cc4e0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 8961119042189131128}
-  animator: {fileID: 7141768812605631476}
-  healthText: {fileID: 0}
-  _currentHealth: {fileID: 11400000, guid: 5ae9667ecef10984c941800656cf9635, type: 2}
-  currentHealth: 3
 --- !u!114 &8961119042189131128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,6 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98551d312d815ce4799532a3358a050d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: {fileID: 2931341396314028155}
   animator: {fileID: 7141768812605631476}
   spriteRenderer: {fileID: 1115810930847380938}
   trailRenderer: {fileID: 4642176544282727685}
@@ -403,6 +387,23 @@ MonoBehaviour:
   isClimbing: 0
   climbingAllowed: 1
   ledgeDetected: 0
+--- !u!114 &2931341396314028155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6590205253365238009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6e180a2b769504287057ed36cc4e0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 8961119042189131128}
+  animator: {fileID: 7141768812605631476}
+  healthText: {fileID: 0}
+  _currentHealth: {fileID: 11400000, guid: 5ae9667ecef10984c941800656cf9635, type: 2}
+  currentHealth: 3
 --- !u!50 &659910686442138463
 Rigidbody2D:
   serializedVersion: 4
@@ -417,7 +418,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 2
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -482,7 +483,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6590205253365238009}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: abc88b4e6bf1df7449486bb3dbbfe944, type: 2}
   m_IncludeLayers:
@@ -559,7 +560,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 132396111
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 5dcea5cb707511a4ea9fa84fa42870e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

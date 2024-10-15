@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement instance;
 
     [Header("Player Components")]
+    [SerializeField] protected PlayerHealth playerHealth;
     [SerializeField] public Animator animator;
     [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] public TrailRenderer trailRenderer;
@@ -46,6 +48,10 @@ public class PlayerMovement : MonoBehaviour
     public bool isCrouching;
     private bool canCrouch = true;
 
+    [Header("Fall")]
+    [SerializeField] private float fallMultiplier = 5f;
+    [SerializeField] private float lowJumpMultiplier = 2f;
+
     [Header("Collision")]
     [SerializeField] private CircleCollider2D GroundCollider;
     [SerializeField] private LayerMask whatIsGround;
@@ -63,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 climbBeginPosition;
     public Vector2 climbOverPosition;
     public bool canGrabLedge = true;
-    public bool isClimbing; // Check if the player can climb
+    public bool isClimbing; // Check if the enemy can climb
     public bool climbingAllowed = true;
     public bool ledgeDetected;
     private bool ledgePositionSet = false;
@@ -94,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
         {
             canDash = true;
             canCrouch = true;
+            isClimbing = false;
         }
 
         // CHECK COLLISION
@@ -134,15 +141,16 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (isDashing)
         {
-            // Set the velocity to the dashing speed
+            // Set the x velocity to the dashing speed
             rb.velocity = dashingDirection * dashSpeed;
         }
-        else // If the player is crouching
+        else // If the enemy is crouching
         {
             rb.velocity = Vector2.zero;
         }
 
         animator.SetFloat("yVelocity", rb.velocity.y);
+        ApplyFallMultiplier();
     }
 
     private void StopMovement()
@@ -215,12 +223,48 @@ public class PlayerMovement : MonoBehaviour
         isAttacking = true;
     }
 
+    private void Crouch()
+    {
+        isCrouching = !isCrouching;
+
+        if (isCrouching)
+        {
+            animator.SetTrigger("Crouch");
+
+            standingCollider.enabled = false;
+            crouchCollider.enabled = true;
+        }
+    }
+
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         isGrounded = false;
+
+        rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
     }
 
+    private void ApplyFallMultiplier()
+    {
+        if (!isGrounded && rb.velocity.y < 0)
+        {
+            // Player is falling
+            float multiplier = fallMultiplier;
+
+            if (isDashing && dashingDirection.y > 0)
+            {
+                multiplier *= 10.0f;
+            }
+
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (multiplier - 1) * Time.deltaTime;
+        }
+        else if (rb.velocity.y > 0)
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
+    }
+
+    #region DASH
     private void Dash()
     {
         isDashing = true;
@@ -239,19 +283,6 @@ public class PlayerMovement : MonoBehaviour
         dashingDirection.Normalize();
     }
 
-    private void Crouch()
-    {
-        isCrouching = !isCrouching;
-
-        if (isCrouching)
-        {
-            animator.SetTrigger("Crouch");
-
-            standingCollider.enabled = false;
-            crouchCollider.enabled = true;
-        }
-    }
-
     private void CheckDash()
     {
         if (isDashing)
@@ -265,11 +296,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (hit.collider != null)
             {
-                // Stop the dash if a collision is detected
-                isDashing = false;
-                currentDashRechargeTime = dashRechargeTime;
-                trailRenderer.emitting = false;
-                transform.position = hit.point; // Set the player's position to the collision point
+                EndDash(hit.point);
             }
             else
             {
@@ -278,9 +305,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (dashProgress >= 1f)
             {
-                isDashing = false;
-                currentDashRechargeTime = dashRechargeTime;
-                trailRenderer.emitting = false; // Stop the trail renderer when the dash is completed
+                EndDash(targetPosition);
             }
         }
         else
@@ -288,13 +313,23 @@ public class PlayerMovement : MonoBehaviour
             if (currentDashRechargeTime > 0f)
             {
                 currentDashRechargeTime -= Time.deltaTime;
-                if (currentDashRechargeTime <= 0f)
+                if (currentDashRechargeTime <= 0f && isGrounded)
                 {
                     canDash = true;
                 }
             }
         }
     }
+
+    private void EndDash(Vector2 endPosition)
+    {
+        // Stop the dash if a collision is detected
+        isDashing = false;
+        currentDashRechargeTime = dashRechargeTime;
+        trailRenderer.emitting = false;
+        transform.position = endPosition; // Set the enemy's position to the collision point
+    }
+    #endregion
 
     private void CheckDirection()
     {
@@ -349,6 +384,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = false;
             transform.position = climbBeginPosition;
+            // turn tag into "Undetected" to prevent enemies from attacking the player
         }
     }
 
@@ -372,7 +408,7 @@ public class PlayerMovement : MonoBehaviour
     #region STAGGER
     public void Stagger(Vector2 knockbackDirection)
     {
-        if (!isAlive) return; // Don't stagger if the player is dead
+        if (!isAlive) return; // Don't stagger if the enemy is dead
 
         // Apply knockback force in the specified direction
         rb.velocity = new Vector2(knockbackDirection.x * knockbackForce, rb.velocity.y);
@@ -384,9 +420,9 @@ public class PlayerMovement : MonoBehaviour
     // Coroutine to handle stagger recovery
     private IEnumerator StaggerCoroutine()
     {
-        isStaggered = true; // Disable player input
+        isStaggered = true; // Disable enemy input
         yield return new WaitForSeconds(staggerDuration); // Wait for stagger duration
-        isStaggered = false; // Re-enable player input
+        isStaggered = false; // Re-enable enemy input
     }
     #endregion
 }

@@ -11,7 +11,7 @@ public class Heart_Pickup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Health health = other.GetComponent<Health>();
+            PlayerHealth health = other.GetComponent<PlayerHealth>();
             if (health != null)
             {
                 health.Heal(heal);

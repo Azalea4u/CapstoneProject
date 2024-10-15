@@ -1025,9 +1025,25 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1174777771}
+    - target: {fileID: 4642176544282727685, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
+      propertyPath: m_Time
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642176544282727685, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.75735116
+      objectReference: {fileID: 0}
     - target: {fileID: 6590205253365238009, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8961119042189131128, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
+      propertyPath: dashDuration
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8961119042189131128, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
+      propertyPath: jumpingPower
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9196538709246006387, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1085,6 +1101,30 @@ PrefabInstance:
     - target: {fileID: 2212974346230941465, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
       propertyPath: m_Name
       value: Enemy_Goblin
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462514010606733166, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
+      propertyPath: m_Size.x
+      value: 1.8346808
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462514010606733166, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.9339399
+      objectReference: {fileID: 0}
+    - target: {fileID: 5458504773154916289, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
+      propertyPath: m_Size.x
+      value: 1.8056316
+      objectReference: {fileID: 0}
+    - target: {fileID: 5458504773154916289, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
+      propertyPath: m_Size.y
+      value: 1.2495017
+      objectReference: {fileID: 0}
+    - target: {fileID: 5458504773154916289, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0022444725
+      objectReference: {fileID: 0}
+    - target: {fileID: 5458504773154916289, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.39574388
       objectReference: {fileID: 0}
     - target: {fileID: 8320828711975162597, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
       propertyPath: m_LocalPosition.x
