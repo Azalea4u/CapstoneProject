@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Components")]
     [SerializeField] protected PlayerHealth playerHealth;
     [SerializeField] public Animator animator;
-    [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] public TrailRenderer trailRenderer;
     [SerializeField] private float speed;
     [SerializeField] private float jumpingPower;
@@ -35,12 +34,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashSpeed = 20.0f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashRechargeTime = 1.0f;
-    private Vector2 dashingDirection;
-    private bool canDash = true;
     public bool isDashing;
+    private bool canDash = true;
     private float dashStartTime;
     private float currentDashRechargeTime;
     private Vector2 dashStartPosition;
+    private Vector2 dashingDirection;
 
     [Header("Crouch")]
     [SerializeField] private BoxCollider2D standingCollider;
@@ -66,8 +65,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 Right_offset2;
     [SerializeField] private Vector2 Left_offset1;
     [SerializeField] private Vector2 Left_offset2;
-    public Vector2 climbBeginPosition;
-    public Vector2 climbOverPosition;
+    private Vector2 climbBeginPosition;
+    private Vector2 climbOverPosition;
+    // REQUIRED TO BE PUBLIC
     public bool canGrabLedge = true;
     public bool isClimbing; // Check if the enemy can climb
     public bool climbingAllowed = true;
@@ -274,6 +274,12 @@ public class PlayerMovement : MonoBehaviour
         trailRenderer.emitting = true;
         dashingDirection = new Vector2(facingDirection, Input.GetAxisRaw("Vertical"));
 
+        // if pressing up at all, don't dash up
+        if (dashingDirection.y > 0)
+        {
+            dashingDirection.y = 0;
+        }
+
         if (dashingDirection == Vector2.zero)
         {
             dashingDirection = new Vector2(transform.localScale.x, 0);
@@ -290,7 +296,6 @@ public class PlayerMovement : MonoBehaviour
             // Calculate the current position based on the dash progress
             float dashProgress = (Time.time - dashStartTime) / dashDuration;
             Vector2 targetPosition = Vector2.Lerp(dashStartPosition, dashStartPosition + dashingDirection * dashDistance, dashProgress);
-            //transform.position = Vector2.Lerp(dashStartPosition, dashStartPosition + dashingDirection * dashDistance, dashProgress);
 
             RaycastHit2D hit = Physics2D.Linecast(transform.position, targetPosition, whatIsGround);
 
