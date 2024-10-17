@@ -1,51 +1,104 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] public PlayerMovement player;
-    [SerializeField] public Animator animator;
-    [SerializeField] public TMPro.TextMeshProUGUI healthText;
-    [SerializeField] public Int_SO _currentHealth;
-    public int currentHealth;
+    [SerializeField] private PlayerMovement player;
+    [SerializeField] private Animator animator;
+    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private Int_SO _currentHealthSO;
 
-    // Getters and Setters
-    public int CurrentHealth
+    [Header("Damagable")]
+    [SerializeField] private int _maxHealth = 3;
+    [SerializeField] private int _health = 3;
+    [SerializeField] private bool _isAlive = true;
+    [SerializeField] private bool isInvincible = false;
+    [SerializeField] private float invincibilityTime = 0.25f;
+    private float timeSinceHit = 0.0f;
+
+    public int MaxHealth
     {
-        // max health to 99
-        get => currentHealth;
-        set => currentHealth = Mathf.Clamp(value, 0, 99);
+        get => _maxHealth;
+        set => _maxHealth = value;
+    }
+
+    public int Health
+    {
+        get => _health;
+        set
+        {
+            _health = Mathf.Clamp(value, 0, 99);
+            if (_health <= 0)
+            {
+                IsAlive = false;
+            }
+            UpdateHealthDisplay();
+        }
+    }
+
+    public bool IsAlive
+    {
+        get => _isAlive;
+        set
+        {
+            _isAlive = value;
+            player.isAlive = value;
+        }
     }
 
     private void Awake()
     {
-        currentHealth = _currentHealth.value;
+        Health = _currentHealthSO.value;
     }
 
-    public void Update()
+    private void Update()
     {
-        healthText.text = currentHealth.ToString();
+        if (isInvincible && IsAlive)
+        {
+            if (timeSinceHit > invincibilityTime)
+            {
+                isInvincible = false;
+                timeSinceHit = 0.0f;
+            }
+            timeSinceHit += Time.deltaTime;
+        }
+
+        if (!IsAlive)
+        {
+            Death();
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (IsAlive && !isInvincible)
+        {
+            Health -= damage;
+            isInvincible = true;
+
+            if (IsAlive)
+            {
+                player.Stagger(new Vector2(-1, 0));
+                animator.SetTrigger("TakeDamage");
+            }
+        }
+    }
+
+    public void Death()
+    {
+        animator.SetBool("IsAlive", IsAlive);
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
     public void Heal(int amount)
     {
-        currentHealth += amount;
+        Health += amount;
     }
 
-    public void TakeDamage(int amount)
+    private void UpdateHealthDisplay()
     {
-        currentHealth -= amount;
-
-        if (currentHealth > 0)
-        {
-            player.Stagger(new Vector2(-1,0));
-            animator.SetTrigger("TakeDamage");
-        }
-        if (currentHealth <= 0)
-        {
-            currentHealth = 0;
-            player.isAlive = false;
-        }
+        healthText.text = Health.ToString();
     }
 }

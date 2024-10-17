@@ -2,38 +2,93 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Health : MonoBehaviour
+public class Enemy_Health : MonoBehaviour, IDamageable
 {
     [SerializeField] private EnemyBase enemy;
     [SerializeField] private Animator animator;
-    [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth = 3;
 
-    // Getters and Setters
-    public int CurrentHealth
+    private int _health;
+    private bool _isAlive = true;
+    private bool isInvincible = false;
+    private float invincibilityTime = 0.25f;
+    private float timeSinceHit = 0.0f;
+
+    public int MaxHealth
     {
-        get => currentHealth;
-        set => currentHealth = Mathf.Clamp(value, 0, maxHealth);
+        get => maxHealth;
+        set => maxHealth = value;
+    }
+
+    public int Health
+    {
+        get => _health;
+        set
+        {
+            _health = Mathf.Clamp(value, 0, MaxHealth);
+            if (_health <= 0)
+            {
+                IsAlive = false;
+            }
+        }
+    }
+
+    public bool IsAlive
+    {
+        get => _isAlive;
+        set
+        {
+            _isAlive = value;
+            enemy.enabled = value; // Disable EnemyBase component when not alive
+        }
     }
 
     private void Awake()
     {
-        currentHealth = maxHealth;
+        Health = MaxHealth;
+    }
+
+    private void Update()
+    {
+        UpdateInvincibility();
     }
 
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
+        if (IsAlive && !isInvincible)
+        {
+            Health -= amount;
+            isInvincible = true;
 
-        if (currentHealth > 0)
-        {
-            enemy.Stagger(new Vector2(-1, 0));
-            animator.SetTrigger("TakeDamage");
+            if (IsAlive)
+            {
+                enemy.Stagger(new Vector2(-1, 0));
+                animator.SetTrigger("TakeDamage");
+            }
+            else
+            {
+                Death();
+            }
         }
-        if (currentHealth <= 0)
+    }
+
+    public void Death()
+    {
+        animator.SetBool("IsAlive", IsAlive);
+        enemy.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        // Additional death logic can be added here
+    }
+
+    private void UpdateInvincibility()
+    {
+        if (isInvincible && IsAlive)
         {
-            currentHealth = 0;
-            enemy.isAlive = false;
+            if (timeSinceHit > invincibilityTime)
+            {
+                isInvincible = false;
+                timeSinceHit = 0.0f;
+            }
+            timeSinceHit += Time.deltaTime;
         }
     }
 }

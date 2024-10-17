@@ -80,7 +80,10 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
         crouchCollider.enabled = false;
     }
 
@@ -191,29 +194,38 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // CROUCH
-            if (Input.GetButtonDown("Crouch"))
+            if (!isClimbing)
             {
-                if (canCrouch)
-                    Crouch();
-            }
-            else if (Input.GetButtonUp("Crouch"))
-            {
-                ContinueMovement();
-                isCrouching = false;
-                animator.SetTrigger("Stand");
+                if (Input.GetButtonDown("Crouch"))
+                {
+                    if (canCrouch)
+                        Crouch();
+                }
+                else if (Input.GetButtonUp("Crouch"))
+                {
+                    ContinueMovement();
+                    isCrouching = false;
+                    animator.SetTrigger("Stand");
 
-                standingCollider.enabled = true;
-                crouchCollider.enabled = false;
+                    standingCollider.enabled = true;
+                    crouchCollider.enabled = false;
 
+                } 
             }
         }
 
+        // LEDGE
         if (isClimbing)
         {
             // if right mouse button is clicked
             if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.LeftShift))
             {
                 animator.SetTrigger("Climbing");
+            }
+            else if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                // let go of ledge
+                LedgeFallDown();
             }
         }
     }
@@ -236,6 +248,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    #region JUMP
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
@@ -263,6 +276,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
+    #endregion
 
     #region DASH
     private void Dash()
@@ -371,6 +385,8 @@ public class PlayerMovement : MonoBehaviour
 
             Vector2 ledgePosition = GetComponentInChildren<LedgeDetection>().transform.position;
 
+            standingCollider.enabled = false;
+            crouchCollider.enabled = true;
 
             if (facingRight) // FACING RIGHT
             {
@@ -407,7 +423,30 @@ public class PlayerMovement : MonoBehaviour
         Invoke(nameof(AllowLedgeGrab), 0.5f);
     }
 
-    private void AllowLedgeGrab() => canGrabLedge = true;
+    public void LedgeFallDown()
+    {
+        isClimbing = false;
+        ledgeDetected = false;
+        ledgePositionSet = false;
+        climbingAllowed = true;
+
+        // Apply a small downward force to initiate the fall
+        rb.velocity = new Vector2(rb.velocity.x, -0.5f);
+
+        // Reset the player's position slightly away from the wall to avoid getting stuck
+        transform.position -= new Vector3(facingRight ? 0.3f : -0.3f, 0f, 0f);
+
+        // Allow ledge grab after a short delay
+        Invoke(nameof(AllowLedgeGrab), 1f);
+    }
+
+    private void AllowLedgeGrab()
+    {
+        canGrabLedge = true;
+
+        standingCollider.enabled = true;
+        crouchCollider.enabled = false;
+    }
     #endregion
 
     #region STAGGER

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemy_Goblin : EnemyBase
 {
     [Header("GoblinSpecific")]
+    [SerializeField] DetectionZone attackZone;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private float attackCooldown = 3.0f;
@@ -25,10 +26,27 @@ public class Enemy_Goblin : EnemyBase
     {
         base.Update();
 
+        hasTarget = attackZone.DetectedColliders.Count > 0;
+
         CheckPlayerInRange();
         if (hasTarget && canAttack)
         {
             Attack();
+        }
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if (!canAttack)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            canFlip = false;
+        }
+        else
+        {
+            canFlip = true;
         }
     }
 
@@ -94,11 +112,8 @@ public class Enemy_Goblin : EnemyBase
 
     private IEnumerator DeathSequence()
     {
-        // Play death animation
-        animator.SetTrigger("Die");
-
         // Wait for the animation to finish
-        yield return new WaitForSeconds(1f); // Adjust time based on your death animation length
+        yield return new WaitForSeconds(5f); // Adjust time based on your death animation length
 
         // Optionally, drop loot here
         DropLoot();

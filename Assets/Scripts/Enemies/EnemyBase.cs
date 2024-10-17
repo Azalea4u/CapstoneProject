@@ -7,10 +7,11 @@ public class EnemyBase : MonoBehaviour
 {
     [Header("Enemy Components")]
     [SerializeField] protected Animator animator;
+    //[SerializeField] protected Damageable damageable;
     [SerializeField] protected float walkSpeed = 3.0f;
     [SerializeField] protected float facingDirection;
 
-    protected bool hasTarget;
+    public bool hasTarget;
     public bool isAlive = true;
 
     [Header("Colliders")]
@@ -39,6 +40,8 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Update()
     {
+        //isAlive = damageable.IsAlive;
+
         if (!isAlive)
         {
             HandleDeath();
@@ -50,13 +53,14 @@ public class EnemyBase : MonoBehaviour
         animator.SetBool("IsMoving", facingDirection != 0);
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetBool("HasTarget", hasTarget);
+        //animator.SetBool("IsAlive", damageable.IsAlive);
     }
 
     protected virtual void FixedUpdate()
     {
         UpdateFacingDirection();
 
-        if (!isStaggered)
+        if (!isStaggered && isAlive)
         {
             Move();
         }
@@ -64,8 +68,16 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void HandleDeath()
     {
-        animator.SetBool("IsDead", true);
         StopMovement();
+        DropLoot();
+    }
+
+    private void DropLoot()
+    {
+        Debug.Log("Dropping loot");
+        // Implement loot dropping logic here
+        // For example:
+        // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
     }
 
     protected virtual void UpdateFacingDirection()
