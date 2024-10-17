@@ -7,7 +7,6 @@ public class EnemyBase : MonoBehaviour
 {
     [Header("Enemy Components")]
     [SerializeField] protected Animator animator;
-    //[SerializeField] protected Damageable damageable;
     [SerializeField] protected float walkSpeed = 3.0f;
     [SerializeField] protected float facingDirection;
 
@@ -130,4 +129,5 @@ public class EnemyBase : MonoBehaviour
         yield return new WaitForSeconds(staggerDuration);
         isStaggered = false;
     }
+
 }

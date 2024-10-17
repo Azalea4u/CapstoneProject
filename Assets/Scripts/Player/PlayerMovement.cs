@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         // SET DEATH
         if (!isAlive)
         {
-            animator.SetBool("IsDead", true);
+            animator.SetBool("IsAlive", false);
             return;
         }
 
@@ -373,6 +373,12 @@ public class PlayerMovement : MonoBehaviour
 
         wallDetected = Physics2D.Raycast(FrontCollider.bounds.center, Vector2.right, FrontCollider.radius, whatIsGround) ||
                       Physics2D.Raycast(BackCollider.bounds.center, Vector2.left, BackCollider.radius, whatIsGround);
+
+        if (isClimbing)
+        {
+            playerHealth.isInvincible = true;
+        }
+
     }
 
     #region LEDGE

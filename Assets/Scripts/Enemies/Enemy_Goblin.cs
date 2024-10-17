@@ -8,8 +8,7 @@ public class Enemy_Goblin : EnemyBase
     [Header("GoblinSpecific")]
     [SerializeField] DetectionZone attackZone;
     [SerializeField] private float attackRange = 1.5f;
-    [SerializeField] private int attackDamage = 1;
-    [SerializeField] private float attackCooldown = 3.0f;
+    [SerializeField] private float attackCooldown = 5.0f;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private LayerMask playerLayer;
 
@@ -75,12 +74,13 @@ public class Enemy_Goblin : EnemyBase
         canAttack = false;
         StartCoroutine(AttackCooldown());
 
-        // Perform the attack
+        /* Perform the attack
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, 0.5f, playerLayer);
         foreach (Collider2D player in hitPlayers)
         {
-            player.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
+            //player.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
         }
+        */
     }
 
     private IEnumerator AttackCooldown()

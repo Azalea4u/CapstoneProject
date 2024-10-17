@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [SerializeField] private int _maxHealth = 3;
     [SerializeField] private int _health = 3;
     [SerializeField] private bool _isAlive = true;
-    [SerializeField] private bool isInvincible = false;
+    [SerializeField] public bool isInvincible = false;
     [SerializeField] private float invincibilityTime = 0.25f;
     private float timeSinceHit = 0.0f;
 
@@ -71,7 +71,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         }
     }
 
-    public void TakeDamage(int damage)
+    public bool TakeDamage(int damage)
     {
         if (IsAlive && !isInvincible)
         {
@@ -83,7 +83,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
                 player.Stagger(new Vector2(-1, 0));
                 animator.SetTrigger("TakeDamage");
             }
+
+            return true;
         }
+
+        // Fail to Hit
+        return false;
     }
 
     public void Death()

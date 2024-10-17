@@ -53,7 +53,7 @@ public class Enemy_Health : MonoBehaviour, IDamageable
         UpdateInvincibility();
     }
 
-    public void TakeDamage(int amount)
+    public bool TakeDamage(int amount)
     {
         if (IsAlive && !isInvincible)
         {
@@ -69,7 +69,10 @@ public class Enemy_Health : MonoBehaviour, IDamageable
             {
                 Death();
             }
+            return true;
         }
+
+        return false;
     }
 
     public void Death()

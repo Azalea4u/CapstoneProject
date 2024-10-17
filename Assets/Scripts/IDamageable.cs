@@ -8,6 +8,6 @@ public interface IDamageable
     int Health { get; set; }
     bool IsAlive { get; set; }
 
-    void TakeDamage(int damage);
+    bool TakeDamage(int damage);
     void Death();
 }

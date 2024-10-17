@@ -65,7 +65,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0022444725, y: -0.39574388}
+  m_Offset: {x: -0.0022444725, y: -0.34261012}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -76,7 +76,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8056316, y: 1.2495017}
+  m_Size: {x: 1.8056316, y: 1.1432343}
   m_EdgeRadius: 0
 --- !u!114 &2055999739003796795
 MonoBehaviour:
@@ -136,10 +136,10 @@ PolygonCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 3904
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -327,7 +327,6 @@ MonoBehaviour:
   staggerDuration: 0.5
   attackZone: {fileID: 2055999739003796795}
   attackRange: 1.5
-  attackDamage: 1
   attackCooldown: 2
   attackPoint: {fileID: 6633007784638644158}
   playerLayer:
@@ -370,7 +369,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
