@@ -52,8 +52,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float lowJumpMultiplier = 2f;
 
     [Header("Collision")]
-    [SerializeField] private CircleCollider2D GroundCollider;
     [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private CapsuleCollider2D GroundCollider;
     [SerializeField] private CircleCollider2D FrontCollider;
     [SerializeField] private CircleCollider2D BackCollider;
 
@@ -369,7 +369,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckCollision()
     {
-        isGrounded = Physics2D.Raycast(GroundCollider.bounds.center, Vector2.down, GroundCollider.radius, whatIsGround);
+        isGrounded = Physics2D.Raycast(GroundCollider.bounds.center, Vector2.down, GroundCollider.size.x, whatIsGround);
 
         wallDetected = Physics2D.Raycast(FrontCollider.bounds.center, Vector2.right, FrontCollider.radius, whatIsGround) ||
                       Physics2D.Raycast(BackCollider.bounds.center, Vector2.left, BackCollider.radius, whatIsGround);
@@ -432,18 +432,18 @@ public class PlayerMovement : MonoBehaviour
     public void LedgeFallDown()
     {
         isClimbing = false;
-        ledgeDetected = false;
         ledgePositionSet = false;
-        climbingAllowed = true;
 
         // Apply a small downward force to initiate the fall
         rb.velocity = new Vector2(rb.velocity.x, -0.5f);
 
         // Reset the player's position slightly away from the wall to avoid getting stuck
         transform.position -= new Vector3(facingRight ? 0.3f : -0.3f, 0f, 0f);
+        climbingAllowed = true;
 
         // Allow ledge grab after a short delay
-        Invoke(nameof(AllowLedgeGrab), 1f);
+        ledgeDetected = false;
+        Invoke(nameof(AllowLedgeGrab), 1.5f);
     }
 
     private void AllowLedgeGrab()

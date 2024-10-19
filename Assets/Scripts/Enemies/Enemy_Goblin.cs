@@ -3,26 +3,41 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy_Goblin : EnemyBase
+public class Enemy_Goblin : EnemyBase, IAttackable
 {
     [Header("GoblinSpecific")]
     [SerializeField] DetectionZone attackZone;
+    [SerializeField] private float attackCooldown = 2.0f;
     [SerializeField] private float attackRange = 1.5f;
-    [SerializeField] private float attackCooldown = 5.0f;
-    [SerializeField] private Transform attackPoint;
+    [SerializeField] private int attackDamage = 1;
+    [SerializeField] private Collider2D attackPoint;
     [SerializeField] private LayerMask playerLayer;
 
     private bool canAttack = true;
     private Transform player;
+    private bool playerFound = false;
 
-    protected override void Awake()
+    // IAttackable implementation
+    public int AttackDamage => attackDamage;
+    public float AttackCooldown => attackCooldown;
+    public float AttackRange => attackRange;
+    public Collider2D AttackPoint => attackPoint;
+    public bool CanAttack { get => canAttack; set => canAttack = value; }
+
+    protected override void Start()
     {
-        base.Awake();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        base.Start();
+        //player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     protected override void Update()
     {
+        if (!playerFound)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            playerFound = player != null;
+        }
+
         base.Update();
 
         hasTarget = attackZone.DetectedColliders.Count > 0;
@@ -68,24 +83,26 @@ public class Enemy_Goblin : EnemyBase
         }
     }
 
-    private void Attack()
+    public void Attack()
     {
         animator.SetTrigger("Attack");
         canAttack = false;
-        StartCoroutine(AttackCooldown());
 
-        /* Perform the attack
-        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, 0.5f, playerLayer);
-        foreach (Collider2D player in hitPlayers)
-        {
-            //player.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
-        }
-        */
+        StartCoroutine(WaitForAttackCooldown());
     }
 
-    private IEnumerator AttackCooldown()
+    public void CheckAttackCollision()
     {
-        yield return new WaitForSeconds(attackCooldown);
+        IDamageable damageable = attackPoint.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(attackDamage);
+        }
+    }
+
+    private IEnumerator WaitForAttackCooldown()
+    {
+        yield return new WaitForSeconds(AttackCooldown);
         canAttack = true;
     }
 
@@ -133,6 +150,27 @@ public class Enemy_Goblin : EnemyBase
     public override void Stagger(Vector2 knockbackDirection)
     {
         base.Stagger(knockbackDirection);
-        animator.SetTrigger("TakeHit");
+        animator.SetTrigger("TakeDamage");
+    }
+
+    public void OnAttackPointTriggered(Collider2D collision)
+    {
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+
+        if (collision.CompareTag("Player"))
+        {
+            if (damageable != null)
+            {
+                damageable.TakeDamage(attackDamage);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && attackPoint.IsTouching(collision))
+        {
+            OnAttackPointTriggered(collision);
+        }
     }
 }

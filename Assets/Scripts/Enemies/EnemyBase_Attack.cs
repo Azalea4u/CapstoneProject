@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Attack : MonoBehaviour
+public class EnemyBase_Attack : MonoBehaviour
 {
     public int attackDamage = 1;
     Collider2D attackCollider;

@@ -32,7 +32,7 @@ public class EnemyBase : MonoBehaviour
 
     protected Rigidbody2D rb;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
