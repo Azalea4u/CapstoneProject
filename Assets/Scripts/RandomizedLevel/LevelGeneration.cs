@@ -14,7 +14,7 @@ public class LevelGeneration : MonoBehaviour
     // index 4 --> EntranceLR, index 5 --> EntranceLRB, index 6 --> EntranceLRT, index 7 --> EntranceLRBT
     [SerializeField] public GameObject[] exitRooms;
     // index 8 --> ExitLR, index 9 --> ExitLRB, index 10 --> ExitLRT, index 11 --> ExitLRBT
-    [SerializeField] public GameObject[] enemyRooms;
+    //[SerializeField] public GameObject[] enemyRooms;
     [SerializeField] public GameObject[] heartRooms;
 
     public float moveAmount;

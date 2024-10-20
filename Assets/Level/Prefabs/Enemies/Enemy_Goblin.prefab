@@ -130,7 +130,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252060893304242210}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -314,7 +314,7 @@ MonoBehaviour:
   knockbackForce: 10
   staggerDuration: 0.5
   attackZone: {fileID: 2055999739003796795}
-  attackCooldown: 2
+  attackCooldown: 1.25
   attackRange: 1.5
   attackDamage: 1
   attackPoint: {fileID: 8560474741318189795}

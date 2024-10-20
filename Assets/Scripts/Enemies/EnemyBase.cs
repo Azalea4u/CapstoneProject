@@ -9,6 +9,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected Animator animator;
     [SerializeField] protected float walkSpeed = 3.0f;
     [SerializeField] protected float facingDirection;
+    [SerializeField] protected float initialDelayTime = 0.25f;
 
     public bool hasTarget;
     public bool isAlive = true;
@@ -24,6 +25,7 @@ public class EnemyBase : MonoBehaviour
 
     protected bool canFlip = true;
     protected bool facingRight = true;
+    protected bool canMove = false;
 
     // STAGGER
     [SerializeField] protected float knockbackForce = 10.0f;
@@ -35,6 +37,7 @@ public class EnemyBase : MonoBehaviour
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        StartCoroutine(InitialDelay());
     }
 
     protected virtual void Update()
@@ -59,7 +62,7 @@ public class EnemyBase : MonoBehaviour
     {
         UpdateFacingDirection();
 
-        if (!isStaggered && isAlive)
+        if (!isStaggered && isAlive && canMove)
         {
             Move();
         }
@@ -94,11 +97,23 @@ public class EnemyBase : MonoBehaviour
             FlipDirection();
         }
     }
+    protected IEnumerator InitialDelay()
+    {
+        yield return new WaitForSeconds(initialDelayTime);
+        canMove = true;
+    }
 
     protected virtual void Move()
     {
-        float direction = facingRight ? 1 : -1;
-        rb.velocity = new Vector2(walkSpeed * direction, rb.velocity.y);
+        if (canMove)
+        {
+            float direction = facingRight ? 1 : -1;
+            rb.velocity = new Vector2(walkSpeed * direction, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
     }
 
     protected virtual void StopMovement()

@@ -162,7 +162,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     {
         IDamageable damageable = collision.GetComponent<IDamageable>();
 
-        if (collision.CompareTag("Player") && !playerHit)
+        if (collision.CompareTag("Player") && !playerHit && !canAttack)
         {
             if (damageable != null)
             {
@@ -181,7 +181,11 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     {
         if (collision.gameObject.CompareTag("Player") && attackPoint.IsTouching(collision))
         {
-            OnAttackPointTriggered(collision);
+            if (collision.GetComponent<IDamageable>().IsAlive)
+            {
+                OnAttackPointTriggered(collision);
+                
+            }
         }
     }
 }
