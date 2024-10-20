@@ -7,15 +7,16 @@ public class Enemy_Goblin : EnemyBase, IAttackable
 {
     [Header("GoblinSpecific")]
     [SerializeField] DetectionZone attackZone;
-    [SerializeField] private float attackCooldown = 2.0f;
+    [SerializeField] private float attackCooldown = 2.5f;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private Collider2D attackPoint;
     [SerializeField] private LayerMask playerLayer;
 
-    private bool canAttack = true;
+    public bool canAttack = true;
     private Transform player;
     private bool playerFound = false;
+    private bool playerHit = false;
 
     // IAttackable implementation
     public int AttackDamage => attackDamage;
@@ -35,6 +36,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
         if (!playerFound)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
+            Debug.Log("Player found: " + player);
             playerFound = player != null;
         }
 
@@ -43,9 +45,10 @@ public class Enemy_Goblin : EnemyBase, IAttackable
         hasTarget = attackZone.DetectedColliders.Count > 0;
 
         CheckPlayerInRange();
-        if (hasTarget && canAttack)
+        if (hasTarget && canAttack && !playerHit)
         {
             Attack();
+
         }
     }
 
@@ -88,7 +91,13 @@ public class Enemy_Goblin : EnemyBase, IAttackable
         animator.SetTrigger("Attack");
         canAttack = false;
 
-        StartCoroutine(WaitForAttackCooldown());
+    }
+
+    private IEnumerator WaitForAttackCooldown()
+    {
+        yield return new WaitForSeconds(AttackCooldown);
+        canAttack = true;
+        playerHit = false;
     }
 
     public void CheckAttackCollision()
@@ -97,13 +106,8 @@ public class Enemy_Goblin : EnemyBase, IAttackable
         if (damageable != null)
         {
             damageable.TakeDamage(attackDamage);
+            playerHit = true;
         }
-    }
-
-    private IEnumerator WaitForAttackCooldown()
-    {
-        yield return new WaitForSeconds(AttackCooldown);
-        canAttack = true;
     }
 
     protected override void Move()
@@ -130,7 +134,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     private IEnumerator DeathSequence()
     {
         // Wait for the animation to finish
-        yield return new WaitForSeconds(5f); // Adjust time based on your death animation length
+        yield return new WaitForSeconds(6.0f); // Adjust time based on your death animation length
 
         // Optionally, drop loot here
         DropLoot();
@@ -141,6 +145,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
 
     private void DropLoot()
     {
+        Debug.Log("Dropped 10 gold");
         // Implement loot dropping logic here
         // For example:
         // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
@@ -157,11 +162,17 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     {
         IDamageable damageable = collision.GetComponent<IDamageable>();
 
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !playerHit)
         {
             if (damageable != null)
             {
                 damageable.TakeDamage(attackDamage);
+                playerHit = true;
+            }
+
+            if (playerHit)
+            {
+                StartCoroutine(WaitForAttackCooldown());
             }
         }
     }

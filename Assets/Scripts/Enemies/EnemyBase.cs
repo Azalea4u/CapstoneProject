@@ -73,7 +73,7 @@ public class EnemyBase : MonoBehaviour
 
     private void DropLoot()
     {
-        Debug.Log("Dropping loot");
+        Debug.Log("Dropped 10 gold");
         // Implement loot dropping logic here
         // For example:
         // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);

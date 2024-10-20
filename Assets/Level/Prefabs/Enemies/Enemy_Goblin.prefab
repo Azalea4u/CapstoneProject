@@ -167,14 +167,16 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.71587276, y: -0.59143496}
+    - - {x: 1.4531815, y: -0.5643878}
+      - {x: 0.71587276, y: -0.59143496}
       - {x: -1.0171466, y: 0.14595723}
       - {x: -1.4398394, y: 0.76592326}
       - {x: -1.764457, y: 0.58505017}
       - {x: -1.5205178, y: 0.19748178}
       - {x: 0.7036425, y: -0.86506486}
-      - {x: 1.7705314, y: -0.73895687}
-      - {x: 1.5137659, y: -0.23420757}
+      - {x: 1.481888, y: -0.86649686}
+      - {x: 1.6445196, y: -0.5753654}
+      - {x: 1.5137659, y: -0.27448338}
   m_UseDelaunayMesh: 0
 --- !u!1 &2125391708144214978
 GameObject:
@@ -312,13 +314,14 @@ MonoBehaviour:
   knockbackForce: 10
   staggerDuration: 0.5
   attackZone: {fileID: 2055999739003796795}
-  attackCooldown: 2.5
+  attackCooldown: 2
   attackRange: 1.5
   attackDamage: 1
   attackPoint: {fileID: 8560474741318189795}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  canAttack: 1
 --- !u!114 &5438695836417209452
 MonoBehaviour:
   m_ObjectHideFlags: 0

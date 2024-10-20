@@ -15,6 +15,7 @@ public class LevelGeneration : MonoBehaviour
     [SerializeField] public GameObject[] exitRooms;
     // index 8 --> ExitLR, index 9 --> ExitLRB, index 10 --> ExitLRT, index 11 --> ExitLRBT
     [SerializeField] public GameObject[] enemyRooms;
+    [SerializeField] public GameObject[] heartRooms;
 
     public float moveAmount;
 
@@ -27,6 +28,7 @@ public class LevelGeneration : MonoBehaviour
     [SerializeField] public float minY;
     public bool stopGeneration;
 
+    private bool heartRoomPlaced = false;
     private bool isLastRoom = false;
     private int downCounter;
 
@@ -61,6 +63,10 @@ public class LevelGeneration : MonoBehaviour
         if (stopGeneration && !playerSpawned)
         {
             ActivatePlayer();
+            if (!heartRoomPlaced)
+            {
+                PlaceHeartRoom();
+            }
         }
     }
 
@@ -233,5 +239,30 @@ public class LevelGeneration : MonoBehaviour
 
         RoomType roomType = room.GetComponent<RoomType>();
         Instantiate(exitRooms[roomType.type], transform.position, Quaternion.identity);
+    }
+
+    private void PlaceHeartRoom()
+    {
+        GameObject[] regularRooms = GameObject.FindGameObjectsWithTag("Room");
+
+        if (regularRooms.Length > 0)
+        {
+            int randomIndex = Random.Range(0, regularRooms.Length);
+            GameObject roomToReplace = regularRooms[randomIndex];
+
+            Vector3 roomPosition = roomToReplace.transform.position;
+            Quaternion roomRotation = roomToReplace.transform.rotation;
+
+            Destroy(roomToReplace);
+
+            int randomHeartRoom = Random.Range(0, heartRooms.Length);
+            Instantiate(heartRooms[randomHeartRoom], roomPosition, roomRotation);
+
+            heartRoomPlaced = true;
+        }
+        else
+        {
+            Debug.LogWarning("No regular rooms found to replace with a heart room.");
+        }
     }
 }

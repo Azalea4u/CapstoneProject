@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6590205253365238009, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8837432252894973742, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
       propertyPath: m_Intensity
       value: 1.47
@@ -1849,11 +1853,35 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3799293372029001445, guid: 86da79edddabe554481dab90d135b205, type: 3}
     - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
+      propertyPath: rooms.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
+      propertyPath: rooms.Array.data[0]
+      value: 
+      objectReference: {fileID: 5893967217478677918, guid: 3d52d71ab6de4fa4dbcfc3e870efae32, type: 3}
+    - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
+      propertyPath: rooms.Array.data[1]
+      value: 
+      objectReference: {fileID: 8289177733108559585, guid: dece7ddde50ac6d48b07a4818a1f8bf3, type: 3}
+    - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
+      propertyPath: rooms.Array.data[2]
+      value: 
+      objectReference: {fileID: 6174795426115921749, guid: ca4ee013f62a4f74ea082f455d4cc9d4, type: 3}
+    - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
+      propertyPath: rooms.Array.data[3]
+      value: 
+      objectReference: {fileID: 8805946826448328439, guid: 6a1762a45f7807841b27bdcf04d6fc2d, type: 3}
+    - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
       propertyPath: exitRooms.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
       propertyPath: enemyRooms.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
+      propertyPath: heartRooms.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
@@ -1892,6 +1920,22 @@ PrefabInstance:
       propertyPath: entranceRooms.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
+      propertyPath: heartRooms.Array.data[0]
+      value: 
+      objectReference: {fileID: 5893967217478677918, guid: 1b210b9d20564534b99edb19a768691a, type: 3}
+    - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
+      propertyPath: heartRooms.Array.data[1]
+      value: 
+      objectReference: {fileID: 8289177733108559585, guid: 678c6d56403107843b8ec5c086f6c020, type: 3}
+    - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
+      propertyPath: heartRooms.Array.data[2]
+      value: 
+      objectReference: {fileID: 6174795426115921749, guid: 1b4108dcd7a1e1f429048243dc3fe40a, type: 3}
+    - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
+      propertyPath: heartRooms.Array.data[3]
+      value: 
+      objectReference: {fileID: 8805946826448328439, guid: 7c110a6bd40de444e8b2e466cc453fa4, type: 3}
     - target: {fileID: 7309791927852583507, guid: 9e428edd4a94b0f40a68dfa80da8d11e, type: 3}
       propertyPath: platformRooms.Array.size
       value: 5

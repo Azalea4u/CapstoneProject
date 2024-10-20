@@ -1637,6 +1637,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 463586107510249072, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
+      propertyPath: attackCooldown
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 2212974346230941465, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
       propertyPath: m_Name
       value: Enemy_Goblin
@@ -1680,6 +1684,10 @@ PrefabInstance:
     - target: {fileID: 8320828711975162597, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560474741318189795, guid: a0fdf160b52dff5439d58a39a056ef45, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
