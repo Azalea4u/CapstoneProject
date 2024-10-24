@@ -15,6 +15,7 @@ TagManager:
   - Undetectable
   - EnemyRoom
   - Room
+  - Elenore
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Room
   - Ground
   - Obstacle
-  - 
+  - Elenore
   - 
   - 
   - 
@@ -54,6 +55,9 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 3970773865
+    locked: 0
+  - name: Elenore
+    uniqueID: 2739229601
     locked: 0
   - name: Player
     uniqueID: 132396111

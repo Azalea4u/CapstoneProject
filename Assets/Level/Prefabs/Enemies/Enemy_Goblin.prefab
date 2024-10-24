@@ -130,7 +130,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252060893304242210}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -302,6 +302,7 @@ MonoBehaviour:
   animator: {fileID: 7893090170884515166}
   walkSpeed: 3
   facingDirection: 0
+  initialDelayTime: 3
   hasTarget: 0
   isAlive: 1
   GroundCollider: {fileID: 1965267739854575795}

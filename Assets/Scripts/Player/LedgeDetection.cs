@@ -11,6 +11,11 @@ public class LedgeDetection : MonoBehaviour
 
     public bool canDetectLedge = true;
 
+    private void Update()
+    {
+        playerMovement.canGrabLedge = canDetectLedge;
+    }
+
     private void FixedUpdate()
     {
         if (canDetectLedge)
@@ -36,5 +41,4 @@ public class LedgeDetection : MonoBehaviour
             canDetectLedge = true;
         }
     }
-}
-                                                     
+}                                                 

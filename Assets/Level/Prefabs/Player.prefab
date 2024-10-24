@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 6295834054370252879}
   - component: {fileID: 8837432252894973742}
   m_Layer: 0
-  m_Name: Light 2D
+  m_Name: Spotlight_2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -440,7 +440,7 @@ Transform:
   m_GameObject: {fileID: 5896544121221884434}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.776, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.721, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -532,7 +532,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.113743424, y: 0.21675225}
+  m_Offset: {x: 0.113743424, y: 0.19418745}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -543,7 +543,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.77251315, y: 0.43835017}
+  m_Size: {x: 0.77251315, y: 0.3884106}
   m_EdgeRadius: 0
 --- !u!50 &8708873942163387208
 Rigidbody2D:
@@ -683,8 +683,8 @@ MonoBehaviour:
   animator: {fileID: 7141768812605631476}
   healthText: {fileID: 0}
   _currentHealthSO: {fileID: 11400000, guid: 5ae9667ecef10984c941800656cf9635, type: 2}
-  _maxHealth: 3
-  _health: 3
+  _maxHealth: 5
+  _health: 5
   _isAlive: 1
   isInvincible: 0
   invincibilityTime: 0.25
@@ -713,7 +713,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &9101250467146650008
 BoxCollider2D:
@@ -844,7 +844,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 132396111
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 5dcea5cb707511a4ea9fa84fa42870e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

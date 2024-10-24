@@ -127,6 +127,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (DialogueManager.GetInstance().dialogueIsPlaying)
+        {
+            StopMovement();
+            return;
+        }
+
         // STOP MOVEMENT
         if (!isAlive || isStaggered)
         {
@@ -159,6 +165,7 @@ public class PlayerMovement : MonoBehaviour
     private void StopMovement()
     {
         rb.velocity = Vector2.zero;
+        facingDirection = 0;
         canFlip = false;
         canMove = false;
     }
@@ -218,11 +225,11 @@ public class PlayerMovement : MonoBehaviour
         if (isClimbing)
         {
             // if right mouse button is clicked
-            if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.LeftShift))
+            if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.LeftShift)))
             {
                 animator.SetTrigger("Climbing");
             }
-            else if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftControl))
             {
                 // let go of ledge
                 LedgeFallDown();

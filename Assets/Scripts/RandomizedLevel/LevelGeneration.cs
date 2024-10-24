@@ -250,15 +250,39 @@ public class LevelGeneration : MonoBehaviour
             int randomIndex = Random.Range(0, regularRooms.Length);
             GameObject roomToReplace = regularRooms[randomIndex];
 
-            Vector3 roomPosition = roomToReplace.transform.position;
-            Quaternion roomRotation = roomToReplace.transform.rotation;
+            // Get the room type from the room being replaced
+            RoomType roomType = roomToReplace.GetComponent<RoomType>();
+            if (roomType != null)
+            {
+                Vector3 roomPosition = roomToReplace.transform.position;
+                Quaternion roomRotation = roomToReplace.transform.rotation;
 
-            Destroy(roomToReplace);
+                // Store the room type before destroying the room
+                int typeIndex = roomType.type;
 
-            int randomHeartRoom = Random.Range(0, heartRooms.Length);
-            Instantiate(heartRooms[randomHeartRoom], roomPosition, roomRotation);
+                Destroy(roomToReplace);
 
-            heartRoomPlaced = true;
+                // Make sure the type index is within the bounds of the heartRooms array
+                if (typeIndex >= 0 && typeIndex < heartRooms.Length)
+                {
+                    // Use the same type index to instantiate the corresponding heart room
+                    Instantiate(heartRooms[typeIndex], roomPosition, roomRotation);
+                    heartRoomPlaced = true;
+                    Debug.Log($"Heart room placed at {roomPosition} with type {typeIndex}");
+                }
+                else
+                {
+                    Debug.LogError($"Heart room type {typeIndex} is out of bounds. Make sure heartRooms array contains all room types.");
+                    // Fallback to a random heart room if the type is out of bounds
+                    int randomHeartRoom = Random.Range(0, heartRooms.Length);
+                    Instantiate(heartRooms[randomHeartRoom], roomPosition, roomRotation);
+                    heartRoomPlaced = true;
+                }
+            }
+            else
+            {
+                Debug.LogError("Selected room doesn't have a RoomType component!");
+            }
         }
         else
         {
