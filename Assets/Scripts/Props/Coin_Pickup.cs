@@ -12,13 +12,10 @@ public class Coin_Pickup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (gold != null)
-            {
-                playerGold.value += gold;
-                Debug.Log("Player Gold: " + playerGold.value);
-                //health.Heal(gold);
-                Destroy(gameObject);
-            }
+            playerGold.value += gold;
+            Debug.Log("Player Gold: " + playerGold.value);
+            //health.Heal(gold);
+            Destroy(gameObject);
         }
     }
 }

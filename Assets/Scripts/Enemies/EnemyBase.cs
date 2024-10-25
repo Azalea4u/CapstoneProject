@@ -7,7 +7,7 @@ public class EnemyBase : MonoBehaviour
 {
     [Header("Enemy Components")]
     [SerializeField] protected Animator animator;
-    [SerializeField] protected float walkSpeed = 3.0f;
+    [SerializeField] protected float movementSpeed = 3.0f;
     [SerializeField] protected float facingDirection;
     [SerializeField] protected float initialDelayTime = 0.25f;
 
@@ -15,10 +15,10 @@ public class EnemyBase : MonoBehaviour
     public bool isAlive = true;
 
     [Header("Colliders")]
-    [SerializeField] protected CircleCollider2D GroundCollider;
-    [SerializeField] protected CircleCollider2D FrontCollider;
-    [SerializeField] protected CircleCollider2D CliffCollider;
-    [SerializeField] protected BoxCollider2D DetectPlayerCollider;
+    [SerializeField] protected Collider2D GroundCollider;
+    [SerializeField] protected Collider2D FrontCollider;
+    [SerializeField] protected Collider2D CliffCollider;
+    [SerializeField] protected Collider2D DetectPlayerCollider;
     [SerializeField] protected LayerMask whatIsGround;
 
     protected bool isGrounded;
@@ -37,25 +37,18 @@ public class EnemyBase : MonoBehaviour
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         StartCoroutine(InitialDelay());
     }
 
     protected virtual void Update()
     {
-        //isAlive = damageable.IsAlive;
-
-        if (!isAlive)
-        {
-            HandleDeath();
-            return;
-        }
-
         CheckCollision();
 
+        animator.SetBool("IsAlive", isAlive);
         animator.SetBool("IsMoving", facingDirection != 0);
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetBool("HasTarget", hasTarget);
-        //animator.SetBool("IsAlive", damageable.IsAlive);
     }
 
     protected virtual void FixedUpdate()
@@ -68,20 +61,6 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    protected virtual void HandleDeath()
-    {
-        StopMovement();
-        DropLoot();
-    }
-
-    private void DropLoot()
-    {
-        Debug.Log("Dropped 10 gold");
-        // Implement loot dropping logic here
-        // For example:
-        // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
-    }
-
     protected virtual void UpdateFacingDirection()
     {
         facingDirection = rb.velocity.x;
@@ -89,14 +68,25 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void CheckCollision()
     {
-        isGrounded = Physics2D.Raycast(GroundCollider.bounds.center, Vector2.down, GroundCollider.radius, whatIsGround);
+        isGrounded = Physics2D.Raycast(GroundCollider.bounds.center, Vector2.down, GroundCollider.bounds.size.x, whatIsGround);
 
-        if (FrontCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))
-            || !CliffCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (CliffCollider != null)
         {
-            FlipDirection();
+            if (FrontCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))
+                || !CliffCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+            {
+                FlipDirection();
+            }
+        }
+        else
+        {
+            if (FrontCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+            {
+                FlipDirection();
+            }
         }
     }
+
     protected IEnumerator InitialDelay()
     {
         yield return new WaitForSeconds(initialDelayTime);
@@ -108,7 +98,7 @@ public class EnemyBase : MonoBehaviour
         if (canMove)
         {
             float direction = facingRight ? 1 : -1;
-            rb.velocity = new Vector2(walkSpeed * direction, rb.velocity.y);
+            rb.velocity = new Vector2(movementSpeed * direction, rb.velocity.y);
         }
         else
         {
@@ -118,7 +108,7 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void StopMovement()
     {
-        rb.velocity = Vector2.zero;
+        rb.velocity = new Vector2(0, rb.velocity.y);
         canFlip = false;
     }
 

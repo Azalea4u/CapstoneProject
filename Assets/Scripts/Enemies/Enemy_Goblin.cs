@@ -16,7 +16,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     public bool canAttack = true;
     private Transform player;
     private bool playerFound = false;
-    private bool playerHit = false;
+    public bool playerHit = false;
 
     // IAttackable implementation
     public int AttackDamage => attackDamage;
@@ -28,7 +28,6 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     protected override void Start()
     {
         base.Start();
-        //player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     protected override void Update()
@@ -86,30 +85,6 @@ public class Enemy_Goblin : EnemyBase, IAttackable
         }
     }
 
-    public void Attack()
-    {
-        animator.SetTrigger("Attack");
-        canAttack = false;
-
-    }
-
-    private IEnumerator WaitForAttackCooldown()
-    {
-        yield return new WaitForSeconds(AttackCooldown);
-        canAttack = true;
-        playerHit = false;
-    }
-
-    public void CheckAttackCollision()
-    {
-        IDamageable damageable = attackPoint.GetComponent<IDamageable>();
-        if (damageable != null)
-        {
-            damageable.TakeDamage(attackDamage);
-            playerHit = true;
-        }
-    }
-
     protected override void Move()
     {
         if (!hasTarget)
@@ -124,9 +99,9 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     }
 
     // Goblin-specific death behavior
-    protected override void HandleDeath()
+    private void HandleDeath()
     {
-        base.HandleDeath();
+        StopMovement();
         // Add any additional death logic, like dropping items
         StartCoroutine(DeathSequence());
     }
@@ -151,29 +126,55 @@ public class Enemy_Goblin : EnemyBase, IAttackable
         // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
     }
 
-
     public override void Stagger(Vector2 knockbackDirection)
     {
         base.Stagger(knockbackDirection);
         animator.SetTrigger("TakeDamage");
     }
 
+    #region ATTACK
+    public void Attack()
+    {
+        if (!canAttack || playerHit) return;  // Early return if we can't attack
+
+        animator.SetTrigger("Attack");
+        canAttack = false;
+        StartCoroutine(WaitForAttackCooldown());  // Start cooldown immediately when attack begins
+    }
+
+    private IEnumerator WaitForAttackCooldown()
+    {
+        yield return new WaitForSeconds(AttackCooldown);
+
+        // Reset attack states
+        canAttack = true;
+        playerHit = false;
+
+        // Debug logs to help track state
+        Debug.Log($"Attack cooldown finished. CanAttack: {canAttack}, PlayerHit: {playerHit}");
+    }
+
+    public void CheckAttackCollision()
+    {
+        IDamageable damageable = attackPoint.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(attackDamage);
+            playerHit = true;
+        }
+    }
+
     public void OnAttackPointTriggered(Collider2D collision)
     {
+        // Only process if it's a player and we haven't hit them yet during this attack
+        if (!collision.CompareTag("Player") || playerHit) return;
+
         IDamageable damageable = collision.GetComponent<IDamageable>();
-
-        if (collision.CompareTag("Player") && !playerHit && !canAttack)
+        if (damageable != null && damageable.IsAlive)
         {
-            if (damageable != null)
-            {
-                damageable.TakeDamage(attackDamage);
-                playerHit = true;
-            }
-
-            if (playerHit)
-            {
-                StartCoroutine(WaitForAttackCooldown());
-            }
+            damageable.TakeDamage(attackDamage);
+            playerHit = true;
+            Debug.Log("Player hit registered");
         }
     }
 
@@ -181,11 +182,12 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     {
         if (collision.gameObject.CompareTag("Player") && attackPoint.IsTouching(collision))
         {
-            if (collision.GetComponent<IDamageable>().IsAlive)
+            IDamageable damageable = collision.GetComponent<IDamageable>();
+            if (damageable != null && damageable.IsAlive)
             {
                 OnAttackPointTriggered(collision);
-                
             }
         }
     }
+    #endregion
 }

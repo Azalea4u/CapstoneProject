@@ -26,7 +26,7 @@ public class Enemy_Health : MonoBehaviour, IDamageable
         set
         {
             _health = Mathf.Clamp(value, 0, MaxHealth);
-            if (_health <= 0)
+            if (_health == 0)
             {
                 IsAlive = false;
             }
@@ -39,7 +39,14 @@ public class Enemy_Health : MonoBehaviour, IDamageable
         set
         {
             _isAlive = value;
-            enemy.enabled = value; // Disable EnemyBase component when not alive
+            enemy.isAlive = value;
+            animator.SetBool("IsAlive", value);
+
+            if (!value)
+            {
+                Death();
+            }
+                enemy.enabled = value; // Disable EnemyBase component when not alive
         }
     }
 
@@ -51,6 +58,7 @@ public class Enemy_Health : MonoBehaviour, IDamageable
     private void Update()
     {
         UpdateInvincibility();
+        enemy.isAlive = IsAlive;
     }
 
     public bool TakeDamage(int amount)
@@ -67,6 +75,7 @@ public class Enemy_Health : MonoBehaviour, IDamageable
             }
             else
             {
+                IsAlive = false;
                 Death();
             }
             return true;
@@ -77,9 +86,12 @@ public class Enemy_Health : MonoBehaviour, IDamageable
 
     public void Death()
     {
-        animator.SetBool("IsAlive", IsAlive);
-        enemy.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        // Additional death logic can be added here
+        if (enemy is Enemy_FlyingEye flyingEye)
+        {
+            flyingEye.HandleDeath();
+        }
+        animator.SetBool("IsAlive", false);
+        enemy.enabled = false; // Disable the enemy behavior
     }
 
     private void UpdateInvincibility()
