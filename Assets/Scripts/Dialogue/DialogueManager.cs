@@ -90,9 +90,7 @@ public class DialogueManager : MonoBehaviour
         foreach (DialogueAudioInfoSO audioInfo in audioInfos)
         {
             audioInfoDictionary.Add(audioInfo.id, audioInfo);
-            Debug.Log("Added audio info to dictionary: " + audioInfo.id);
         }
-        Debug.Log("Audio info dictionary initialized with " + audioInfoDictionary.Count + " entries.");
     }
 
     private void SetCurrentAudioInfo(string id)
@@ -102,7 +100,6 @@ public class DialogueManager : MonoBehaviour
         if (audioInfo != null)
         {
             currentAudioInfo = audioInfo;
-            Debug.Log("Set current audio info to: " + id);
         }
         else
         {
@@ -167,7 +164,6 @@ public class DialogueManager : MonoBehaviour
                 StopCoroutine(displayLineCoroutine);
             }
             string nextLine = currentStory.Continue();
-            Debug.Log("Tags for this line: " + string.Join(", ", currentStory.currentTags));
             // handle tags
             HandleTags(currentStory.currentTags);
             displayLineCoroutine = StartCoroutine(DisplayLine(nextLine));
@@ -286,7 +282,6 @@ public class DialogueManager : MonoBehaviour
     {
         foreach (string tag in currentTags)
         {
-            Debug.Log("Processing tag: " + tag); // Add this for debugging
             string[] splitTag = tag.Split(':');
 
             if (splitTag.Length != 2)
@@ -307,7 +302,6 @@ public class DialogueManager : MonoBehaviour
                     layoutAnimator.Play(tagValue);
                     break;
                 case AUDIO_TAG:
-                    Debug.Log("Setting audio info for tag value: " + tagValue); // Debugging
                     SetCurrentAudioInfo(tagValue); // This should now be called
                     break;
                 default:
@@ -340,9 +334,18 @@ public class DialogueManager : MonoBehaviour
         // enable and initialize the choices up to the amount of choices for this line of dialogue
         foreach (Choice choice in currentChoices)
         {
-            choices[index].gameObject.SetActive(true);
-            choicesText[index].text = choice.text;
-            index++;
+            if (currentChoices.Count == 3)
+            {
+                choices[index].gameObject.SetActive(true);
+                choicesText[index].text = choice.text;
+                index++;
+            }
+            else if (currentChoices.Count == 2)
+            {
+                choices[index].gameObject.SetActive(true);
+                choicesText[index].text = choice.text;
+                index++;
+            }
         }
 
         // go through the remaining choicces the UI supports and make sure they're hidden
@@ -369,6 +372,10 @@ public class DialogueManager : MonoBehaviour
         {
             currentStory.ChooseChoiceIndex(choiceIndex);
             ContinueStory();
+        }
+        else
+        {
+            Debug.LogError("Choice index out of range: " + choiceIndex);
         }
     }
     #endregion
