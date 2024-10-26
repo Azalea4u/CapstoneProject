@@ -37,5 +37,5 @@ Show me what you'd like to sell.
 === end ===
 Hopefully, this won't be the last time I see you alive!
 
-- I agree. See you soon. #speaker:Joanne #layout:right #audio:Player
+- I agree. See you later. #speaker:Joanne #layout:right #audio:Player
 -> END

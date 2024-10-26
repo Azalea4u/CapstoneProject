@@ -220,6 +220,10 @@ public class PlayerMovement : MonoBehaviour
                 } 
             }
         }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
 
         // LEDGE
         if (isClimbing)

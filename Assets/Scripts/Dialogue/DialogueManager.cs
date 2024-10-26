@@ -14,6 +14,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private GameObject continueIcon;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private TextMeshProUGUI displaySpeakerText;
+    private Animator layoutAnimator;
+    public bool dialogueIsPlaying {  get; private set; }
 
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
@@ -23,14 +26,25 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject buyPanel;
     [SerializeField] private GameObject sellPanel;
 
+    [Header("Audio")]
+    [SerializeField] private DialogueAudioInfoSO defaultAudioInfo;
+    [SerializeField] private DialogueAudioInfoSO[] audioInfos;
+    [SerializeField] private bool makePredicatable;
+    private DialogueAudioInfoSO currentAudioInfo;
+    private Dictionary<string, DialogueAudioInfoSO> audioInfoDictionary;
+    private AudioSource audioSource;
+
     private Story currentStory;
-    public bool dialogueIsPlaying {  get; private set; }
 
     private static DialogueManager instance;
     private Coroutine displayLineCoroutine;
     private bool canContinueToNextLine = false;
+    private bool canSkip = false;
+    private bool submitSkip = false;
 
-    private Input submitInput;
+    private const string SPEAKER_TAG = "speaker";
+    private const string LAYOUT_TAG = "layout";
+    private const string AUDIO_TAG = "audio";
 
     private void Awake()
     {
@@ -40,6 +54,9 @@ public class DialogueManager : MonoBehaviour
         }
 
         instance = this;
+
+        audioSource = this.gameObject.AddComponent<AudioSource>();
+        currentAudioInfo = defaultAudioInfo;
     }
 
     public static DialogueManager GetInstance()
@@ -52,6 +69,9 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
 
+        // get layout animator
+        layoutAnimator = dialoguePanel.GetComponent<Animator>();
+
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
         foreach (GameObject choice in choices)
@@ -59,10 +79,45 @@ public class DialogueManager : MonoBehaviour
             choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
             index++;
         }
+
+        InitializeAudioInfoDictionary();
+    }
+
+    private void InitializeAudioInfoDictionary()
+    {
+        audioInfoDictionary = new Dictionary<string, DialogueAudioInfoSO>();
+        audioInfoDictionary.Add(defaultAudioInfo.id, defaultAudioInfo);
+        foreach (DialogueAudioInfoSO audioInfo in audioInfos)
+        {
+            audioInfoDictionary.Add(audioInfo.id, audioInfo);
+            Debug.Log("Added audio info to dictionary: " + audioInfo.id);
+        }
+        Debug.Log("Audio info dictionary initialized with " + audioInfoDictionary.Count + " entries.");
+    }
+
+    private void SetCurrentAudioInfo(string id)
+    {
+        DialogueAudioInfoSO audioInfo = null;
+        audioInfoDictionary.TryGetValue(id, out audioInfo);
+        if (audioInfo != null)
+        {
+            currentAudioInfo = audioInfo;
+            Debug.Log("Set current audio info to: " + id);
+        }
+        else
+        {
+            Debug.LogError("Audio info not found for id: " + id);
+            currentAudioInfo = defaultAudioInfo;
+        }
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Submit"))
+        {
+            submitSkip = true;
+        }
+
         if (!dialogueIsPlaying)
         {
             return;
@@ -97,6 +152,9 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
+
+        // go back to default audio info
+        SetCurrentAudioInfo(defaultAudioInfo.id);
     }
 
     private void ContinueStory()
@@ -108,11 +166,11 @@ public class DialogueManager : MonoBehaviour
             {
                 StopCoroutine(displayLineCoroutine);
             }
-            displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
-            //dialogueText.text = currentStory.Continue();
-            // display choices, if any, for this dialogue line
-            
+            string nextLine = currentStory.Continue();
+            Debug.Log("Tags for this line: " + string.Join(", ", currentStory.currentTags));
             // handle tags
+            HandleTags(currentStory.currentTags);
+            displayLineCoroutine = StartCoroutine(DisplayLine(nextLine));
         }
         else
         {
@@ -120,13 +178,23 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private IEnumerator CanSkip()
+    {
+        canSkip = false; //Making sure the variable is false.
+        yield return new WaitForSeconds(0.05f);
+        canSkip = true;
+    }
+
     private IEnumerator DisplayLine(string line)
     {
         // empty the dialogue text
-        dialogueText.text = "";
+        dialogueText.text = line;
+        dialogueText.maxVisibleCharacters = 0;
+
         continueIcon.SetActive(false);
         HideChoices();
 
+        canSkip = false;
         canContinueToNextLine = false;
 
         bool isAddingRichTextTag = false;
@@ -134,28 +202,22 @@ public class DialogueManager : MonoBehaviour
         // display each letter one at a time
         foreach (char letter in line.ToCharArray())
         {
-            for (int i = 1; i < line.ToCharArray().Length; i++)
+            if (canSkip && submitSkip)
             {
-                //yield return new WaitForSeconds(typingSpeed);
-                dialogueText.maxVisibleCharacters = i;
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Submit"))
-                {
-                    dialogueText.maxVisibleCharacters = line.ToCharArray().Length;
-                    break;
-                }
+                submitSkip = false;
+                dialogueText.maxVisibleCharacters = line.Length;
             }
 
             if (letter == '<' || isAddingRichTextTag)
             {
                 isAddingRichTextTag = true;
-                dialogueText.text += letter;
-
                 if (letter == '>') isAddingRichTextTag = false;
             }
             else
             {
-            dialogueText.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
+                PlayDialogueSound(dialogueText.maxVisibleCharacters, dialogueText.text[dialogueText.maxVisibleCharacters]);
+                dialogueText.maxVisibleCharacters++;
+                yield return new WaitForSeconds(typingSpeed);
             }
         }
 
@@ -163,8 +225,100 @@ public class DialogueManager : MonoBehaviour
         DisplayChoices();
 
         canContinueToNextLine = true;
+        canSkip = false;
     }
 
+    private void PlayDialogueSound(int currentDisplayedCharacterCount, char currentCharacter)
+    {
+        AudioClip[] dialogueTypingSoundClips = currentAudioInfo.dialogueTypingSoundClips;
+        int frequencyLevel = currentAudioInfo.frequencyLevel;
+        float minPitch = currentAudioInfo.minPitch;
+        float maxPitch = currentAudioInfo.maxPitch;
+        bool stopAudioSource = currentAudioInfo.stopAudioSource;
+
+        if (currentDisplayedCharacterCount % frequencyLevel == 0)
+        {
+            if (stopAudioSource)
+            { 
+                audioSource.Stop();
+            }
+            AudioClip soundClip = null;
+
+            // create predicatable audio from hasing
+            if (makePredicatable)
+            {
+                //int hashCode = currentCharacter.GetHashCode();
+                // get random hash code
+                int hashCode = Random.Range(0, 1000);
+                // sound clip
+                int predicableIndex = hashCode % dialogueTypingSoundClips.Length;
+                soundClip = dialogueTypingSoundClips[predicableIndex];
+
+                // pitch
+                int minPitchInt = (int) (minPitch * 100);
+                int maxPitchInt = (int) (maxPitch * 100);
+                int pitchRangeInt = maxPitchInt - minPitchInt;
+                // cannot be zero
+                if (pitchRangeInt != 0)
+                {
+                    int predictablePitchInt = (hashCode % pitchRangeInt) + minPitchInt;
+                    float predictablePitch = predictablePitchInt / 100.0f;
+                    audioSource.pitch = predictablePitch;
+                }
+                else
+                {
+                    audioSource.pitch = minPitch;
+                }
+            }
+            else // randomize audio
+            {
+                int randomInt = Random.Range(0, dialogueTypingSoundClips.Length);
+                soundClip = dialogueTypingSoundClips[randomInt];
+
+                audioSource.pitch = Random.Range(minPitch, maxPitch);
+            }
+            audioSource.PlayOneShot(soundClip);
+
+        }
+    }
+
+    private void HandleTags(List<string> currentTags)
+    {
+        foreach (string tag in currentTags)
+        {
+            Debug.Log("Processing tag: " + tag); // Add this for debugging
+            string[] splitTag = tag.Split(':');
+
+            if (splitTag.Length != 2)
+            {
+                Debug.LogError("Invalid tag format: " + tag);
+                continue;
+            }
+
+            string tagKey = splitTag[0].Trim();
+            string tagValue = splitTag[1].Trim();
+
+            switch (tagKey)
+            {
+                case SPEAKER_TAG:
+                    displaySpeakerText.text = tagValue;
+                    break;
+                case LAYOUT_TAG:
+                    layoutAnimator.Play(tagValue);
+                    break;
+                case AUDIO_TAG:
+                    Debug.Log("Setting audio info for tag value: " + tagValue); // Debugging
+                    SetCurrentAudioInfo(tagValue); // This should now be called
+                    break;
+                default:
+                    Debug.LogWarning("Unrecognized tag: " + tagKey);
+                    break;
+            }
+        }
+    }
+
+
+    #region CHOICES
     private void HideChoices()
     {
         foreach (GameObject choiceButton in choices)
@@ -217,11 +371,16 @@ public class DialogueManager : MonoBehaviour
             ContinueStory();
         }
     }
+    #endregion
+
+    private void EndConversation()
+    {
+        StartCoroutine(ExitDialogueMode());
+    }
 
     private void ShowBuyMenu()
     {
         Debug.Log("Showing buy menu");
-
         //dialoguePanel.SetActive(false);  // Optionally hide dialogue while shopping
         //buyPanel.SetActive(true);
     }
@@ -231,11 +390,6 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("Showing sell menu");
         //dialoguePanel.SetActive(false);  // Optionally hide dialogue while shopping
         //sellPanel.SetActive(true);
-    }
-
-    private void EndConversation()
-    {
-        StartCoroutine(ExitDialogueMode());
     }
 
     // Add methods to handle closing shop UI and returning to dialogue
