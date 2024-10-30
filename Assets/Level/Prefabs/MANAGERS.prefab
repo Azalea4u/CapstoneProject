@@ -29,9 +29,76 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4014136003470028620}
   - {fileID: 7035243068383314770}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4588583522632635919
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4014136003470028620}
+  - component: {fileID: 3923190678777436941}
+  - component: {fileID: 8437022552514774830}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4014136003470028620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588583522632635919}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 65.85443, y: -32.298584, z: -1.4096103}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9197543478630974302}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3923190678777436941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588583522632635919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19171020d4f803644a8856570ddb941b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemManager: {fileID: 8437022552514774830}
+  timeManager: {fileID: 0}
+  inventoryManager: {fileID: 0}
+  player: {fileID: 0}
+  startMenu: {fileID: 0}
+  inGame_Hotbar: {fileID: 0}
+  inventory_Hotbar: {fileID: 0}
+  isGamePaused: 1
+--- !u!114 &8437022552514774830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588583522632635919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88f84c5c7b4f0e3408fa7abdf85922ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
 --- !u!1 &6426946222651658768
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,9 +147,15 @@ MonoBehaviour:
   dialoguePanel: {fileID: 0}
   continueIcon: {fileID: 0}
   dialogueText: {fileID: 0}
+  displaySpeakerText: {fileID: 0}
   choices:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   buyPanel: {fileID: 0}
   sellPanel: {fileID: 0}
+  defaultAudioInfo: {fileID: 11400000, guid: 2fdda3086bb0a274aaebf527d9f84ecd, type: 2}
+  audioInfos:
+  - {fileID: 11400000, guid: 67ed94156facfee4aaf3b98986a70333, type: 2}
+  - {fileID: 11400000, guid: 62dce7c86e22ec845b7bd0289fbbfe5f, type: 2}
+  makePredicatable: 1

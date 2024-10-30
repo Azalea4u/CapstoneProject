@@ -23,9 +23,13 @@ public class DialogueTrigger : MonoBehaviour
         if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
         {
             visualCue.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+            //if gameManger isn't paused
+            if (!GameManager.instance.isGamePaused)
             {
-                DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButtonDown(0))
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                }
             }
         }
         else

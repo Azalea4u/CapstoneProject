@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     public bool ledgeDetected;
     private bool ledgePositionSet = false;
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
 
 
     private void Awake()
