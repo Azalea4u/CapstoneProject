@@ -36,13 +36,13 @@ public class Store_UI : MonoBehaviour
         {
             inventoryPanel.SetActive(false);
             // Exit the store when closing the inventory
-            GameManager.instance.ExitStore();
+            GameManager.instance.ExitInventory();
         }
         else
         {
             inventoryPanel.SetActive(true);
             // Enter the store when opening the inventory
-            GameManager.instance.EnterStore();
+            GameManager.instance.EnterInventory();
         }
     }
 }

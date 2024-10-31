@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleBehavior : StateMachineBehaviour
+public class JumpBehavior : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -13,18 +13,9 @@ public class IdleBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerMovement.instance.isClimbing)
-        {
-            PlayerMovement.instance.animator.Play("Ledge_ToGrab");
-        }
-
         if (PlayerMovement.instance.isAttacking)
         {
-            //animator.SetTrigger("AttackOne");
-            if (PlayerMovement.instance.isGrounded)
-            {
-                PlayerMovement.instance.animator.Play("Attack1");
-            }
+                PlayerMovement.instance.animator.Play("Start_AttackDown");
             //PlayerMovement.instance.inputReceived = false;
         }
     }

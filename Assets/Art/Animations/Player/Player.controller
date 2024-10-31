@@ -458,6 +458,18 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-4317107331469783592
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae7f183e4a16d94293b45ff162e4945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1102 &-3576222820863241705
 AnimatorState:
   serializedVersion: 6
@@ -954,6 +966,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: IsAttacking
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: OnGround
     m_Type: 4
     m_DefaultFloat: 0
@@ -1180,7 +1198,7 @@ AnimatorStateMachine:
     m_Position: {x: -330, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3576222820863241705}
-    m_Position: {x: -500, y: 280, z: 0}
+    m_Position: {x: -460, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4681530638680048846}
     m_Position: {x: -330, y: 480, z: 0}
@@ -1222,13 +1240,13 @@ AnimatorStateMachine:
     m_Position: {x: 470, y: 420, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4486713732112298429}
-    m_Position: {x: -600, y: 370, z: 0}
+    m_Position: {x: -650, y: 370, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5286628570245556210}
-    m_Position: {x: -770, y: 240, z: 0}
+    m_Position: {x: -790, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2588492782373118148}
-    m_Position: {x: -760, y: 310, z: 0}
+    m_Position: {x: -780, y: 220, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 4941011242361895677}
@@ -1605,6 +1623,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: ClimbingAllowed
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsAttacking
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5005437948650249426}
   m_Solo: 0
@@ -1631,7 +1652,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8096495397611479816}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -4317107331469783592}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

@@ -286,7 +286,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4332802411477002373}
   - component: {fileID: 4226472519596659230}
-  - component: {fileID: 3076049515986536879}
+  - component: {fileID: 1946610618694609840}
+  - component: {fileID: -8521839703130010985}
   m_Layer: 9
   m_Name: Ex_RoomLRB_NormalPlatform
   m_TagString: ExitRoom
@@ -378,7 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 9
---- !u!61 &3076049515986536879
+--- !u!61 &1946610618694609840
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -393,7 +394,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 4095
+    m_Bits: 4087
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -407,10 +408,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.065286875, y: 1.2813559}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -421,8 +422,20 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.6027236, y: 4.235468}
   m_EdgeRadius: 0
+--- !u!114 &-8521839703130010985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3417096149465147184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72059c2d5cb87ed4eaed57a37107123d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3951750982148871922
 GameObject:
   m_ObjectHideFlags: 0

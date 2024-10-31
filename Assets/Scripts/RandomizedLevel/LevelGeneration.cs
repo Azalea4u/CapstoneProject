@@ -241,52 +241,57 @@ public class LevelGeneration : MonoBehaviour
         Instantiate(exitRooms[roomType.type], transform.position, Quaternion.identity);
     }
 
-    private void PlaceHeartRoom()
+private void PlaceHeartRoom()
+{
+    GameObject[] regularRooms = GameObject.FindGameObjectsWithTag("Room");
+
+    if (regularRooms.Length > 0)
     {
-        GameObject[] regularRooms = GameObject.FindGameObjectsWithTag("Room");
+        int randomIndex = Random.Range(0, regularRooms.Length);
+        GameObject roomToReplace = regularRooms[randomIndex];
 
-        if (regularRooms.Length > 0)
+        // Get the room type from the room being replaced
+        RoomType roomType = roomToReplace.GetComponent<RoomType>();
+        
+        // Check if the room has children before replacing it
+        if (roomType != null && roomToReplace.transform.childCount > 0)
         {
-            int randomIndex = Random.Range(0, regularRooms.Length);
-            GameObject roomToReplace = regularRooms[randomIndex];
+            Vector3 roomPosition = roomToReplace.transform.position;
+            Quaternion roomRotation = roomToReplace.transform.rotation;
 
-            // Get the room type from the room being replaced
-            RoomType roomType = roomToReplace.GetComponent<RoomType>();
-            if (roomType != null)
+            int typeIndex = roomType.type;
+
+            // Destroy the room and its children
+            foreach (Transform child in roomToReplace.transform)
             {
-                Vector3 roomPosition = roomToReplace.transform.position;
-                Quaternion roomRotation = roomToReplace.transform.rotation;
+                Destroy(child.gameObject);
+            }
+            Destroy(roomToReplace);
 
-                // Store the room type before destroying the room
-                int typeIndex = roomType.type;
-
-                Destroy(roomToReplace);
-
-                // Make sure the type index is within the bounds of the heartRooms array
-                if (typeIndex >= 0 && typeIndex < heartRooms.Length)
-                {
-                    // Use the same type index to instantiate the corresponding heart room
-                    Instantiate(heartRooms[typeIndex], roomPosition, roomRotation);
-                    heartRoomPlaced = true;
-                    Debug.Log($"Heart room placed at {roomPosition} with type {typeIndex}");
-                }
-                else
-                {
-                    Debug.LogError($"Heart room type {typeIndex} is out of bounds. Make sure heartRooms array contains all room types.");
-                    // Fallback to a random heart room if the type is out of bounds
-                    int randomHeartRoom = Random.Range(0, heartRooms.Length);
-                    Instantiate(heartRooms[randomHeartRoom], roomPosition, roomRotation);
-                    heartRoomPlaced = true;
-                }
+            // Instantiate a heart room of the same type if it exists in the array
+            if (typeIndex >= 0 && typeIndex < heartRooms.Length)
+            {
+                Instantiate(heartRooms[typeIndex], roomPosition, roomRotation);
+                heartRoomPlaced = true;
             }
             else
             {
-                Debug.LogError("Selected room doesn't have a RoomType component!");
+                Debug.LogError($"Heart room type {typeIndex} is out of bounds. Make sure heartRooms array contains all room types.");
+                // Fallback to a random heart room if the type is out of bounds
+                int randomHeartRoom = Random.Range(0, heartRooms.Length);
+                Instantiate(heartRooms[randomHeartRoom], roomPosition, roomRotation);
+                heartRoomPlaced = true;
             }
         }
         else
         {
-            Debug.LogWarning("No regular rooms found to replace with a heart room.");
+            Debug.LogWarning("Selected room either has no RoomType component or no children!");
         }
     }
+    else
+    {
+        Debug.LogWarning("No regular rooms found to replace with a heart room.");
+    }
+}
+
 }

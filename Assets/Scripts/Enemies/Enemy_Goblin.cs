@@ -13,7 +13,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     [SerializeField] private Collider2D attackPoint;
     [SerializeField] private LayerMask playerLayer;
 
-    public bool canAttack = true;
+    public bool canAttack = false;
     private Transform player;
     private bool playerFound = false;
     public bool playerHit = false;
@@ -35,8 +35,9 @@ public class Enemy_Goblin : EnemyBase, IAttackable
         if (!playerFound)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
-            Debug.Log("Player found: " + player);
+            //Debug.Log("Player found: " + player);
             playerFound = player != null;
+            canAttack = playerFound;
         }
 
         base.Update();
@@ -121,6 +122,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     private void DropLoot()
     {
         Debug.Log("Dropped 10 gold");
+        GameManager.instance.Gold += 10;
         // Implement loot dropping logic here
         // For example:
         // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);

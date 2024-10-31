@@ -56,15 +56,15 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
         if (!playerFound)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
-            Debug.Log("Player found: " + player);
+            //Debug.Log("Player found: " + player);
             playerFound = player != null;
         }
 
         base.Update();
 
         hasTarget = attackZone.DetectedColliders.Count > 0;
-        Debug.Log("Has target: " + hasTarget);
-        Debug.Log("Number of Colliders detected" + attackZone.DetectedColliders.Count);
+        //Debug.Log("Has target: " + hasTarget);
+        //Debug.Log("Number of Colliders detected" + attackZone.DetectedColliders.Count);
 
         CheckPlayerInRange();
         if (hasTarget && canAttack && !playerHit)
@@ -190,6 +190,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
     private void DropLoot()
     {
         Debug.Log("Dropped 20 gold");
+        GameManager.instance.Gold += 20;
         // Implement loot dropping logic here
         // For example:
         // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);

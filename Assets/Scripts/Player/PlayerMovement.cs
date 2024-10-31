@@ -123,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("IsCrouching", isCrouching);
         animator.SetBool("IsClimbing", isClimbing);
         animator.SetBool("ClimbingAllowed", climbingAllowed);
+        animator.SetBool("IsAttacking", isAttacking);
     }
 
     private void FixedUpdate()

@@ -638,7 +638,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 2424002686675013822}
   playerMovement: {fileID: 8961119042189131128}
   playerHealth: {fileID: 2931341396314028155}
-  inventoryUI: {fileID: 6590205253365238009}
+  inventoryMenu_UI: {fileID: 0}
 --- !u!114 &8961119042189131128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -687,6 +687,7 @@ MonoBehaviour:
   isClimbing: 0
   climbingAllowed: 1
   ledgeDetected: 0
+  rb: {fileID: 659910686442138463}
 --- !u!114 &2931341396314028155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,6 +749,14 @@ MonoBehaviour:
       count: 0
       MaxAllowed: 0
       icon: {fileID: 0}
+    selectedSlot:
+      itemName: 
+      count: 0
+      MaxAllowed: 99
+      icon: {fileID: 0}
+  inventorySlotCount: 8
+  inventory:
+    slots: []
     selectedSlot:
       itemName: 
       count: 0

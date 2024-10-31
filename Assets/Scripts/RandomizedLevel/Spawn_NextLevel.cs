@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Spawn_NextLevel : MonoBehaviour
 {
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Space))
+            //Debug.Log("Player has reached the end of the level");
+
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetMouseButtonDown(2))
+            {
+                Debug.Log("Player has reached the end of the level");
                 GameManager.instance.LoadNextLevel();
+            }
         }
     }
 }

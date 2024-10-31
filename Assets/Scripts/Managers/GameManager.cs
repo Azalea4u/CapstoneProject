@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -14,10 +16,25 @@ public class GameManager : MonoBehaviour
     [Header("GameMenu")]
     public GameObject startMenu;
 
-    public bool isGamePaused = true;
+    public bool isGamePaused = false;
 
     [SerializeField] private TMPro.TextMeshProUGUI levelText;
-    [SerializeField] private int level = 1;
+    //[SerializeField] private int level = 1;
+    [SerializeField] private Int_SO currentLevel;
+    [SerializeField] private TMPro.TextMeshProUGUI goldText;
+    [SerializeField] private Int_SO currentGold;
+
+    public int Level
+    {
+        get { return currentLevel.value; }
+        set { currentLevel.value = value; }
+    }
+
+    public int Gold
+    {
+        get { return currentGold.value; }
+        set { currentGold.value = value; }
+    }
 
     private void Awake()
     {
@@ -39,8 +56,11 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        startMenu.SetActive(true);
-        PauseGame();
+        //startMenu.SetActive(true);
+        //PauseGame();
+        levelText.text = "Level " + Level;
+
+        Debug.Log("Level" + Level);
     }
 
     private void Update()
@@ -49,6 +69,8 @@ public class GameManager : MonoBehaviour
         {
             //
         }
+
+        goldText.text = "Gold: " + Gold;
     }
 
     public void StartGame()
@@ -61,13 +83,13 @@ public class GameManager : MonoBehaviour
         timeManager.StartTimer();
     }
 
-    public void EnterStore()
+    public void EnterInventory()
     {
         // Pause the game when entering the store
         PauseGame();
     }
 
-    public void ExitStore()
+    public void ExitInventory()
     {
         // Resume the game when exiting the store
         ResumeGame();
@@ -89,11 +111,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Resumed");
     }
 
-    public void LoadNextlevel()
+    public void LoadNextLevel()
     {
         // reload the scene
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         // update the level number
-        levelText.text = "Level " + level++;
+        levelText.text = "Level " + Level++;
     }
 }

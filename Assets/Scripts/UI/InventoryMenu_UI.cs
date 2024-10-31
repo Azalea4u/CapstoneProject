@@ -24,6 +24,7 @@ public class InventoryMenu_UI : MonoBehaviour
     {
         inventory = GameManager.instance.player.inventoryManager.GetInventoryByName(inventoryName);
         inventoryPanel.SetActive(false);
+        isInventoryActive = false;
     }
 
     private void Update()
@@ -31,33 +32,33 @@ public class InventoryMenu_UI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.E))
         {
             ToggleInventory();
+
         }
     }
 
     public void ToggleInventory()
     {
         // check if the inventory is active
-        if (inventoryPanel.activeSelf)
-        {
-            inventoryPanel.SetActive(false);
-            inGame_Hotbar.SetActive(true);
-
-            // Exit the store when closing the inventory
-            GameManager.instance.ExitStore();
-            isInventoryActive = false;
-        }
-        else
+        if (!inventoryPanel.activeSelf)
         {
             inventoryPanel.SetActive(true);
             inGame_Hotbar.SetActive(false);
 
             // Enter the store when opening the inventory
-            GameManager.instance.EnterStore();
-            isInventoryActive = true;
+            GameManager.instance.PauseGame();
+            //isInventoryActive = true;
+        }
+        else if (inventoryPanel.activeSelf)
+        {
+            inventoryPanel.SetActive(false);
+            inGame_Hotbar.SetActive(true);
+
+            // Exit the store when closing the inventory
+            GameManager.instance.ResumeGame();
         }
 
+        isInventoryActive = GameManager.instance.isGamePaused;
         SyncHotbars();
-        Debug.Log("Inventory Active: " + isInventoryActive);
 
     }
 
@@ -87,5 +88,4 @@ public class InventoryMenu_UI : MonoBehaviour
 
         }
     }
-
 }
