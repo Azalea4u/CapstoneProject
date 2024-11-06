@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 6961036760909507739}
   - component: {fileID: 2594782805596838106}
   - component: {fileID: 8132076724093799557}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1072,9 +1072,9 @@ Transform:
   - {fileID: 7606212735489399617}
   - {fileID: 7318605845679511032}
   - {fileID: 1489692713106881163}
+  - {fileID: 2050695108388591000}
   - {fileID: 8491032869565135585}
   - {fileID: 6201225327709893137}
-  - {fileID: 2050695108388591000}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8232026531397775031
@@ -1958,7 +1958,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 3
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2083,16 +2083,16 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: -230419051, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: -1155210159, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: -1255625272, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 1332046450, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -230419051, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -251314001, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
   - m_RefCount: 1
