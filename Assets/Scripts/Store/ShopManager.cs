@@ -71,6 +71,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    /*
     public void SellItem()
     {
         if (GameManager.instance.player.inventoryManager.sellSlot.slots[0] != null)
@@ -103,6 +104,7 @@ public class ShopManager : MonoBehaviour
             }
         }
     }
+    */
 
     public void RefreshSellSlot()
     {
@@ -121,7 +123,7 @@ public class ShopManager : MonoBehaviour
 
     public void SelectSlot(Slot_UI slot)
     {
-        GameManager.instance.player.inventoryManager.sellSlot.SelectSlot(slot.slotID);
+        //GameManager.instance.player.inventoryManager.sellSlot.SelectSlot(slot.slotID);
     }
 
 }

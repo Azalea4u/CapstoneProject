@@ -68,6 +68,7 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
+        buyPanel.SetActive(false);
 
         // get layout animator
         layoutAnimator = dialoguePanel.GetComponent<Animator>();
@@ -135,6 +136,7 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(true);
 
         currentStory.BindExternalFunction("ShowBuyMenu", ShowBuyMenu);
+        currentStory.BindExternalFunction("CloseBuyMenu", CloseBuyMenu);
         currentStory.BindExternalFunction("ShowSellMenu", ShowSellMenu);
 
         ContinueStory();
@@ -144,6 +146,7 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         currentStory.UnbindExternalFunction("ShowBuyMenu");
+        currentStory.UnbindExternalFunction("CloseBuyMenu");
         currentStory.UnbindExternalFunction("ShowSellMenu");
 
         dialogueIsPlaying = false;
@@ -388,8 +391,10 @@ public class DialogueManager : MonoBehaviour
     private void ShowBuyMenu()
     {
         Debug.Log("Showing buy menu");
+
         //dialoguePanel.SetActive(false);  // Optionally hide dialogue while shopping
-        //buyPanel.SetActive(true);
+        //InventoryMenu_UI.GetInstance().ToggleStore();
+        buyPanel.SetActive(true);
     }
 
     private void ShowSellMenu()
@@ -402,15 +407,16 @@ public class DialogueManager : MonoBehaviour
     // Add methods to handle closing shop UI and returning to dialogue
     public void CloseBuyMenu()
     {
-        buyPanel.SetActive(false);
+        InventoryMenu_UI.GetInstance().ToggleStore();
+        //buyPanel.SetActive(false);
         dialoguePanel.SetActive(true);
-        ContinueStory();
+        //ContinueStory();
     }
 
     public void CloseSellMenu()
     {
         sellPanel.SetActive(false);
         dialoguePanel.SetActive(true);
-        ContinueStory();
+        //ContinueStory();
     }
 }

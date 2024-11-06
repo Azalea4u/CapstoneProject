@@ -1,4 +1,5 @@
 EXTERNAL ShowBuyMenu()
+EXTERNAL CloseBuyMenu()
 EXTERNAL ShowSellMenu()
 
 Wow, it seems we meet yet again! #speaker:Elenore #layout:left #audio:Elenore
@@ -7,6 +8,7 @@ Wow, it seems we meet yet again! #speaker:Elenore #layout:left #audio:Elenore
 -> main
 
 === main ===
+~ CloseBuyMenu()
 What would you like to do? #speaker: Elenore #layout:left #audio:Elenore
     + [Buy]
         -> buy_UI
@@ -18,10 +20,6 @@ What would you like to do? #speaker: Elenore #layout:left #audio:Elenore
 === buy_UI ===
 ~ ShowBuyMenu()
 Here is what I currently have in stock!
-    + [Go Back]
-        -> main
-    + [Bye]
-        -> end   
 
 === sell_UI ===
 ~ ShowSellMenu()
@@ -32,6 +30,7 @@ Show me what you'd like to sell.
         -> end   
 
 === end ===
+~ CloseBuyMenu()
 Hopefully, this won't be the last time I see you alive!
 
 - I agree. See you later. #speaker:Joanne #layout:right #audio:Player
