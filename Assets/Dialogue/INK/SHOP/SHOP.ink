@@ -20,6 +20,10 @@ What would you like to do? #speaker: Elenore #layout:left #audio:Elenore
 === buy_UI ===
 ~ ShowBuyMenu()
 Here is what I currently have in stock!
+    + [Go Back]
+        -> main
+    + [Bye]
+        -> end   
 
 === sell_UI ===
 ~ ShowSellMenu()
