@@ -16,7 +16,6 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     public bool canAttack = false;
     private Transform player;
     private bool playerFound = false;
-    public bool playerHit = false;
 
     // IAttackable implementation
     public int AttackDamage => attackDamage;

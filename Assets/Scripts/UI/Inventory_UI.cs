@@ -41,10 +41,7 @@ public class Inventory_UI : MonoBehaviour
         else
         {
             dragSingle = false;
-        }
-
-        //Debug.Log("Drag Single: " + dragSingle);
-        
+        }        
     }
 
     public void ToggleInventory()
@@ -97,7 +94,6 @@ public class Inventory_UI : MonoBehaviour
                 GameManager.instance.player.DropItem(itemToDrop, inventory.slots[draggedSlot.slotID].count);
                 inventory.Remove(draggedSlot.slotID, inventory.slots[draggedSlot.slotID].count);
             }
-
         }
 
         Refresh();

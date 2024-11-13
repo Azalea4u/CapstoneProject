@@ -83,9 +83,11 @@ MonoBehaviour:
   inventoryManager: {fileID: 0}
   player: {fileID: 0}
   startMenu: {fileID: 0}
-  inGame_Hotbar: {fileID: 0}
-  inventory_Hotbar: {fileID: 0}
-  isGamePaused: 1
+  isGamePaused: 0
+  levelText: {fileID: 0}
+  currentLevel: {fileID: 11400000, guid: 6b1c70d7145a54242bde6f88aefa5edb, type: 2}
+  goldText: {fileID: 0}
+  currentGold: {fileID: 11400000, guid: 52ae2749bab34a94c9ca26700ce01622, type: 2}
 --- !u!114 &8437022552514774830
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class InventoryManager : MonoBehaviour
         inventoryByName.Add("Hotbar", hotbar);
 
         hotbar = new Inventory(hotbarSlotCount);
-        inventoryByName.Add("Inventory", hotbar);
+        inventoryByName.Add("Inventory", inventory);
     }
 
     public void Add(string inventoryName, Item item)

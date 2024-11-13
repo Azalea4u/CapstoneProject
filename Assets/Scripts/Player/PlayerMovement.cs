@@ -23,9 +23,9 @@ public class PlayerMovement : MonoBehaviour
     // REQUIRED TO BE PUBLIC
     public bool isAttacking = false;
     public bool isAlive = true;
+    public bool canMove = true;
 
     private bool isStaggered = false;
-    private bool canMove = true;
     private bool canFlip = true;
     private bool facingRight = true;
 
@@ -475,7 +475,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply knockback force in the specified direction
         rb.velocity = new Vector2(knockbackDirection.x * knockbackForce, rb.velocity.y);
-
+        PlayerAudio_Play.instance.PlayDamage();
         // Start stagger coroutine to disable movement for a duration
         StartCoroutine(StaggerCoroutine());
     }

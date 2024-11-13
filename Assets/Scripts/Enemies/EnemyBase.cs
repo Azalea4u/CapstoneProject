@@ -13,6 +13,8 @@ public class EnemyBase : MonoBehaviour
 
     public bool hasTarget;
     public bool isAlive = true;
+    public bool playerHit = false;
+    public bool isHit = false;
 
     [Header("Colliders")]
     [SerializeField] protected Collider2D GroundCollider;
@@ -25,14 +27,20 @@ public class EnemyBase : MonoBehaviour
 
     protected bool canFlip = true;
     protected bool facingRight = true;
-    protected bool canMove = false;
+    public bool canMove = false;
 
     // STAGGER
     [SerializeField] protected float knockbackForce = 10.0f;
     [SerializeField] protected float staggerDuration = 0.5f;
     protected bool isStaggered = false;
 
-    protected Rigidbody2D rb;
+    public Rigidbody2D rb;
+    public static EnemyBase instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     protected virtual void Start()
     {
@@ -124,6 +132,8 @@ public class EnemyBase : MonoBehaviour
     {
         if (!isAlive) return;
 
+        isHit = true;
+        EnemyAudio_Play.instance.Play_IsHit();
         rb.velocity = new Vector2(knockbackDirection.x * knockbackForce, rb.velocity.y);
         StartCoroutine(StaggerCoroutine());
     }
@@ -133,6 +143,7 @@ public class EnemyBase : MonoBehaviour
         isStaggered = true;
         yield return new WaitForSeconds(staggerDuration);
         isStaggered = false;
+        isHit = false;
     }
 
 }

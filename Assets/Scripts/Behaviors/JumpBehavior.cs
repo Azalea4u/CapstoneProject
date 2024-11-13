@@ -5,17 +5,18 @@ using UnityEngine;
 public class JumpBehavior : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        PlayerAudio_Play.instance.PlayJump();
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerMovement.instance.isAttacking)
+        if (PlayerMovement.instance.isAttacking || (!PlayerMovement.instance.isGrounded && Input.GetKeyDown(KeyCode.Mouse0)))
         {
-                PlayerMovement.instance.animator.Play("Start_AttackDown");
+             //PlayerMovement.instance.animator.Play("Air_Attack");
+            //PlayerMovement.instance.animator.SetBool("Air_Attacking", true);
             //PlayerMovement.instance.inputReceived = false;
         }
     }
@@ -23,7 +24,8 @@ public class JumpBehavior : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        PlayerMovement.instance.isAttacking = false;
+        //PlayerMovement.instance.isAttacking = false;
+        PlayerAudio_Play.instance.PlayLanding();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

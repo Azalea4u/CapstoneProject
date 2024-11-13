@@ -99,7 +99,10 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         isGamePaused = true;
+        PlayerMovement.instance.canMove = false;
         PlayerMovement.instance.rb.velocity = Vector2.zero;
+        EnemyBase.instance.rb.velocity = Vector2.zero;
+        EnemyBase.instance.canMove = false;
         //timeManager.PauseTime();
         Debug.Log("Game Paused");
     }
@@ -107,6 +110,8 @@ public class GameManager : MonoBehaviour
     public void ResumeGame()
     {
         isGamePaused = false;
+        EnemyBase.instance.canMove = true;
+        PlayerMovement.instance.canMove = true;
         //timeManager.ResumeTime();
         Debug.Log("Game Resumed");
     }

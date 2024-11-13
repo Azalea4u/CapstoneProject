@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5550114641481587386}
   - component: {fileID: 4900854915931823130}
   - component: {fileID: 1953205915372367204}
-  - component: {fileID: -1267115575895265469}
+  - component: {fileID: 8994455817287369304}
   m_Layer: 0
   m_Name: Tomato_Collectable
   m_TagString: Untagged
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa5bf69773ae53545a1f5d301682b005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collect: {fileID: 0}
+  collect: {fileID: 8994455817287369304}
 --- !u!114 &1367110483493695050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b56564805ae1f4a8f8b29942626bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 7b57d11af79cb1043aa765a446d79d93, type: 2}
   rb2D: {fileID: 0}
 --- !u!212 &5550114641481587386
 SpriteRenderer:
@@ -188,7 +188,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!82 &-1267115575895265469
+--- !u!82 &8994455817287369304
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,7 +198,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1395ce144fff076418ec3475d5d6050b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 837e259db0bd3844eb1772f1d9ed8600, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

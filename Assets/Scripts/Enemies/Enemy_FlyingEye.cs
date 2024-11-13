@@ -16,7 +16,6 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
     public bool canAttack = true;
     private Transform player;
     private bool playerFound = false;
-    private bool playerHit = false;
 
     // IAttackable implementation
     public int AttackDamage => attackDamage;
