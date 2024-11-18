@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 4014136003470028620}
   - component: {fileID: 3923190678777436941}
   - component: {fileID: 8437022552514774830}
+  - component: {fileID: 7973921806989167230}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -101,6 +102,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
+--- !u!114 &7973921806989167230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588583522632635919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932a1076bb7c9634b94141ff5bf36e57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryName: Hotbar
+  canvas: {fileID: 0}
+  storePanel: {fileID: 0}
+  inGame_Hotbar: {fileID: 0}
+  store_Hotbar: {fileID: 0}
+  isStoreActive: 0
 --- !u!1 &6426946222651658768
 GameObject:
   m_ObjectHideFlags: 0

@@ -83,17 +83,16 @@ public class GameManager : MonoBehaviour
         timeManager.StartTimer();
     }
 
-    public void EnterInventory()
+    public void Enter_Store()
     {
         // Pause the game when entering the store
         PauseGame();
     }
 
-    public void ExitInventory()
+    public void Exit_Store()
     {
         // Resume the game when exiting the store
         ResumeGame();
-
     }
 
     public void PauseGame()
@@ -101,8 +100,8 @@ public class GameManager : MonoBehaviour
         isGamePaused = true;
         PlayerMovement.instance.canMove = false;
         PlayerMovement.instance.rb.velocity = Vector2.zero;
-        EnemyBase.instance.rb.velocity = Vector2.zero;
-        EnemyBase.instance.canMove = false;
+        //EnemyBase.instance.rb.velocity = Vector2.zero;
+        //EnemyBase.instance.canMove = false;
         //timeManager.PauseTime();
         Debug.Log("Game Paused");
     }
@@ -110,17 +109,21 @@ public class GameManager : MonoBehaviour
     public void ResumeGame()
     {
         isGamePaused = false;
-        EnemyBase.instance.canMove = true;
+        //EnemyBase.instance.canMove = true;
         PlayerMovement.instance.canMove = true;
         //timeManager.ResumeTime();
         Debug.Log("Game Resumed");
     }
 
-    public void LoadNextLevel()
+    public void Load_RestLevel()
     {
-        // reload the scene
-        //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Rest_Level");
+    }
+
+    public void Load_NextLevel()
+    {
+        SceneManager.LoadScene("Game_Level");
+
         // update the level number
         levelText.text = "Level " + Level++;
     }

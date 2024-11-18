@@ -408,7 +408,7 @@ public class DialogueManager : MonoBehaviour
     public void CloseBuyMenu()
     {
         InventoryMenu_UI.GetInstance().ToggleStore();
-        //buyPanel.SetActive(false);
+        buyPanel.SetActive(false);
         dialoguePanel.SetActive(true);
         //ContinueStory();
     }

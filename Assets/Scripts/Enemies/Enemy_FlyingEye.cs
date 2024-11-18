@@ -55,7 +55,6 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
         if (!playerFound)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
-            //Debug.Log("Player found: " + player);
             playerFound = player != null;
         }
 
@@ -66,7 +65,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
         //Debug.Log("Number of Colliders detected" + attackZone.DetectedColliders.Count);
 
         CheckPlayerInRange();
-        if (hasTarget && canAttack && !playerHit)
+        if (hasTarget && canAttack)
         {
             Attack();
         }
@@ -78,7 +77,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
 
         if (isAlive)
         {
-            if (canMove)
+            if (canMove && !hasTarget)
             {
                 Flight();
                 canFlip = true;

@@ -12,17 +12,17 @@ public class InventoryManager : MonoBehaviour
     public int hotbarSlotCount = 4;
     public Inventory hotbar;
 
-    [Header("Inventory")]
-    public int inventorySlotCount = 8;
-    public Inventory inventory;
+    [Header("Store")]
+    public int storeSlotCount = 6;
+    public Inventory store;
 
     private void Awake()
     {
         hotbar = new Inventory(hotbarSlotCount);
         inventoryByName.Add("Hotbar", hotbar);
 
-        hotbar = new Inventory(hotbarSlotCount);
-        inventoryByName.Add("Inventory", inventory);
+        store = new Inventory(storeSlotCount);
+        inventoryByName.Add("Store", store);
     }
 
     public void Add(string inventoryName, Item item)

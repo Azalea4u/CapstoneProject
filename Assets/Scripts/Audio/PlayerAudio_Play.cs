@@ -8,6 +8,7 @@ public class PlayerAudio_Play : MonoBehaviour
     public static PlayerAudio_Play instance;
 
     [SerializeField] public AudioSource footstep_Audio;
+    [SerializeField] public AudioSource dashing_Audio;
     [SerializeField] public AudioSource jump_Audio;
     [SerializeField] public AudioSource landing_Audio;
     [SerializeField] public AudioSource clingCLimb_Audio;
@@ -27,6 +28,11 @@ public class PlayerAudio_Play : MonoBehaviour
     public void PlayFootstep()
     {
         footstep_Audio.Play();
+    }
+
+    public void Play_Dash()
+    {
+        dashing_Audio.Play();
     }
 
     public void PlayJump()
@@ -49,6 +55,7 @@ public class PlayerAudio_Play : MonoBehaviour
         damage_Audio.Play();
     }
 
+    #region ATTACK
     public void PlayAttack01()
     {
         if (EnemyBase.instance.isHit)
@@ -72,4 +79,5 @@ public class PlayerAudio_Play : MonoBehaviour
         else
             attack03Miss_Audio.Play();
     }
+    #endregion
 }

@@ -759,14 +759,6 @@ MonoBehaviour:
       count: 0
       MaxAllowed: 99
       icon: {fileID: 0}
-  inventorySlotCount: 8
-  inventory:
-    slots: []
-    selectedSlot:
-      itemName: 
-      count: 0
-      MaxAllowed: 99
-      icon: {fileID: 0}
 --- !u!50 &659910686442138463
 Rigidbody2D:
   serializedVersion: 4
@@ -1083,6 +1075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   footstep_Audio: {fileID: 3224838499450091423}
+  dashing_Audio: {fileID: 7248870900417814294}
   jump_Audio: {fileID: 4585442640820382800}
   landing_Audio: {fileID: 3098552420222585586}
   clingCLimb_Audio: {fileID: 5502960148852941166}

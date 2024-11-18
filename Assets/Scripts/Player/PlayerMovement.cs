@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -75,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
     private bool ledgePositionSet = false;
 
     public Rigidbody2D rb;
-
 
     private void Awake()
     {
@@ -154,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
             // Set the x velocity to the dashing speed
             rb.velocity = dashingDirection * dashSpeed;
         }
-        else // If the enemy is crouching
+        else if (isCrouching)
         {
             rb.velocity = Vector2.zero;
         }
@@ -189,7 +189,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // ATTACK
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking 
+                && (SceneManager.GetActiveScene().name == "Game_Level"))
             {
                 Attack();
             }

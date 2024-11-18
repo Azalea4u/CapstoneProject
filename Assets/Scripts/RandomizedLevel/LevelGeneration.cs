@@ -8,14 +8,14 @@ public class LevelGeneration : MonoBehaviour
     [SerializeField] public GameObject playerPrefab;
     [SerializeField] public Transform[] startingPositions;
     [SerializeField] public LayerMask room;
-    [SerializeField] public GameObject[] rooms;
+    [SerializeField] public GameObject[] RegularRooms;
     // index 0 --> LR, index 1 --> LRB, index 2 --> LRT, index 3 --> LRBT
-    [SerializeField] public GameObject[] entranceRooms;
+    [SerializeField] public GameObject[] EntranceRooms;
     // index 4 --> EntranceLR, index 5 --> EntranceLRB, index 6 --> EntranceLRT, index 7 --> EntranceLRBT
-    [SerializeField] public GameObject[] exitRooms;
+    [SerializeField] public GameObject[] ExitRooms;
     // index 8 --> ExitLR, index 9 --> ExitLRB, index 10 --> ExitLRT, index 11 --> ExitLRBT
     //[SerializeField] public GameObject[] enemyRooms;
-    [SerializeField] public GameObject[] heartRooms;
+    [SerializeField] public GameObject[] HeartRooms;
 
     public float moveAmount;
 
@@ -40,8 +40,8 @@ public class LevelGeneration : MonoBehaviour
         transform.position = startingPositions[randStartPos].position;
 
         // Instantiate a random entrance room as the first room
-        int randomEntranceRoom = Random.Range(0, entranceRooms.Length);
-        Instantiate(entranceRooms[randomEntranceRoom], transform.position, Quaternion.identity);
+        int randomEntranceRoom = Random.Range(0, EntranceRooms.Length);
+        Instantiate(EntranceRooms[randomEntranceRoom], transform.position, Quaternion.identity);
 
         direction = Random.Range(1, 6);
 
@@ -124,8 +124,8 @@ public class LevelGeneration : MonoBehaviour
                 Vector2 newPosition = new Vector2(transform.position.x + moveAmount, transform.position.y);
                 transform.position = newPosition;
 
-                int random = Random.Range(0, rooms.Length);
-                GameObject newRoom = Instantiate(rooms[random], transform.position, Quaternion.identity);
+                int random = Random.Range(0, RegularRooms.Length);
+                GameObject newRoom = Instantiate(RegularRooms[random], transform.position, Quaternion.identity);
 
                 // Check if the new room is the last room
                 if (transform.position.y <= minY)
@@ -158,8 +158,8 @@ public class LevelGeneration : MonoBehaviour
                 Vector2 newPosition = new Vector2(transform.position.x - moveAmount, transform.position.y);
                 transform.position = newPosition;
 
-                int random = Random.Range(0, rooms.Length);
-                GameObject newRoom = Instantiate(rooms[random], transform.position, Quaternion.identity);
+                int random = Random.Range(0, RegularRooms.Length);
+                GameObject newRoom = Instantiate(RegularRooms[random], transform.position, Quaternion.identity);
 
                 // Check if the new room is the last room
                 if (transform.position.y <= minY)
@@ -190,7 +190,7 @@ public class LevelGeneration : MonoBehaviour
 
                         roomDetection.GetComponent<RoomType>().RoomDestruction();
 
-                        Instantiate(rooms[3], transform.position, Quaternion.identity);
+                        Instantiate(RegularRooms[3], transform.position, Quaternion.identity);
                     }
                     else // else if the room is LRBT
                     {
@@ -201,7 +201,7 @@ public class LevelGeneration : MonoBehaviour
                         {
                             int randomEntranceBottomRoom = Random.Range(0, 2) * 2 + 1; // Randomly select either the second or fourth room
                             Debug.Log($"Random entrance bottom room: {randomEntranceBottomRoom}");
-                            Instantiate(entranceRooms[randomEntranceBottomRoom], transform.position, Quaternion.identity);
+                            Instantiate(EntranceRooms[randomEntranceBottomRoom], transform.position, Quaternion.identity);
                         }
                         else
                         {
@@ -210,7 +210,7 @@ public class LevelGeneration : MonoBehaviour
                             {
                                 randomBottomRoom = 1;
                             }
-                            Instantiate(rooms[randomBottomRoom], transform.position, Quaternion.identity);
+                            Instantiate(RegularRooms[randomBottomRoom], transform.position, Quaternion.identity);
                         }
                     }
                 }
@@ -219,7 +219,7 @@ public class LevelGeneration : MonoBehaviour
                 transform.position = newPosition;
 
                 int random = Random.Range(2, 4);
-                GameObject newRoom = Instantiate(rooms[random], transform.position, Quaternion.identity);
+                GameObject newRoom = Instantiate(RegularRooms[random], transform.position, Quaternion.identity);
 
                 // Check if the new room is the last room
                 if (transform.position.y <= minY)
@@ -238,60 +238,57 @@ public class LevelGeneration : MonoBehaviour
         Destroy(room);
 
         RoomType roomType = room.GetComponent<RoomType>();
-        Instantiate(exitRooms[roomType.type], transform.position, Quaternion.identity);
+        Instantiate(ExitRooms[roomType.type], transform.position, Quaternion.identity);
     }
 
-private void PlaceHeartRoom()
-{
-    GameObject[] regularRooms = GameObject.FindGameObjectsWithTag("Room");
-
-    if (regularRooms.Length > 0)
+    private void PlaceHeartRoom()
     {
-        int randomIndex = Random.Range(0, regularRooms.Length);
-        GameObject roomToReplace = regularRooms[randomIndex];
+        GameObject[] regularRoomsToReplace = GameObject.FindGameObjectsWithTag("Room");
 
-        // Get the room type from the room being replaced
-        RoomType roomType = roomToReplace.GetComponent<RoomType>();
-        
-        // Check if the room has children before replacing it
-        if (roomType != null && roomToReplace.transform.childCount > 0)
+        if (regularRoomsToReplace.Length > 0)
         {
-            Vector3 roomPosition = roomToReplace.transform.position;
-            Quaternion roomRotation = roomToReplace.transform.rotation;
-
-            int typeIndex = roomType.type;
-
-            // Destroy the room and its children
-            foreach (Transform child in roomToReplace.transform)
+            int randomIndex = Random.Range(0, regularRoomsToReplace.Length);
+            GameObject roomToReplace = regularRoomsToReplace[randomIndex];
+        
+            // Check if the room has children before replacing it
+            if (roomToReplace.transform.childCount > 0)
             {
-                Destroy(child.gameObject);
-            }
-            Destroy(roomToReplace);
+                Vector3 roomPosition = roomToReplace.transform.position;
+                Quaternion roomRotation = roomToReplace.transform.rotation;
 
-            // Instantiate a heart room of the same type if it exists in the array
-            if (typeIndex >= 0 && typeIndex < heartRooms.Length)
-            {
-                Instantiate(heartRooms[typeIndex], roomPosition, roomRotation);
-                heartRoomPlaced = true;
+                int typeIndex = roomToReplace.GetComponent<RoomType>().type;
+
+                // Destroy the room and its children
+                foreach (Transform child in roomToReplace.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+                Destroy(roomToReplace);
+
+                // Instantiate a heart room of the same type if it exists in the array
+                if (typeIndex >= 0)
+                {
+                    Instantiate(HeartRooms[typeIndex], roomPosition, roomRotation);
+                    heartRoomPlaced = true;
+                }
+                else
+                {
+                    Debug.LogError($"Heart room type {typeIndex} is out of bounds. Make sure HeartRooms array contains all room types.");
+                    // Fallback to a random heart room if the type is out of bounds
+                    int randomHeartRoom = Random.Range(0, HeartRooms.Length);
+                    Instantiate(HeartRooms[randomHeartRoom], roomPosition, roomRotation);
+                    heartRoomPlaced = true;
+                }
             }
             else
             {
-                Debug.LogError($"Heart room type {typeIndex} is out of bounds. Make sure heartRooms array contains all room types.");
-                // Fallback to a random heart room if the type is out of bounds
-                int randomHeartRoom = Random.Range(0, heartRooms.Length);
-                Instantiate(heartRooms[randomHeartRoom], roomPosition, roomRotation);
-                heartRoomPlaced = true;
+                Debug.LogWarning("Selected room either has no RoomType component or no children!");
             }
         }
         else
         {
-            Debug.LogWarning("Selected room either has no RoomType component or no children!");
+            Debug.LogWarning("No regular RegularRooms found to replace with a heart room.");
         }
     }
-    else
-    {
-        Debug.LogWarning("No regular rooms found to replace with a heart room.");
-    }
-}
 
 }

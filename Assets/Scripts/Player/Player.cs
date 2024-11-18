@@ -12,8 +12,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject inventoryMenu_UI;
 
-    private bool isInventoryOpen = false;
-
     private void Awake()
     {
         inventoryManager = GetComponent<InventoryManager>();
@@ -22,29 +20,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         inventoryMenu_UI.SetActive(false);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.E))
-        {
-            inventoryMenu_UI.GetComponent<InventoryMenu_UI>().ToggleInventory();
-
-            if (isInventoryOpen)
-            {
-                playerMovement.enabled = true;
-                playerHealth.enabled = true;
-                isInventoryOpen = false;
-            }
-            else
-            {
-                playerMovement.enabled = false;
-                playerHealth.enabled = false;
-                isInventoryOpen = true;
-            }
-            // freeze game time
-            GameManager.instance.PauseGame();
-        }
     }
 
     public void DropItem(Item item)

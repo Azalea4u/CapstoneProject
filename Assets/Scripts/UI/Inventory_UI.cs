@@ -11,7 +11,7 @@ public class Inventory_UI : MonoBehaviour
     [SerializeField] List<Inventory_UI> inventoryUIs;
     [SerializeField] List<Slot_UI> slots = new List<Slot_UI>();
     [SerializeField] private Canvas canvas;
-    [SerializeField] GameObject inventoryPanel;
+    //[SerializeField] GameObject inventoryPanel;
 
     public static Slot_UI draggedSlot;
     public static Image draggedIcon;
@@ -44,6 +44,7 @@ public class Inventory_UI : MonoBehaviour
         }        
     }
 
+    /*
     public void ToggleInventory()
     {
         // check if the inventory is active
@@ -56,6 +57,7 @@ public class Inventory_UI : MonoBehaviour
             inventoryPanel.SetActive(true);
         }
     }
+    */
 
     public void Refresh()
     {
@@ -72,7 +74,6 @@ public class Inventory_UI : MonoBehaviour
                     slots[i].SetEmpty();
 
                 }
-
             }
         }
     }
@@ -151,8 +152,7 @@ public class Inventory_UI : MonoBehaviour
         {
             Vector2 position;
 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
-                Input.mousePosition, null, out position);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out position);
 
             toMove.transform.position = canvas.transform.TransformPoint(position);
         }

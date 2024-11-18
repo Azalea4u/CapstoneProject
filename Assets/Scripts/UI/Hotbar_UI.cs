@@ -25,7 +25,7 @@ public class Hotbar_UI : MonoBehaviour
 
     public void SelectSlot(int index)
     {
-        if (hotbar_Slots.Count == 5 || hotbar_Slots.Count == 9)
+        if (hotbar_Slots.Count == 5)
         {
             if (selectedSlot != null)
             {

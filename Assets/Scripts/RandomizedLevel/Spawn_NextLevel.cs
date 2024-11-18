@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Spawn_NextLevel : MonoBehaviour
 {
@@ -8,12 +9,12 @@ public class Spawn_NextLevel : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //Debug.Log("Player has reached the end of the level");
-
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetMouseButtonDown(2))
             {
-                Debug.Log("Player has reached the end of the level");
-                GameManager.instance.LoadNextLevel();
+                if (SceneManager.GetActiveScene().name == "Game_Level")
+                    GameManager.instance.Load_RestLevel();
+                else if (SceneManager.GetActiveScene().name == "Rest_Level")
+                    GameManager.instance.Load_NextLevel();
             }
         }
     }
