@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ef8562963c80f4697dc8ffdaf4ca19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 0}
   startingPositions:
   - {fileID: 0}
   - {fileID: 0}
@@ -52,53 +53,29 @@ MonoBehaviour:
   room:
     serializedVersion: 2
     m_Bits: 512
-  rooms:
-  - {fileID: 5893967217478677918, guid: 1e7e431a1da6f3149a61c8f7175ded64, type: 3}
-  - {fileID: 8289177733108559585, guid: a2f742b87c005804d88df90cc7aff4b8, type: 3}
-  - {fileID: 6174795426115921749, guid: 5d1e14e26b9632d4b8f249b911e2269b, type: 3}
-  - {fileID: 8805946826448328439, guid: 23ebf56ba07789340b3041b55af8ca15, type: 3}
-  entranceRooms:
-  - {fileID: 5893967217478677918, guid: f90f0b400a682c44c8001c4746978dea, type: 3}
-  - {fileID: 8289177733108559585, guid: 25485394e7ee89c4ba09ca74f29d4289, type: 3}
-  - {fileID: 6174795426115921749, guid: 82fa4abd314427b428517a506ad067a0, type: 3}
-  - {fileID: 8805946826448328439, guid: b1b77146130e17d4da7e978f18fc47c6, type: 3}
-  exitRooms:
-  - {fileID: 5893967217478677918, guid: 6daa5a3b6f280ba4183371b17151e440, type: 3}
-  - {fileID: 8289177733108559585, guid: a4c51d6d2eb4fa540982b67e09ae1db9, type: 3}
-  - {fileID: 6174795426115921749, guid: 4635917b4c03f5a47a57ba545387d71e, type: 3}
-  - {fileID: 8805946826448328439, guid: a4d87bc6eac1dd2468cd42c85f2f6e1c, type: 3}
+  RegularRooms:
+  - {fileID: 5893967217478677918, guid: ab6a44f51e0eba148b95a8f4d1d1f7b6, type: 3}
+  - {fileID: 8289177733108559585, guid: 2a4192832e079154ba0beeb5e23fffea, type: 3}
+  - {fileID: 6174795426115921749, guid: 774edb33f88241c4db972aae35fd274b, type: 3}
+  - {fileID: 8805946826448328439, guid: efea3ba4a74693647a3b7e8d5f7d747a, type: 3}
+  EntranceRooms:
+  - {fileID: 5893967217478677918, guid: 5fb4e919d68531a4d9911dfe449789d3, type: 3}
+  - {fileID: 8289177733108559585, guid: c4c640216fb0aaf4fa4aebc41ef3803f, type: 3}
+  - {fileID: 6174795426115921749, guid: 1b2fac65b291d1f4ab28711793f5dba8, type: 3}
+  - {fileID: 8805946826448328439, guid: 5109ba9a90395b24b9302618a950abbc, type: 3}
+  ExitRooms:
+  - {fileID: 5893967217478677918, guid: 64ba915ef6f0cde4ebb9ab6704f31056, type: 3}
+  - {fileID: 8289177733108559585, guid: a3217b3f011acf44ea85671990bab62d, type: 3}
+  - {fileID: 6174795426115921749, guid: 9b2d0be482b85b541b3bfcbf9305707f, type: 3}
+  - {fileID: 8805946826448328439, guid: 831a345acd2284b47857fbd873d6b7eb, type: 3}
+  HeartRooms:
+  - {fileID: 5893967217478677918, guid: a53176ab6001d3c40bed2ed5fb8ea94d, type: 3}
+  - {fileID: 8289177733108559585, guid: e74b93dc8d0213c4c9456da42cb55b10, type: 3}
+  - {fileID: 6174795426115921749, guid: c45c81a6c1e45ca488515545eaf3a29f, type: 3}
+  - {fileID: 8805946826448328439, guid: 51d95f2f3a3d12a43814fc8837ae3ff6, type: 3}
   moveAmount: 10
-  startTimeBtwRoom: 0.25
+  startTimeBtwRoom: 0.15
   minX: -10
   maxX: 10
   minY: -25
   stopGeneration: 0
-  edgeTiles:
-    leftEdge:
-    - {fileID: 8272811086899276887, guid: acf5309533c29454badd44fa01c1ff4b, type: 3}
-    - {fileID: 8272811086899276887, guid: 3c9d63764f654e04595e4bf56a3a0491, type: 3}
-    - {fileID: 8272811086899276887, guid: b65916c0e54b65642b17bb02420608fa, type: 3}
-    - {fileID: 8272811086899276887, guid: c2bd2b730261f4e4398e80468db3df36, type: 3}
-    rightEdge:
-    - {fileID: 8272811086899276887, guid: 100d94ef16bb9e34d9dbba93770f8553, type: 3}
-    - {fileID: 8272811086899276887, guid: eb4f753057d95394f99b52d192ff8363, type: 3}
-    - {fileID: 8272811086899276887, guid: 83a959af2a0e5d6468a8659208eff5e5, type: 3}
-    - {fileID: 8272811086899276887, guid: 42607ef6fb5204d4594c0abafb8ca968, type: 3}
-    topEdge:
-    - {fileID: 8272811086899276887, guid: 0697c892096898b4b914f2f6df336d5b, type: 3}
-    - {fileID: 8272811086899276887, guid: 2835a58093336d54bb529a4da5db0582, type: 3}
-    - {fileID: 8272811086899276887, guid: 15af8aedd774d53409ce44a86014c8ed, type: 3}
-    - {fileID: 8272811086899276887, guid: 2273eca52882994459f3e3fd788d2321, type: 3}
-    bottomEdge:
-    - {fileID: 8272811086899276887, guid: d5328c68b2f8c5f4ebfd29cdc626f448, type: 3}
-    - {fileID: 8272811086899276887, guid: 72b67427eff8083498ccc79156d367b0, type: 3}
-    - {fileID: 8272811086899276887, guid: 6f5d560b5b5331b4ebc586ef59edfdb6, type: 3}
-    - {fileID: 8272811086899276887, guid: 0f53cba9e8611564eacd51a88f8e59e5, type: 3}
-  topLeftCorner: {fileID: 8272811086899276887, guid: d001f908c40f9314bb1fe65aba02d9c5, type: 3}
-  topRightCorner: {fileID: 8272811086899276887, guid: 193a4acfc28bd9a4191d9437f5c17595, type: 3}
-  bottomLeftCorner: {fileID: 8272811086899276887, guid: e5a04591b7fa0ef4f959ec2471147520, type: 3}
-  bottomRightCorner: {fileID: 8272811086899276887, guid: 894dc77bd3249104fb0dff26a2e9b1e3, type: 3}
-  tileLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  tileTag: LevelTile

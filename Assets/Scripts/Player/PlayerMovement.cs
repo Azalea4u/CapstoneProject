@@ -385,8 +385,7 @@ public class PlayerMovement : MonoBehaviour
         //isGrounded = Physics2D.Raycast(GroundCollider.bounds.center, Vector2.down, GroundCollider.size.x, whatIsGround);
         isGrounded = GroundCollider.IsTouchingLayers(whatIsGround);
 
-        wallDetected = Physics2D.Raycast(FrontCollider.bounds.center, Vector2.right, FrontCollider.radius, whatIsGround) ||
-                      Physics2D.Raycast(BackCollider.bounds.center, Vector2.left, BackCollider.radius, whatIsGround);
+        //wallDetected = Physics2D.Raycast(FrontCollider.bounds.center, Vector2.right, FrontCollider.radius, whatIsGround) || Physics2D.Raycast(BackCollider.bounds.center, Vector2.left, BackCollider.radius, whatIsGround);
 
         if (isClimbing)
         {

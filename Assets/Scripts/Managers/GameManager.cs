@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public ItemManager itemManager;
-    public TimeManager timeManager;
     public InventoryManager inventoryManager;
-
     public Player player;
 
     [Header("GameMenu")]
@@ -23,6 +22,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Int_SO currentLevel;
     [SerializeField] private TMPro.TextMeshProUGUI goldText;
     [SerializeField] private Int_SO currentGold;
+
+    private Vector3 crouchingOffset = new Vector3(0, -2, -10); // Adjust as needed for the crouch position
 
     public int Level
     {
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         
         itemManager = GetComponent<ItemManager>();
-        timeManager = GetComponent<TimeManager>();
+        //timeManager = GetComponent<TimeManager>();
 
         player = FindAnyObjectByType<Player>();
     }
@@ -58,29 +59,27 @@ public class GameManager : MonoBehaviour
     {
         //startMenu.SetActive(true);
         //PauseGame();
-        levelText.text = "Level " + Level;
+
+        //Level = 1; 
+        //Gold = 200;
 
         Debug.Log("Level" + Level);
     }
 
     private void Update()
     {
-        if (!isGamePaused)
-        {
-            //
-        }
-
         goldText.text = "Gold: " + Gold;
+        levelText.text = "Level " + Level;
+        Debug.Log("Level " + Level);
     }
 
     public void StartGame()
     {
         // Hide the start menu
-        startMenu.SetActive(false);
+        //startMenu.SetActive(false);
 
         // Resume the game
         ResumeGame();
-        timeManager.StartTimer();
     }
 
     public void Enter_Store()
@@ -126,5 +125,19 @@ public class GameManager : MonoBehaviour
 
         // update the level number
         levelText.text = "Level " + Level++;
+    }
+
+    public void Load_Level(string levelName)
+    {
+        SceneManager.LoadScene(levelName);
+
+        if (levelName == "Game_Level")
+        {
+            levelText.text = "Level " + Level++;
+        }
+        else
+        {
+            levelText.text = "Rest Level";
+        }
     }
 }

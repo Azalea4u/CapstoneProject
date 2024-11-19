@@ -14,11 +14,16 @@ public class LedgeDetection : MonoBehaviour
     private void Update()
     {
         playerMovement.canGrabLedge = canDetectLedge;
+
+        if (WallDetection.instance.wallAboveLedgeDetected)
+        {
+            playerMovement.ledgeDetected = false;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (canDetectLedge)
+        if (canDetectLedge && !WallDetection.instance.wallAboveLedgeDetected)
         {
             playerMovement.ledgeDetected = Physics2D.OverlapCircle(transform.position, ledgeCheck.radius, whatIsGround);
         }

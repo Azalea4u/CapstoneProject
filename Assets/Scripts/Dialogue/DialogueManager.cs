@@ -36,7 +36,7 @@ public class DialogueManager : MonoBehaviour
 
     private Story currentStory;
 
-    private static DialogueManager instance;
+    public static DialogueManager instance;
     private Coroutine displayLineCoroutine;
     private bool canContinueToNextLine = false;
     private bool canSkip = false;

@@ -13,10 +13,10 @@ public class LedgeGrabbingBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerMovement.instance.isClimbing)
+        if (PlayerMovement.instance.isClimbing && !PlayerMovement.instance.wallDetected)
         {
 
-            PlayerMovement.instance.canGrabLedge = true;
+            //PlayerMovement.instance.canGrabLedge = true;
             PlayerMovement.instance.climbingAllowed = false;
         }
     }
