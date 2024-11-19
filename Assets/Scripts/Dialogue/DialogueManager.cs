@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -68,7 +69,8 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
-        buyPanel.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "Rest_Level")
+            buyPanel.SetActive(false);
 
         // get layout animator
         layoutAnimator = dialoguePanel.GetComponent<Animator>();
@@ -135,9 +137,17 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
 
-        currentStory.BindExternalFunction("ShowBuyMenu", ShowBuyMenu);
-        currentStory.BindExternalFunction("CloseBuyMenu", CloseBuyMenu);
-        currentStory.BindExternalFunction("ShowSellMenu", ShowSellMenu);
+        if (SceneManager.GetActiveScene().name == "Rest_Level")
+        {
+            currentStory.BindExternalFunction("ShowBuyMenu", ShowBuyMenu);
+            currentStory.BindExternalFunction("CloseBuyMenu", CloseBuyMenu);
+            currentStory.BindExternalFunction("ShowSellMenu", ShowSellMenu);
+        }
+        else if (SceneManager.GetActiveScene().name == "Start_Menu")
+        {
+            currentStory.BindExternalFunction("StartGame", StartGame);
+            currentStory.BindExternalFunction("QuitGame", QuitGame);
+        }
 
         ContinueStory();
     }
@@ -145,9 +155,18 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator ExitDialogueMode()
     {
         yield return new WaitForSeconds(0.2f);
-        currentStory.UnbindExternalFunction("ShowBuyMenu");
-        currentStory.UnbindExternalFunction("CloseBuyMenu");
-        currentStory.UnbindExternalFunction("ShowSellMenu");
+
+        if (SceneManager.GetActiveScene().name == "Rest_Level")
+        {
+            currentStory.UnbindExternalFunction("ShowBuyMenu");
+            currentStory.UnbindExternalFunction("CloseBuyMenu");
+            currentStory.UnbindExternalFunction("ShowSellMenu");
+        }
+        else if (SceneManager.GetActiveScene().name == "Start_Menu")
+        {
+            currentStory.UnbindExternalFunction("StartGame");
+            currentStory.UnbindExternalFunction("QuitGame");
+        }
 
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
@@ -314,7 +333,6 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-
     #region CHOICES
     private void HideChoices()
     {
@@ -418,5 +436,15 @@ public class DialogueManager : MonoBehaviour
         sellPanel.SetActive(false);
         dialoguePanel.SetActive(true);
         //ContinueStory();
+    }
+
+    public void StartGame()
+    {
+        GameManager.instance.Load_Level("Game_Level");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
