@@ -63,14 +63,16 @@ public class GameManager : MonoBehaviour
         //Level = 1; 
         //Gold = 200;
 
-        Debug.Log("Level" + Level);
     }
 
     private void Update()
     {
-        goldText.text = "Gold: " + Gold;
-        levelText.text = "Level " + Level;
-        Debug.Log("Level " + Level);
+        if (SceneManager.GetActiveScene().name != "Start_Menu")
+        {
+            goldText.text = "Gold: " + Gold;
+            levelText.text = "Level " + Level;
+            Debug.Log("Level " + Level);
+        }
     }
 
     public void StartGame()
@@ -139,5 +141,15 @@ public class GameManager : MonoBehaviour
         {
             levelText.text = "Rest Level";
         }
+    }
+
+    public void Load_TestLevel()
+    {
+        Load_Level("Test_Level");
+    }
+
+    public void Quit_Game()
+    {
+        Application.Quit();
     }
 }

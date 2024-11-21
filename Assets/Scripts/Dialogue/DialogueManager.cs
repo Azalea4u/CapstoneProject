@@ -68,19 +68,22 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         dialogueIsPlaying = false;
-        dialoguePanel.SetActive(false);
-        if (SceneManager.GetActiveScene().name == "Rest_Level")
-            buyPanel.SetActive(false);
-
-        // get layout animator
-        layoutAnimator = dialoguePanel.GetComponent<Animator>();
-
-        choicesText = new TextMeshProUGUI[choices.Length];
-        int index = 0;
-        foreach (GameObject choice in choices)
+        if (SceneManager.GetActiveScene().name != "Start_Menu")
         {
-            choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
-            index++;
+            dialoguePanel.SetActive(false);
+            if (SceneManager.GetActiveScene().name == "Rest_Level")
+                buyPanel.SetActive(false);
+
+            // get layout animator
+            layoutAnimator = dialoguePanel.GetComponent<Animator>();
+
+            choicesText = new TextMeshProUGUI[choices.Length];
+            int index = 0;
+            foreach (GameObject choice in choices)
+            {
+                choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
+                index++;
+            }
         }
 
         InitializeAudioInfoDictionary();
@@ -143,9 +146,9 @@ public class DialogueManager : MonoBehaviour
             currentStory.BindExternalFunction("CloseBuyMenu", CloseBuyMenu);
             currentStory.BindExternalFunction("ShowSellMenu", ShowSellMenu);
         }
-        else if (SceneManager.GetActiveScene().name == "Start_Menu")
+        else if (SceneManager.GetActiveScene().name == "Test_Level")
         {
-            currentStory.BindExternalFunction("StartGame", StartGame);
+            currentStory.BindExternalFunction("StartMenu", StartMenu);
             currentStory.BindExternalFunction("QuitGame", QuitGame);
         }
 
@@ -156,16 +159,16 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
-        if (SceneManager.GetActiveScene().name == "Rest_Level")
+        if (SceneManager.GetActiveScene().name == "Test_Level")
+        {
+            currentStory.UnbindExternalFunction("StartMenu");
+            currentStory.UnbindExternalFunction("QuitGame");
+        }
+        else if (SceneManager.GetActiveScene().name == "Rest_Level")
         {
             currentStory.UnbindExternalFunction("ShowBuyMenu");
             currentStory.UnbindExternalFunction("CloseBuyMenu");
             currentStory.UnbindExternalFunction("ShowSellMenu");
-        }
-        else if (SceneManager.GetActiveScene().name == "Start_Menu")
-        {
-            currentStory.UnbindExternalFunction("StartGame");
-            currentStory.UnbindExternalFunction("QuitGame");
         }
 
         dialogueIsPlaying = false;
@@ -406,6 +409,7 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(ExitDialogueMode());
     }
 
+    #region STORE_MENU
     private void ShowBuyMenu()
     {
         Debug.Log("Showing buy menu");
@@ -437,14 +441,16 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(true);
         //ContinueStory();
     }
+    #endregion
 
-    public void StartGame()
+    public void StartMenu()
     {
-        GameManager.instance.Load_Level("Game_Level");
+        GameManager.instance.Load_Level("Start_Menu");
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        Debug.Log("Quiting...");
+        GameManager.instance.Quit_Game();
     }
 }

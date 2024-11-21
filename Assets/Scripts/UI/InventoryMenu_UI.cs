@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InventoryMenu_UI : MonoBehaviour
 {
@@ -31,8 +32,11 @@ public class InventoryMenu_UI : MonoBehaviour
 
     private void Start()
     {
-        inventory = GameManager.instance.player.inventoryManager.GetInventoryByName(inventoryName);
-        storePanel.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "Rest_Level")
+        {
+            inventory = GameManager.instance.player.inventoryManager.GetInventoryByName(inventoryName);
+            storePanel.SetActive(false);
+        }
     }
 
     private void Update()
