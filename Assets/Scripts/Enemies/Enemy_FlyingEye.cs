@@ -164,9 +164,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
     #region DEATH
     public void HandleDeath()
     {
-        aliveCollider.enabled = false;
-        deadCollider.enabled = true;
-        rb.gravityScale = 2.0f;
+
         StopMovement();
         // Add any additional death logic, like dropping items
         StartCoroutine(DeathSequence());
@@ -174,6 +172,9 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
 
     private IEnumerator DeathSequence()
     {
+        aliveCollider.enabled = false;
+        deadCollider.enabled = true;
+        rb.gravityScale = 2.0f;
         // Wait for the animation to finish
         yield return new WaitForSeconds(3.0f); // Adjust time based on your death animation length
 

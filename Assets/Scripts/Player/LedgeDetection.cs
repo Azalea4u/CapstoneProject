@@ -6,7 +6,6 @@ public class LedgeDetection : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private CircleCollider2D ledgeCheck;
-    [SerializeField] private BoxCollider2D wallCheck;
     [SerializeField] private LayerMask whatIsGround;
 
     public bool canDetectLedge = true;
@@ -17,24 +16,30 @@ public class LedgeDetection : MonoBehaviour
 
         if (WallDetection.instance.wallAboveLedgeDetected)
         {
-            playerMovement.ledgeDetected = false;
+            //playerMovement.ledgeDetected = false;
+            canDetectLedge = false; 
+        }
+        else
+        {
+            canDetectLedge = true;
         }
     }
 
     private void FixedUpdate()
     {
-        if (canDetectLedge && !WallDetection.instance.wallAboveLedgeDetected)
+        if (canDetectLedge && !PlayerMovement.instance.isClimbing &&
+            (!WallDetection.instance.wallAboveLedgeDetected || !PlayerMovement.instance.wallDetected))
         {
             playerMovement.ledgeDetected = Physics2D.OverlapCircle(transform.position, ledgeCheck.radius, whatIsGround);
         }
     }
 
     // check the BoxCollider2D OnTriggerEnter
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            canDetectLedge = false;
+            //canDetectLedge = false;
             //playerMovement.ledgeDetected = true;
         }
     }
@@ -43,7 +48,7 @@ public class LedgeDetection : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            canDetectLedge = true;
+           // canDetectLedge = true;
         }
     }
 }                                                 

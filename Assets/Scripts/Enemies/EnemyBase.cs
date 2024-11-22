@@ -10,6 +10,8 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected float movementSpeed = 3.0f;
     [SerializeField] protected float facingDirection;
     [SerializeField] protected float initialDelayTime = 0.25f;
+    [SerializeField] public int minDroppedGold;
+    [SerializeField] public int maxDroppedGold;
 
     public bool hasTarget;
     public bool isAlive = true;
@@ -146,4 +148,15 @@ public class EnemyBase : MonoBehaviour
         isHit = false;
     }
 
+    public void DropLoot()
+    {
+        //random dropped gold between min and max
+        int droppedGold = Random.Range(minDroppedGold, maxDroppedGold);
+
+        Debug.Log("Dropped " + droppedGold + " gold");
+        GameManager.instance.Gold += droppedGold;
+        // Implement loot dropping logic here
+        // For example:
+        // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
+    }
 }

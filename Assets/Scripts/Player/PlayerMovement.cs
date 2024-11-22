@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CapsuleCollider2D GroundCollider;
     [SerializeField] private CircleCollider2D FrontCollider;
     [SerializeField] private CircleCollider2D BackCollider;
-
+    // REQUIRED TO BE PUBLIC
     public bool isGrounded;
     public bool wallDetected;
 
@@ -418,12 +418,14 @@ public class PlayerMovement : MonoBehaviour
                 climbOverPosition = new Vector2(ledgePosition.x - Left_offset2.x, ledgePosition.y + Left_offset2.y);
             }
             isClimbing = true;
+
         }
 
         if (isClimbing)
         {
             isGrounded = false;
             transform.position = climbBeginPosition;
+            ledgeDetected = false;
             // turn tag into "Undetected" to prevent enemies from attacking the player
         }
     }

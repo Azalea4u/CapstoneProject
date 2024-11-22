@@ -31,6 +31,12 @@ public class Enemy_Goblin : EnemyBase, IAttackable
 
     protected override void Update()
     {
+        if (!isAlive)
+        {
+            HandleDeath();
+            return;
+        }
+
         if (!playerFound)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -109,7 +115,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     private IEnumerator DeathSequence()
     {
         // Wait for the animation to finish
-        yield return new WaitForSeconds(0.0f); // Adjust time based on your death animation length
+        yield return new WaitForSeconds(6.0f); // Adjust time based on your death animation length
 
         // Optionally, drop loot here
         Debug.Log("Dropped 10 gold");

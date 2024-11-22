@@ -65,11 +65,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name != "Start_Menu")
-        {
-            goldText.text = "Gold: " + Gold;
+        goldText.text = "Gold: " + Gold;
+
+        if (SceneManager.GetActiveScene().name == "Game_Level")
             levelText.text = "Level " + Level;
-            Debug.Log("Level " + Level);
+
+        if (SceneManager.GetActiveScene().name == "Rest_Level")
+        {
+            levelText.text = "Rest Level";
         }
     }
 

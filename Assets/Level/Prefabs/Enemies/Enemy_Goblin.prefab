@@ -308,6 +308,8 @@ MonoBehaviour:
   movementSpeed: 3
   facingDirection: 0
   initialDelayTime: 3
+  minDroppedGold: 15
+  maxDroppedGold: 40
   hasTarget: 0
   isAlive: 1
   playerHit: 0
@@ -496,8 +498,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isHit_Audio: {fileID: 4152495156558273018}
   footstep_Audio: {fileID: 2617617252528096945}
-  slash_audio: {fileID: 0}
-  slashMiss_Audio: {fileID: 0}
+  slash_audio: {fileID: 3129277400924359781}
+  slashMiss_Audio: {fileID: 5863620629245288573}
 --- !u!82 &2617617252528096945
 AudioSource:
   m_ObjectHideFlags: 0

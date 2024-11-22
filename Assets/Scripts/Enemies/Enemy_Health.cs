@@ -39,7 +39,7 @@ public class Enemy_Health : MonoBehaviour, IDamageable
         set
         {
             _isAlive = value;
-            enemy.isAlive = value;
+            enemy.isAlive = _isAlive;
             animator.SetBool("IsAlive", value);
 
             if (!value)
@@ -91,6 +91,7 @@ public class Enemy_Health : MonoBehaviour, IDamageable
             flyingEye.HandleDeath();
         }
         animator.SetBool("IsAlive", false);
+        enemy.DropLoot();
         enemy.enabled = false; // Disable the enemy behavior
     }
 
