@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8557a40bfb0d9a45b6d3a4e024a2fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallAboveLedgeDetected: 0
 --- !u!1 &2063931928921405977
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4593310991780854658}
   - component: {fileID: 2138205188050100801}
+  - component: {fileID: 490999500628837753}
   m_Layer: 3
   m_Name: FrontCollision
   m_TagString: Untagged
@@ -323,6 +325,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
+--- !u!114 &490999500628837753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2891411068184673133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8557a40bfb0d9a45b6d3a4e024a2fa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallAboveLedgeDetected: 0
 --- !u!1 &4534669147816550772
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6295834054370252879
 Transform:
   m_ObjectHideFlags: 0
@@ -372,7 +387,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.14
+  m_Intensity: 1.47
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -804,14 +819,6 @@ MonoBehaviour:
       count: 0
       MaxAllowed: 99
       icon: {fileID: 0}
-  storeSlotCount: 6
-  store:
-    slots: []
-    selectedSlot:
-      itemName: 
-      count: 0
-      MaxAllowed: 99
-      icon: {fileID: 0}
 --- !u!50 &659910686442138463
 Rigidbody2D:
   serializedVersion: 4
@@ -828,7 +835,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 1.5
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: abc88b4e6bf1df7449486bb3dbbfe944, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1127,6 +1134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a39868c1e438c841adb25c6e7175833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 6590205253365238009}
   footstep_Audio: {fileID: 3224838499450091423}
   dashing_Audio: {fileID: 7248870900417814294}
   jump_Audio: {fileID: 4585442640820382800}

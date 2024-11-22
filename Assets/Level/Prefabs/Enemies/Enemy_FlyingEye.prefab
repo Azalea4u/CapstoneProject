@@ -84,8 +84,8 @@ GameObject:
   - component: {fileID: 8323468334502291445}
   - component: {fileID: 177307131391691098}
   - component: {fileID: 5101967845130911101}
-  - component: {fileID: 8897648639664089148}
   - component: {fileID: 8046248584112654633}
+  - component: {fileID: 8897648639664089148}
   - component: {fileID: 8913713443661177828}
   - component: {fileID: 5817036453838948330}
   m_Layer: 6
@@ -152,7 +152,7 @@ MonoBehaviour:
   GroundCollider: {fileID: 797004748779703951}
   FrontCollider: {fileID: 1719728896751919971}
   CliffCollider: {fileID: 0}
-  DetectPlayerCollider: {fileID: 7457598414987905190}
+  DetectPlayerCollider: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
@@ -376,7 +376,7 @@ MonoBehaviour:
   flap_Audio: {fileID: 8046248584112654633}
   bite_audio: {fileID: 8913713443661177828}
   biteMiss_Audio: {fileID: 5817036453838948330}
---- !u!82 &8897648639664089148
+--- !u!82 &8046248584112654633
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -386,8 +386,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 472a24ad44146d94eab298814160d8d2, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: dc51840a565d95542a3aa18eae79ef36, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -397,7 +397,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -432,7 +432,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -472,7 +472,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &8046248584112654633
+--- !u!82 &8897648639664089148
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -482,9 +482,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dc51840a565d95542a3aa18eae79ef36, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: 472a24ad44146d94eab298814160d8d2, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.64
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -493,7 +493,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -528,7 +528,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -579,7 +579,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7bfe2a19645f96c4a983e4f90babc98e, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -589,7 +589,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -624,7 +624,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -675,7 +675,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1ab616bb70bfd2148b70d49cb75f284d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -685,7 +685,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -720,7 +720,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -770,7 +770,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2838556552534372305}
   - component: {fileID: 4029946873266094897}
-  - component: {fileID: 7457598414987905190}
+  - component: {fileID: 3528889582427353218}
   m_Layer: 7
   m_Name: DetectPlayer
   m_TagString: Untagged
@@ -806,8 +806,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DetectedColliders: []
---- !u!70 &7457598414987905190
-CapsuleCollider2D:
+--- !u!61 &3528889582427353218
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -821,7 +821,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1056759
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -838,9 +838,19 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.44710183, y: 0.02201271}
-  m_Size: {x: 1.8234539, y: 2.0676222}
-  m_Direction: 0
+  m_Offset: {x: 1.1625309, y: -0.2784214}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.3250618, y: 2.4165301}
+  m_EdgeRadius: 0
 --- !u!1 &5482923872889385422
 GameObject:
   m_ObjectHideFlags: 0

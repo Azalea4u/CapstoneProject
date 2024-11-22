@@ -8,9 +8,6 @@ using UnityEngine.UI;
 public class ShopManager : MonoBehaviour
 {
     [SerializeField] public int[,] shopItems = new int[4, 3]; // [ID, ItemID, Price
-    [SerializeField] public float coins;
-    [SerializeField] public TextMeshProUGUI coinsText;
-
     // Buttons
     [Header("Buttons")]
     [SerializeField] public Button[] buttons;
@@ -21,24 +18,25 @@ public class ShopManager : MonoBehaviour
 
     // Items To Buy
     [Header("Items")]
+    [SerializeField] public Item[] SellingItems;
     [SerializeField] public Item WheatSeeds;
     [SerializeField] public Item TomateSeeds;
 
     public InventoryManager inventoryManager;
 
+    private int gold;
+
     private void Start()
     {
         SelectSlot(sellSlot);
 
-        coinsText.text = coins.ToString();
-
         // ID's
-        shopItems[1, 1] = 1;
-        shopItems[1, 2] = 2;
+       // shopItems[1, 1] = 1;
+        //shopItems[1, 2] = 2;
 
         // Prices
-        shopItems[2, 1] = 15;
-        shopItems[2, 2] = 20;
+        //shopItems[2, 1] = 15;
+        //shopItems[2, 2] = 20;
 
         for (int i = 0; i < buttons.Length; i++)
         {
@@ -47,13 +45,17 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        //gold = GameManager.instance.Gold;
+    }
+
     public void BuyItem(int itemID)
     {
-        if (coins >= shopItems[2, itemID])
+        if (GameManager.instance.Gold >= shopItems[6, itemID])
         {
-            coins -= shopItems[2, itemID];
-            shopItems[3, itemID]++;
-            coinsText.text = coins.ToString();
+            GameManager.instance.Gold -= shopItems[6, itemID];
+            shopItems[7, itemID]++;
 
             switch (itemID)
             {

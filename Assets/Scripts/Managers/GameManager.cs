@@ -12,11 +12,9 @@ public class GameManager : MonoBehaviour
     public InventoryManager inventoryManager;
     public Player player;
 
-    [Header("GameMenu")]
-    public GameObject startMenu;
-
     public bool isGamePaused = false;
 
+    [Header("UI")]
     [SerializeField] private TMPro.TextMeshProUGUI levelText;
     //[SerializeField] private int level = 1;
     [SerializeField] private Int_SO currentLevel;
@@ -79,9 +77,10 @@ public class GameManager : MonoBehaviour
     {
         // Hide the start menu
         //startMenu.SetActive(false);
+        Load_Level("Game_Level");
 
         // Resume the game
-        ResumeGame();
+        //ResumeGame();
     }
 
     public void Enter_Store()

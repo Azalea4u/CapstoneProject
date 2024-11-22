@@ -249,46 +249,39 @@ public class LevelGeneration : MonoBehaviour
         {
             int randomIndex = Random.Range(0, regularRoomsToReplace.Length);
             GameObject roomToReplace = regularRoomsToReplace[randomIndex];
-        
-            // Check if the room has children before replacing it
-            if (roomToReplace.transform.childCount > 0)
+
+            // Check if the room has the RoomType component
+            RoomType roomType = roomToReplace.GetComponent<RoomType>();
+            if (roomType != null)
             {
                 Vector3 roomPosition = roomToReplace.transform.position;
                 Quaternion roomRotation = roomToReplace.transform.rotation;
 
-                int typeIndex = roomToReplace.GetComponent<RoomType>().type;
+                int typeIndex = roomType.type;
 
-                // Destroy the room and its children
-                foreach (Transform child in roomToReplace.transform)
+                // Validate the type index
+                if (typeIndex >= 0 && typeIndex < HeartRooms.Length)
                 {
-                    Destroy(child.gameObject);
-                }
-                Destroy(roomToReplace);
-
-                // Instantiate a heart room of the same type if it exists in the array
-                if (typeIndex >= 0)
-                {
+                    // Destroy the current room and replace it
+                    Destroy(roomToReplace);
                     Instantiate(HeartRooms[typeIndex], roomPosition, roomRotation);
                     heartRoomPlaced = true;
                 }
                 else
                 {
-                    Debug.LogError($"Heart room type {typeIndex} is out of bounds. Make sure HeartRooms array contains all room types.");
-                    // Fallback to a random heart room if the type is out of bounds
-                    int randomHeartRoom = Random.Range(0, HeartRooms.Length);
-                    Instantiate(HeartRooms[randomHeartRoom], roomPosition, roomRotation);
-                    heartRoomPlaced = true;
+                    Debug.LogError($"Room type index {typeIndex} is out of bounds for HeartRooms array.");
                 }
             }
             else
             {
-                Debug.LogWarning("Selected room either has no RoomType component or no children!");
+                Debug.LogWarning("Selected room does not have a RoomType component!");
             }
         }
         else
         {
-            Debug.LogWarning("No regular RegularRooms found to replace with a heart room.");
+            Debug.LogWarning("No regular rooms found to replace with a heart room.");
         }
     }
+
 
 }

@@ -109,9 +109,10 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     private IEnumerator DeathSequence()
     {
         // Wait for the animation to finish
-        yield return new WaitForSeconds(6.0f); // Adjust time based on your death animation length
+        yield return new WaitForSeconds(0.0f); // Adjust time based on your death animation length
 
         // Optionally, drop loot here
+        Debug.Log("Dropped 10 gold");
         DropLoot();
 
         // Destroy the goblin object

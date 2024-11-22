@@ -23,12 +23,10 @@ public class Store_UI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.E))
-        {
-            ToggleInventory();
-        }
+
     }
 
+    /*
     public void ToggleInventory()
     {
         // check if the inventory is active
@@ -45,4 +43,5 @@ public class Store_UI : MonoBehaviour
             GameManager.instance.Enter_Store();
         }
     }
+    */
 }

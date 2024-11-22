@@ -190,7 +190,7 @@ public class PlayerMovement : MonoBehaviour
 
             // ATTACK
             if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking 
-                && (SceneManager.GetActiveScene().name == "Game_Level"))
+                && (SceneManager.GetActiveScene().name != "Rest_Level"))
             {
                 Attack();
             }
