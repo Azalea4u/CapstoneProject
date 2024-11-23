@@ -31,6 +31,10 @@ public class EnemyBase : MonoBehaviour
     protected bool facingRight = true;
     public bool canMove = false;
 
+    [Header("Loot Drop")]
+    [SerializeField] private GameObject coinDrop;
+    protected bool droppedLoot;
+
     // STAGGER
     [SerializeField] protected float knockbackForce = 10.0f;
     [SerializeField] protected float staggerDuration = 0.5f;
@@ -153,10 +157,13 @@ public class EnemyBase : MonoBehaviour
         //random dropped gold between min and max
         int droppedGold = Random.Range(minDroppedGold, maxDroppedGold);
 
-        Debug.Log("Dropped " + droppedGold + " gold");
-        GameManager.instance.Gold += droppedGold;
-        // Implement loot dropping logic here
-        // For example:
+        //Debug.Log("Dropped " + droppedGold + " gold");
         // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
+
+        coinDrop.GetComponent<Coin_Pickup>().gold = droppedGold;
+        Instantiate(coinDrop, transform.position, Quaternion.identity);
+        Debug.Log("Coin Spawned");
+
+        droppedLoot = false;
     }
 }

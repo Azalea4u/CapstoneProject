@@ -5,7 +5,7 @@ using UnityEngine;
 public class Coin_Pickup : MonoBehaviour
 {
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private int gold = 5;
+    [SerializeField] public int gold = 5;
     [SerializeField] private Int_SO playerGold;
     [SerializeField] private AudioSource collectCoin;
 
@@ -14,10 +14,19 @@ public class Coin_Pickup : MonoBehaviour
         if (other.tag == "Player")
         {
             playerGold.value += gold;
+            GameManager.instance.GoldText.text = playerGold.value.ToString();
             Debug.Log("Player Gold: " + playerGold.value);
-            collectCoin.Play();
             //health.Heal(gold);
-            Destroy(gameObject);
+            StartCoroutine(LootDrop());
         }
     }
+
+    private IEnumerator LootDrop()
+    {
+        collectCoin.Play();
+        yield return new WaitForSeconds(0.4f);
+
+        Destroy(gameObject);
+    }
+
 }

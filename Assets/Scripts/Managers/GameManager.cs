@@ -14,11 +14,13 @@ public class GameManager : MonoBehaviour
 
     public bool isGamePaused = false;
 
+    [Header("Starting Game")]
+    [SerializeField] private bool firstGame = true;
+
     [Header("UI")]
-    [SerializeField] private TMPro.TextMeshProUGUI levelText;
-    //[SerializeField] private int level = 1;
+    [SerializeField] public TMPro.TextMeshProUGUI LevelText;
     [SerializeField] private Int_SO currentLevel;
-    [SerializeField] private TMPro.TextMeshProUGUI goldText;
+    [SerializeField] public TMPro.TextMeshProUGUI GoldText;
     [SerializeField] private Int_SO currentGold;
 
     private Vector3 crouchingOffset = new Vector3(0, -2, -10); // Adjust as needed for the crouch position
@@ -58,21 +60,23 @@ public class GameManager : MonoBehaviour
         //startMenu.SetActive(true);
         //PauseGame();
 
-        //Level = 1; 
-        //Gold = 200;
-
+        if (firstGame)
+        {
+            Level = 1; 
+            Gold = 200;
+        }
     }
 
     private void Update()
     {
-        goldText.text = "Gold: " + Gold;
+        GoldText.text = "Gold: " + currentGold;
 
         if (SceneManager.GetActiveScene().name == "Game_Level")
-            levelText.text = "Level " + Level;
+            LevelText.text = "Level " + Level;
 
         if (SceneManager.GetActiveScene().name == "Rest_Level")
         {
-            levelText.text = "Rest Level";
+            LevelText.text = "Rest Level";
         }
     }
 
@@ -123,12 +127,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Rest_Level");
     }
 
-    public void Load_NextLevel()
+    public void Load_GameLevel()
     {
+        firstGame = false;
         SceneManager.LoadScene("Game_Level");
 
         // update the level number
-        levelText.text = "Level " + Level++;
+        LevelText.text = "Level " + Level++;
     }
 
     public void Load_Level(string levelName)
@@ -137,11 +142,11 @@ public class GameManager : MonoBehaviour
 
         if (levelName == "Game_Level")
         {
-            levelText.text = "Level " + Level++;
+            LevelText.text = "Level " + Level++;
         }
         else
         {
-            levelText.text = "Rest Level";
+            LevelText.text = "Rest Level";
         }
     }
 

@@ -105,7 +105,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     }
 
     // Goblin-specific death behavior
-    private void HandleDeath()
+    public void HandleDeath()
     {
         StopMovement();
         // Add any additional death logic, like dropping items
@@ -114,24 +114,15 @@ public class Enemy_Goblin : EnemyBase, IAttackable
 
     private IEnumerator DeathSequence()
     {
+        // Optionally, drop loot here
+        if (!base.droppedLoot)
+            base.DropLoot();
+
         // Wait for the animation to finish
         yield return new WaitForSeconds(6.0f); // Adjust time based on your death animation length
 
-        // Optionally, drop loot here
-        Debug.Log("Dropped 10 gold");
-        DropLoot();
-
         // Destroy the goblin object
         Destroy(gameObject);
-    }
-
-    private void DropLoot()
-    {
-        Debug.Log("Dropped 10 gold");
-        GameManager.instance.Gold += 10;
-        // Implement loot dropping logic here
-        // For example:
-        // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
     }
 
     public override void Stagger(Vector2 knockbackDirection)

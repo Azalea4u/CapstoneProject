@@ -90,8 +90,12 @@ public class Enemy_Health : MonoBehaviour, IDamageable
         {
             flyingEye.HandleDeath();
         }
+        else if (enemy is Enemy_Goblin goblin)
+        {
+            goblin.HandleDeath();
+        }
         animator.SetBool("IsAlive", false);
-        enemy.DropLoot();
+        //enemy.DropLoot();
         enemy.enabled = false; // Disable the enemy behavior
     }
 
