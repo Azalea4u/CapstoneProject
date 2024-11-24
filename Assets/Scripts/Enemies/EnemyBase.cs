@@ -33,7 +33,7 @@ public class EnemyBase : MonoBehaviour
 
     [Header("Loot Drop")]
     [SerializeField] private GameObject coinDrop;
-    protected bool droppedLoot;
+    protected bool lootDropped;
 
     // STAGGER
     [SerializeField] protected float knockbackForce = 10.0f;
@@ -164,6 +164,6 @@ public class EnemyBase : MonoBehaviour
         Instantiate(coinDrop, transform.position, Quaternion.identity);
         Debug.Log("Coin Spawned");
 
-        droppedLoot = false;
+        lootDropped = true;
     }
 }

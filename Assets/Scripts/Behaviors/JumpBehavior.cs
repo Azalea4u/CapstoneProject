@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class JumpBehavior : StateMachineBehaviour
 {
@@ -15,7 +16,7 @@ public class JumpBehavior : StateMachineBehaviour
     {
         if (PlayerMovement.instance.isAttacking || (!PlayerMovement.instance.isGrounded && Input.GetKeyDown(KeyCode.Mouse0)))
         {
-             //PlayerMovement.instance.animator.Play("Air_Attack");
+            //PlayerMovement.instance.animator.Play("Air_Attack");
             //PlayerMovement.instance.animator.SetBool("Air_Attacking", true);
             //PlayerMovement.instance.inputReceived = false;
         }

@@ -17,12 +17,14 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     private Transform player;
     private bool playerFound = false;
 
+    #region IAttackable
     // IAttackable implementation
     public int AttackDamage => attackDamage;
     public float AttackCooldown => attackCooldown;
     public float AttackRange => attackRange;
     public Collider2D AttackPoint => attackPoint;
     public bool CanAttack { get => canAttack; set => canAttack = value; }
+    #endregion
 
     protected override void Start()
     {
@@ -115,7 +117,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
     private IEnumerator DeathSequence()
     {
         // Optionally, drop loot here
-        if (!base.droppedLoot)
+        if (!base.lootDropped)
             base.DropLoot();
 
         // Wait for the animation to finish

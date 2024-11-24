@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -16,8 +15,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Starting Game")]
     [SerializeField] private bool firstGame = true;
+    [SerializeField] private Bool_SO FirstGame;
 
     [Header("UI")]
+    [SerializeField] public GameObject GameOver_Panel;
     [SerializeField] public TMPro.TextMeshProUGUI LevelText;
     [SerializeField] private Int_SO currentLevel;
     [SerializeField] public TMPro.TextMeshProUGUI GoldText;
@@ -65,14 +66,21 @@ public class GameManager : MonoBehaviour
             Level = 1; 
             Gold = 200;
         }
+        GameOver_Panel.SetActive(false);
     }
 
     private void Update()
     {
         GoldText.text = "Gold: " + currentGold;
+        FirstGame.Value = firstGame;
 
         if (SceneManager.GetActiveScene().name == "Game_Level")
+        {
             LevelText.text = "Level " + Level;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         if (SceneManager.GetActiveScene().name == "Rest_Level")
         {
@@ -80,25 +88,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StartOver()
+    {
+        firstGame = true;
+        Load_Level("Start_Menu");
+    }
+
     public void StartGame()
     {
-        // Hide the start menu
-        //startMenu.SetActive(false);
         Load_Level("Game_Level");
-
-        // Resume the game
-        //ResumeGame();
     }
 
     public void Enter_Store()
     {
-        // Pause the game when entering the store
         PauseGame();
     }
 
     public void Exit_Store()
     {
-        // Resume the game when exiting the store
         ResumeGame();
     }
 

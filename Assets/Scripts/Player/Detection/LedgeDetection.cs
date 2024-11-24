@@ -5,10 +5,12 @@ using UnityEngine;
 public class LedgeDetection : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private BoxCollider2D frontCheck;
     [SerializeField] private CircleCollider2D ledgeCheck;
     [SerializeField] private LayerMask whatIsGround;
 
     public bool canDetectLedge = true;
+    public bool wallInFront;
 
     private void Update()
     {
@@ -16,22 +18,16 @@ public class LedgeDetection : MonoBehaviour
 
         if (WallDetection.instance.wallAboveLedgeDetected)
         {
-            //playerMovement.ledgeDetected = false;
             canDetectLedge = false; 
         }
         else
         {
             canDetectLedge = true;
         }
-    }
 
-    private void FixedUpdate()
-    {
-        if (canDetectLedge && !PlayerMovement.instance.isClimbing &&
-            (!WallDetection.instance.wallAboveLedgeDetected || !PlayerMovement.instance.wallDetected))
-        {
-            playerMovement.ledgeDetected = Physics2D.OverlapCircle(transform.position, ledgeCheck.radius, whatIsGround);
-        }
+        float area = frontCheck.size.x * frontCheck.size.y;
+
+        wallInFront = Physics2D.Raycast(frontCheck.bounds.center, Vector2.right, area, whatIsGround);
     }
 
     // check the BoxCollider2D OnTriggerEnter
@@ -39,8 +35,13 @@ public class LedgeDetection : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            //canDetectLedge = false;
-            //playerMovement.ledgeDetected = true;
+            PlayerMovement.instance.wallDetected = true;
+
+            if (!WallDetection.instance.wallAboveLedgeDetected && FrontColliderDetection.instance.frontWallDetected)
+            {
+                playerMovement.ledgeDetected = true;
+                PlayerMovement.instance.wallDetected = false;
+            }
         }
     }
 
@@ -48,7 +49,7 @@ public class LedgeDetection : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-           // canDetectLedge = true;
+            playerMovement.ledgeDetected = false;
         }
     }
 }                                                 

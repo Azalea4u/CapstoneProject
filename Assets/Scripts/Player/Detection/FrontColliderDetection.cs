@@ -2,23 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallDetection : MonoBehaviour
+public class FrontColliderDetection : MonoBehaviour
 {
-    public static WallDetection instance;
-
-    public bool wallAboveLedgeDetected;
+    public static FrontColliderDetection instance;
+    public bool frontWallDetected;
 
     private void Awake()
     {
         instance = this;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
+    {
+        PlayerMovement.instance.wallDetected = frontWallDetected;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            PlayerMovement.instance.wallDetected = true;
-            wallAboveLedgeDetected = true;
+            frontWallDetected = true;
         }
     }
 
@@ -26,8 +29,7 @@ public class WallDetection : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            PlayerMovement.instance.wallDetected = false;
-            wallAboveLedgeDetected = false;
+            frontWallDetected = false;
         }
     }
 }

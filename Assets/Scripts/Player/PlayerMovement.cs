@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Collision")]
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private CapsuleCollider2D GroundCollider;
-    [SerializeField] private CircleCollider2D FrontCollider;
+    [SerializeField] private BoxCollider2D FrontCollider;
     [SerializeField] private CircleCollider2D BackCollider;
     // REQUIRED TO BE PUBLIC
     public bool isGrounded;
@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         // SET DEATH
         if (!isAlive)
         {
-            animator.SetBool("IsAlive", false);
+            StartCoroutine(Death());
             return;
         }
 
@@ -133,6 +133,8 @@ public class PlayerMovement : MonoBehaviour
             StopMovement();
             return;
         }
+
+        canFlip = !isAttacking;
 
         // STOP MOVEMENT
         if (!isAlive || isStaggered)
@@ -382,10 +384,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckCollision()
     {
-        //isGrounded = Physics2D.Raycast(GroundCollider.bounds.center, Vector2.down, GroundCollider.size.x, whatIsGround);
         isGrounded = GroundCollider.IsTouchingLayers(whatIsGround);
 
-        //wallDetected = Physics2D.Raycast(FrontCollider.bounds.center, Vector2.right, FrontCollider.radius, whatIsGround) || Physics2D.Raycast(BackCollider.bounds.center, Vector2.left, BackCollider.radius, whatIsGround);
+        float area = FrontCollider.size.x * FrontCollider.size.y; // Calculate the area
+
+        if (FrontCollider.GetComponent<FrontColliderDetection>().frontWallDetected)
+            wallDetected = true;
+        else
+            wallDetected = false;
+            //Physics2D.Raycast(FrontCollider.bounds.center, Vector2.right, area, whatIsGround) 
+            //|| Physics2D.Raycast(BackCollider.bounds.center, Vector2.left, BackCollider.radius, whatIsGround);
 
         if (isClimbing)
         {
@@ -397,7 +405,7 @@ public class PlayerMovement : MonoBehaviour
     #region LEDGE
     private void CheckForLedge()
     {
-        if (ledgeDetected && canGrabLedge && !ledgePositionSet)
+        if (ledgeDetected && canGrabLedge && !ledgePositionSet && (!WallDetection.instance.wallAboveLedgeDetected && FrontColliderDetection.instance.frontWallDetected))
         {
             canGrabLedge = false;
             ledgePositionSet = true;
@@ -418,7 +426,6 @@ public class PlayerMovement : MonoBehaviour
                 climbOverPosition = new Vector2(ledgePosition.x - Left_offset2.x, ledgePosition.y + Left_offset2.y);
             }
             isClimbing = true;
-
         }
 
         if (isClimbing)
@@ -426,12 +433,13 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
             transform.position = climbBeginPosition;
             ledgeDetected = false;
-            // turn tag into "Undetected" to prevent enemies from attacking the player
         }
     }
 
     public void LedgeClimbOver()
     {
+        //FrontCollider.GetComponent<LedgeDetection>().canDetectLedge = false;
+
         canGrabLedge = false;
         climbingAllowed = true;
         isClimbing = false;
@@ -453,12 +461,13 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, -0.5f);
 
         // Reset the player's position slightly away from the wall to avoid getting stuck
-        transform.position -= new Vector3(facingRight ? 0.3f : -0.3f, 0f, 0f);
+        transform.position -= new Vector3(facingRight ? 0.3f : -0.3f, 0.3f, 0f);
         climbingAllowed = true;
 
         // Allow ledge grab after a short delay
         ledgeDetected = false;
-        Invoke(nameof(AllowLedgeGrab), 1.5f);
+        if (isGrounded)
+            Invoke(nameof(AllowLedgeGrab), 1.5f);
     }
 
     private void AllowLedgeGrab()
@@ -490,4 +499,14 @@ public class PlayerMovement : MonoBehaviour
         isStaggered = false; // Re-enable enemy input
     }
     #endregion
+
+    private IEnumerator Death()
+    {
+        StopMovement();
+        animator.Play("Death");
+        animator.SetBool("IsAlive", false);
+
+        yield return new WaitForSeconds(0.75f);
+        GameManager.instance.GameOver_Panel.SetActive(true);
+    }
 }

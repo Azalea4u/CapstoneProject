@@ -11,20 +11,14 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private Collider2D attackPoint;
+    [SerializeField] private Collider2D RangeToAttack;
     [SerializeField] private LayerMask playerLayer;
 
     public bool canAttack = true;
     private Transform player;
     private bool playerFound = false;
 
-    // IAttackable implementation
-    public int AttackDamage => attackDamage;
-    public float AttackCooldown => attackCooldown;
-    public float AttackRange => attackRange;
-    public Collider2D AttackPoint => attackPoint;
-    public bool CanAttack { get => canAttack; set => canAttack = value; }
-
-    [Header("Collider")]
+    [Header("Life Collider")]
     [SerializeField] private CapsuleCollider2D aliveCollider;
     [SerializeField] private BoxCollider2D deadCollider;
 
@@ -33,6 +27,15 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
     private Transform nextWaypoint;
     public int waypointNum = 0;
     public float waypointReachedDistance = 0.1f;
+
+    #region IAttackable
+    // IAttackable implementation
+    public int AttackDamage => attackDamage;
+    public float AttackCooldown => attackCooldown;
+    public float AttackRange => attackRange;
+    public Collider2D AttackPoint => attackPoint;
+    public bool CanAttack { get => canAttack; set => canAttack = value; }
+    #endregion
 
     protected override void Start()
     {
@@ -61,26 +64,21 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
         base.Update();
 
         hasTarget = attackZone.DetectedColliders.Count > 0;
-        //Debug.Log("Has target: " + hasTarget);
-        //Debug.Log("Number of Colliders detected" + attackZone.DetectedColliders.Count);
-
         CheckPlayerInRange();
-        if (hasTarget && canAttack)
-        {
-            Attack();
-        }
     }
 
     protected override void FixedUpdate()
     {
-        //base.FixedUpdate();
-
         if (isAlive)
         {
-            if (canMove && !hasTarget)
+            if (canMove)
             {
-                Flight();
                 canFlip = true;
+                if (!hasTarget)
+                    Flight();
+                else if (hasTarget && canAttack)
+                    FlyTowardsPlayer();
+
             }
             else
             {
@@ -134,7 +132,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
         if (player != null)
         {
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-            hasTarget = distanceToPlayer <= attackRange;
+            //hasTarget = distanceToPlayer <= attackRange;
 
             // Flip towards player if in range
             if (hasTarget)
@@ -148,57 +146,23 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
         }
     }
 
-    protected override void Move()
+    private void FlyTowardsPlayer()
     {
-        if (!hasTarget)
+        if (player == null) return; // Ensure the player exists
+
+        // Calculate direction to player
+        Vector2 directionToPlayer = (player.position - transform.position).normalized;
+
+        // Move toward the player
+        rb.velocity = directionToPlayer * movementSpeed;
+
+        // Flip the sprite to face the player
+        UpdateDirection();
+
+        if (RangeToAttack.GetComponent<DetectionZone>().DetectedColliders.Count > 0)
         {
-            base.Move();
+            Attack();
         }
-        else
-        {
-            // Stop moving when in attack range
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
-    }
-
-    #region DEATH
-    public void HandleDeath()
-    {
-
-        StopMovement();
-        // Add any additional death logic, like dropping items
-        StartCoroutine(DeathSequence());
-    }
-
-    private IEnumerator DeathSequence()
-    {
-        aliveCollider.enabled = false;
-        deadCollider.enabled = true;
-        rb.gravityScale = 2.0f;
-        // Wait for the animation to finish
-        yield return new WaitForSeconds(3.0f); // Adjust time based on your death animation length
-
-        // Optionally, drop loot here
-        DropLoot();
-
-        // Destroy the goblin object
-        Destroy(gameObject);
-    }
-    #endregion
-
-    private void DropLoot()
-    {
-        Debug.Log("Dropped 20 gold");
-        GameManager.instance.Gold += 20;
-        // Implement loot dropping logic here
-        // For example:
-        // Instantiate(goldCoinPrefab, transform.position, Quaternion.identity);
-    }
-
-    public override void Stagger(Vector2 knockbackDirection)
-    {
-        base.Stagger(knockbackDirection);
-        animator.SetTrigger("TakeDamage");
     }
 
     #region ATTACK
@@ -213,6 +177,16 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
 
     private IEnumerator WaitForAttackCooldown()
     {
+        // move back a bit before going to attack
+        if (player != null)
+        {
+            // Allow some time for the attack animation to finish
+            yield return new WaitForSeconds(0.5f);
+            // move away from player
+            Vector2 directionAwayFromPlayer = ((Vector2)(transform.position - player.position).normalized + Vector2.up).normalized;
+            rb.velocity = directionAwayFromPlayer * movementSpeed;
+        }
+
         yield return new WaitForSeconds(AttackCooldown);
 
         // Reset attack states
@@ -259,4 +233,36 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
         }
     }
     #endregion
+
+    #region DEATH
+    public void HandleDeath()
+    {
+
+        StopMovement();
+        // Add any additional death logic, like dropping items
+        StartCoroutine(DeathSequence());
+    }
+
+    private IEnumerator DeathSequence()
+    {
+        aliveCollider.enabled = false;
+        deadCollider.enabled = true;
+        rb.gravityScale = 2.0f;
+        // Wait for the animation to finish
+        yield return new WaitForSeconds(3.0f); // Adjust time based on your death animation length
+
+        // Optionally, drop loot here
+        DropLoot();
+
+        // Destroy the goblin object
+        Destroy(gameObject);
+    }
+    #endregion
+
+    public override void Stagger(Vector2 knockbackDirection)
+    {
+        base.Stagger(knockbackDirection);
+        animator.SetTrigger("TakeDamage");
+    }
+
 }

@@ -45,11 +45,11 @@ PolygonCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -108,8 +108,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4660073179382974454}
+  - component: {fileID: 2388858532125913095}
+  - component: {fileID: 4180055377073249829}
   - component: {fileID: 4273029492310553840}
-  - component: {fileID: 1625502931981861343}
   m_Layer: 3
   m_Name: WallCollision
   m_TagString: Untagged
@@ -132,6 +133,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9196538709246006387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2388858532125913095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783911936772481936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec90a043f109959458fd8c57b2592726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DetectedColliders: []
+--- !u!114 &4180055377073249829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783911936772481936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af947f6bace012b4b8a69846dbc85b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallAboveCollider: {fileID: 4273029492310553840}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 1024
+  waitTime: 0.2
+  wallAboveLedgeDetected: 0
 --- !u!61 &4273029492310553840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,7 +176,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -164,7 +196,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.17864165, y: 0.92427164}
+  m_Offset: {x: 0.42984903, y: 1.0773681}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -175,21 +207,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6427167, y: 0.29977453}
+  m_Size: {x: 1.1451313, y: 0.5286722}
   m_EdgeRadius: 0
---- !u!114 &1625502931981861343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783911936772481936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8557a40bfb0d9a45b6d3a4e024a2fa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallAboveLedgeDetected: 0
 --- !u!1 &2063931928921405977
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,8 +285,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4593310991780854658}
-  - component: {fileID: 2138205188050100801}
-  - component: {fileID: 490999500628837753}
+  - component: {fileID: 2586898567413956349}
+  - component: {fileID: 5542241674619180282}
   m_Layer: 3
   m_Name: FrontCollision
   m_TagString: Untagged
@@ -284,14 +303,14 @@ Transform:
   m_GameObject: {fileID: 2891411068184673133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.721, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9196538709246006387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &2138205188050100801
-CircleCollider2D:
+--- !u!61 &2586898567413956349
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -299,7 +318,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 2891411068184673133}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: abc88b4e6bf1df7449486bb3dbbfe944, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -322,10 +341,20 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.16120553, y: -0.6880728}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.25
---- !u!114 &490999500628837753
+  m_Size: {x: 0.5330529, y: 1.5248744}
+  m_EdgeRadius: 0
+--- !u!114 &5542241674619180282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,10 +363,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2891411068184673133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8557a40bfb0d9a45b6d3a4e024a2fa5, type: 3}
+  m_Script: {fileID: 11500000, guid: c30bd9d8a8ddb3047853aa3f41b1e985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallAboveLedgeDetected: 0
+  frontWallDetected: 0
 --- !u!1 &4534669147816550772
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,11 +494,11 @@ PolygonCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -527,7 +556,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2228631351938076156}
-  - component: {fileID: 4766614501566114587}
+  - component: {fileID: 5991871163670836062}
   - component: {fileID: 5340675863546709182}
   - component: {fileID: 8708873942163387208}
   m_Layer: 3
@@ -552,7 +581,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9196538709246006387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4766614501566114587
+--- !u!114 &5991871163670836062
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -561,15 +590,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5896544121221884434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72c2e4fbdc550aa4e813b684b33b49ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 279d927f1e10fee40b1b11febdbf067d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 8961119042189131128}
+  frontCheck: {fileID: 2586898567413956349}
   ledgeCheck: {fileID: 5340675863546709182}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
   canDetectLedge: 1
+  wallInFront: 0
 --- !u!58 &5340675863546709182
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -663,7 +694,7 @@ GameObject:
   - component: {fileID: 7248870900417814294}
   - component: {fileID: 4337227908643115712}
   - component: {fileID: 9044708780398231832}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -685,9 +716,9 @@ Transform:
   m_Children:
   - {fileID: 790101629078760507}
   - {fileID: 4593310991780854658}
-  - {fileID: 4930055835992276175}
   - {fileID: 4660073179382974454}
   - {fileID: 2228631351938076156}
+  - {fileID: 4930055835992276175}
   - {fileID: 7417035625343603509}
   - {fileID: 8005624240534483555}
   - {fileID: 1499800584352384320}
@@ -747,7 +778,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   GroundCollider: {fileID: 6566451130094213994}
-  FrontCollider: {fileID: 2138205188050100801}
+  FrontCollider: {fileID: 2586898567413956349}
   BackCollider: {fileID: 2897118172316307446}
   isGrounded: 1
   wallDetected: 0
@@ -860,7 +891,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 192
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -955,7 +986,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 2
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2247,11 +2278,11 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
