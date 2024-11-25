@@ -237,9 +237,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
     #region DEATH
     public void HandleDeath()
     {
-
         StopMovement();
-        // Add any additional death logic, like dropping items
         StartCoroutine(DeathSequence());
     }
 
@@ -248,11 +246,14 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
         aliveCollider.enabled = false;
         deadCollider.enabled = true;
         rb.gravityScale = 2.0f;
-        // Wait for the animation to finish
-        yield return new WaitForSeconds(3.0f); // Adjust time based on your death animation length
 
         // Optionally, drop loot here
-        DropLoot();
+        if (!base.lootDropped)
+            base.DropLoot();
+
+        // Wait for the animation to finish
+        // Adjust time based on your death animation length
+        yield return new WaitForSeconds(3.0f);
 
         // Destroy the goblin object
         Destroy(gameObject);

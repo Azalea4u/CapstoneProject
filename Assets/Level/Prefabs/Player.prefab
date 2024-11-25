@@ -99,116 +99,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 1
---- !u!1 &1783911936772481936
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4660073179382974454}
-  - component: {fileID: 2388858532125913095}
-  - component: {fileID: 4180055377073249829}
-  - component: {fileID: 4273029492310553840}
-  m_Layer: 3
-  m_Name: WallCollision
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4660073179382974454
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783911936772481936}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.05, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9196538709246006387}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2388858532125913095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783911936772481936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec90a043f109959458fd8c57b2592726, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DetectedColliders: []
---- !u!114 &4180055377073249829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783911936772481936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af947f6bace012b4b8a69846dbc85b1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallAboveCollider: {fileID: 4273029492310553840}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 1024
-  waitTime: 0.2
-  wallAboveLedgeDetected: 0
---- !u!61 &4273029492310553840
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783911936772481936}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 1024
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.42984903, y: 1.0773681}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.1451313, y: 0.5286722}
-  m_EdgeRadius: 0
 --- !u!1 &2063931928921405977
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +231,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.16120553, y: -0.6880728}
+  m_Offset: {x: 0.07147133, y: -0.6880728}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -352,7 +242,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5330529, y: 1.5248744}
+  m_Size: {x: 0.35358453, y: 1.5248744}
   m_EdgeRadius: 0
 --- !u!114 &5542241674619180282
 MonoBehaviour:
@@ -557,7 +447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2228631351938076156}
   - component: {fileID: 5991871163670836062}
-  - component: {fileID: 5340675863546709182}
+  - component: {fileID: 5214540971701567509}
   - component: {fileID: 8708873942163387208}
   m_Layer: 3
   m_Name: LedgeCheck
@@ -575,7 +465,7 @@ Transform:
   m_GameObject: {fileID: 5896544121221884434}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.721, z: 0}
+  m_LocalPosition: {x: 0.557, y: 0.782, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -594,15 +484,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 8961119042189131128}
-  frontCheck: {fileID: 2586898567413956349}
-  ledgeCheck: {fileID: 5340675863546709182}
+  wallCheck: {fileID: 2586898567413956349}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
-  canDetectLedge: 1
-  wallInFront: 0
---- !u!58 &5340675863546709182
-CircleCollider2D:
+  radius: 0.2
+--- !u!61 &5214540971701567509
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -633,9 +521,19 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.09754813, y: 0.18952212}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Size: {x: 0.80490375, y: 0.29765326}
+  m_EdgeRadius: 0
 --- !u!50 &8708873942163387208
 Rigidbody2D:
   serializedVersion: 4
@@ -716,7 +614,6 @@ Transform:
   m_Children:
   - {fileID: 790101629078760507}
   - {fileID: 4593310991780854658}
-  - {fileID: 4660073179382974454}
   - {fileID: 2228631351938076156}
   - {fileID: 4930055835992276175}
   - {fileID: 7417035625343603509}
@@ -740,7 +637,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 2424002686675013822}
   playerMovement: {fileID: 8961119042189131128}
   playerHealth: {fileID: 2931341396314028155}
-  inventoryMenu_UI: {fileID: 0}
+  inventoryMenu_UI: {fileID: 6590205253365238009}
 --- !u!114 &8961119042189131128
 MonoBehaviour:
   m_ObjectHideFlags: 0

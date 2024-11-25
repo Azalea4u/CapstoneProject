@@ -31,8 +31,6 @@ public class TimeManager : MonoBehaviour
 
     void Start()
     {
-        // timestamp = new GameTimestamp(1, 1, 1, 0);
-        //StartCoroutine(TimeUpdate());
         PauseTime();
     }
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5327258062375356058}
   m_Layer: 9
   m_Name: GoblinRoomLRT_Normal
-  m_TagString: EnemyRoom
+  m_TagString: Room
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +60,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 10495

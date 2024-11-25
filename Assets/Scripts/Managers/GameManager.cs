@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         else
         {
             instance = this;
-        }        
+        }
         DontDestroyOnLoad(this.gameObject);
         
         itemManager = GetComponent<ItemManager>();
@@ -63,16 +63,16 @@ public class GameManager : MonoBehaviour
 
         if (firstGame)
         {
-            Level = 1; 
-            Gold = 200;
+            //Level = 1; 
+            //Gold = 200;
         }
         GameOver_Panel.SetActive(false);
     }
 
     private void Update()
     {
-        GoldText.text = "Gold: " + currentGold;
-        FirstGame.Value = firstGame;
+        GoldText.text = currentGold.value.ToString();
+        firstGame = FirstGame.Value;
 
         if (SceneManager.GetActiveScene().name == "Game_Level")
         {

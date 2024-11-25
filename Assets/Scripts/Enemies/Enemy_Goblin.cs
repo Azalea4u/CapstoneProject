@@ -106,33 +106,6 @@ public class Enemy_Goblin : EnemyBase, IAttackable
         }
     }
 
-    // Goblin-specific death behavior
-    public void HandleDeath()
-    {
-        StopMovement();
-        // Add any additional death logic, like dropping items
-        StartCoroutine(DeathSequence());
-    }
-
-    private IEnumerator DeathSequence()
-    {
-        // Optionally, drop loot here
-        if (!base.lootDropped)
-            base.DropLoot();
-
-        // Wait for the animation to finish
-        yield return new WaitForSeconds(6.0f); // Adjust time based on your death animation length
-
-        // Destroy the goblin object
-        Destroy(gameObject);
-    }
-
-    public override void Stagger(Vector2 knockbackDirection)
-    {
-        base.Stagger(knockbackDirection);
-        animator.SetTrigger("TakeDamage");
-    }
-
     #region ATTACK
     public void Attack()
     {
@@ -191,4 +164,33 @@ public class Enemy_Goblin : EnemyBase, IAttackable
         }
     }
     #endregion
+
+    #region DEATH
+    public void HandleDeath()
+    {
+        StopMovement();
+        StartCoroutine(DeathSequence());
+    }
+
+    private IEnumerator DeathSequence()
+    {
+        // Optionally, drop loot here
+        if (!base.lootDropped)
+            base.DropLoot();
+
+        // Wait for the animation to finish
+        // Adjust time based on your death animation length
+        yield return new WaitForSeconds(6.0f);
+
+        // Destroy the goblin object
+        Destroy(gameObject);
+    }
+    #endregion
+
+    public override void Stagger(Vector2 knockbackDirection)
+    {
+        base.Stagger(knockbackDirection);
+        animator.SetTrigger("TakeDamage");
+    }
+
 }

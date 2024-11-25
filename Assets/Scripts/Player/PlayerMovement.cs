@@ -99,22 +99,14 @@ public class PlayerMovement : MonoBehaviour
         facingDirection = Input.GetAxis("Horizontal");
         var dashInput = Input.GetButtonDown("Dash");
 
+        CheckInputs();
+
         if (isGrounded)
         {
             canDash = true;
             canCrouch = true;
             isClimbing = false;
         }
-
-        // CHECK COLLISION
-        if (!isClimbing)
-        {
-            CheckDirection();
-        }
-        CheckCollision();
-        CheckInputs();
-        CheckDash();
-        CheckForLedge();
 
         // ANIMATOR
         animator.SetBool("IsMoving", facingDirection != 0);
@@ -133,6 +125,15 @@ public class PlayerMovement : MonoBehaviour
             StopMovement();
             return;
         }
+
+        // CHECK COLLISION
+        if (!isClimbing)
+        {
+            CheckDirection();
+        }
+        CheckCollision();
+        CheckDash();
+        CheckForLedge();
 
         canFlip = !isAttacking;
 
@@ -168,6 +169,7 @@ public class PlayerMovement : MonoBehaviour
     private void StopMovement()
     {
         rb.velocity = Vector2.zero;
+        rb.gravityScale = 1;
         facingDirection = 0;
         canFlip = false;
         canMove = false;
@@ -239,7 +241,6 @@ public class PlayerMovement : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftControl))
             {
-                // let go of ledge
                 LedgeFallDown();
             }
         }
@@ -334,12 +335,11 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
+                if (dashProgress >= 1f)
+                {
+                    EndDash(targetPosition);
+                }
                 transform.position = targetPosition;
-            }
-
-            if (dashProgress >= 1f)
-            {
-                EndDash(targetPosition);
             }
         }
         else
@@ -384,33 +384,42 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckCollision()
     {
-        isGrounded = GroundCollider.IsTouchingLayers(whatIsGround);
+        isGrounded = Physics2D.OverlapArea(
+            GroundCollider.bounds.min,
+            GroundCollider.bounds.max,
+            whatIsGround
+        );
 
-        float area = FrontCollider.size.x * FrontCollider.size.y; // Calculate the area
-
-        if (FrontCollider.GetComponent<FrontColliderDetection>().frontWallDetected)
-            wallDetected = true;
-        else
-            wallDetected = false;
-            //Physics2D.Raycast(FrontCollider.bounds.center, Vector2.right, area, whatIsGround) 
-            //|| Physics2D.Raycast(BackCollider.bounds.center, Vector2.left, BackCollider.radius, whatIsGround);
+        wallDetected = Physics2D.OverlapArea(
+            FrontCollider.bounds.min,
+            FrontCollider.bounds.max,
+            whatIsGround
+        );
 
         if (isClimbing)
         {
             playerHealth.isInvincible = true;
         }
-
     }
 
     #region LEDGE
     private void CheckForLedge()
     {
-        if (ledgeDetected && canGrabLedge && !ledgePositionSet && (!WallDetection.instance.wallAboveLedgeDetected && FrontColliderDetection.instance.frontWallDetected))
+        if (ledgeDetected && canGrabLedge && !ledgePositionSet)
         {
+            // Validate ledge with additional ground check
+            Vector2 ledgePosition = GetComponentInChildren<LedgeDetection>().transform.position;
+            RaycastHit2D groundHit = Physics2D.Raycast(ledgePosition + Vector2.down * 0.1f, Vector2.down, 0.2f, whatIsGround);
+
+            if (groundHit.collider == null)
+            {
+                Debug.Log("Invalid ledge detected. No ground below.");
+                ledgeDetected = false;
+                return;
+            }
+
             canGrabLedge = false;
             ledgePositionSet = true;
-
-            Vector2 ledgePosition = GetComponentInChildren<LedgeDetection>().transform.position;
 
             standingCollider.enabled = false;
             crouchCollider.enabled = true;
@@ -425,6 +434,7 @@ public class PlayerMovement : MonoBehaviour
                 climbBeginPosition = new Vector2(ledgePosition.x - Left_offset1.x, ledgePosition.y + Left_offset1.y);
                 climbOverPosition = new Vector2(ledgePosition.x - Left_offset2.x, ledgePosition.y + Left_offset2.y);
             }
+
             isClimbing = true;
         }
 
@@ -436,14 +446,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     public void LedgeClimbOver()
     {
-        //FrontCollider.GetComponent<LedgeDetection>().canDetectLedge = false;
+        // Validate climb over position
+        RaycastHit2D hit = Physics2D.Raycast(climbOverPosition, Vector2.down, 1f, whatIsGround);
+        if (hit.collider == null)
+        {
+            Debug.LogWarning("No ground detected at climb over position!");
+            return;
+        }
 
         canGrabLedge = false;
         climbingAllowed = true;
         isClimbing = false;
         transform.position = climbOverPosition;
+        rb.gravityScale = 1;
 
         climbBeginPosition = Vector2.zero;
         climbOverPosition = Vector2.zero;
@@ -456,6 +474,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isClimbing = false;
         ledgePositionSet = false;
+        rb.gravityScale = 1;
 
         // Apply a small downward force to initiate the fall
         rb.velocity = new Vector2(rb.velocity.x, -0.5f);
@@ -466,7 +485,6 @@ public class PlayerMovement : MonoBehaviour
 
         // Allow ledge grab after a short delay
         ledgeDetected = false;
-        if (isGrounded)
             Invoke(nameof(AllowLedgeGrab), 1.5f);
     }
 

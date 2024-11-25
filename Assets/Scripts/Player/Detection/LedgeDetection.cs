@@ -5,43 +5,72 @@ using UnityEngine;
 public class LedgeDetection : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private BoxCollider2D frontCheck;
-    [SerializeField] private CircleCollider2D ledgeCheck;
+    [SerializeField] private BoxCollider2D wallCheck; // To verify wall above ledge
     [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private float radius; // Radius for ledge detection
+    [SerializeField] private float ceilingCheckDistance = 1f; // Distance to check for ceilings
 
-    public bool canDetectLedge = true;
-    public bool wallInFront;
+    [SerializeField] private bool canDetectLedge = true;
+
+    private Rigidbody2D rb;
+
+    private void Awake()
+    {
+        rb = playerMovement.GetComponent<Rigidbody2D>();
+    }
 
     private void Update()
     {
-        playerMovement.canGrabLedge = canDetectLedge;
-
-        if (WallDetection.instance.wallAboveLedgeDetected)
+        if (canDetectLedge)
         {
-            canDetectLedge = false; 
-        }
-        else
-        {
-            canDetectLedge = true;
-        }
+            // Check for potential ledge
+            Collider2D ledgeCollider = Physics2D.OverlapCircle(transform.position, radius, whatIsGround);
 
-        float area = frontCheck.size.x * frontCheck.size.y;
-
-        wallInFront = Physics2D.Raycast(frontCheck.bounds.center, Vector2.right, area, whatIsGround);
+            if (ledgeCollider != null && IsValidLedge())
+            {
+                playerMovement.ledgeDetected = true;
+                LockPlayerOnLedge();
+            }
+            else
+            {
+                playerMovement.ledgeDetected = false;
+                ReleasePlayerFromLedge();
+            }
+        }
     }
 
-    // check the BoxCollider2D OnTriggerEnter
-    private void OnTriggerStay2D(Collider2D collision)
+    private bool IsValidLedge()
+    {
+        RaycastHit2D ceilingHit = Physics2D.Raycast(transform.position, Vector2.up, ceilingCheckDistance, whatIsGround);
+        RaycastHit2D groundHit = Physics2D.Raycast(transform.position + Vector3.down * 0.1f, Vector2.down, 0.2f, whatIsGround);
+
+        Debug.Log($"Ceiling Above: {ceilingHit.collider != null}, Ground Below: {groundHit.collider != null}");
+
+        return groundHit.collider != null && ceilingHit.collider == null;
+    }
+
+    private void LockPlayerOnLedge()
+    {
+        if (rb != null)
+        {
+            rb.gravityScale = 0; // Disable gravity
+            rb.velocity = Vector2.zero; // Stop all movement
+        }
+    }
+
+    private void ReleasePlayerFromLedge()
+    {
+        if (rb != null)
+        {
+            rb.gravityScale = 1; // Restore gravity
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            PlayerMovement.instance.wallDetected = true;
-
-            if (!WallDetection.instance.wallAboveLedgeDetected && FrontColliderDetection.instance.frontWallDetected)
-            {
-                playerMovement.ledgeDetected = true;
-                PlayerMovement.instance.wallDetected = false;
-            }
+            canDetectLedge = false;
         }
     }
 
@@ -49,7 +78,21 @@ public class LedgeDetection : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            playerMovement.ledgeDetected = false;
+            canDetectLedge = true;
         }
     }
-}                                                 
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, radius);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.up * ceilingCheckDistance);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position + Vector3.down * 0.1f, transform.position + Vector3.down * 0.3f);
+    }
+
+}
+

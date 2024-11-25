@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         set
         {
             _health = Mathf.Clamp(value, 0, 99);
+            _currentHealthSO.value = _health;
             if (_health <= 0)
             {
                 IsAlive = false;
@@ -69,6 +70,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             Death();
         }
+        UpdateHealthDisplay();
     }
 
     public bool TakeDamage(int damage)
@@ -83,7 +85,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
                 player.Stagger(new Vector2(-1, 0));
                 animator.SetTrigger("TakeDamage");
             }
-
             return true;
         }
 
@@ -104,6 +105,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     private void UpdateHealthDisplay()
     {
-        healthText.text = Health.ToString();
+        healthText.text = _currentHealthSO.value.ToString();
     }
 }

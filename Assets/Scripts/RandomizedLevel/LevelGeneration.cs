@@ -282,6 +282,4 @@ public class LevelGeneration : MonoBehaviour
             Debug.LogWarning("No regular rooms found to replace with a heart room.");
         }
     }
-
-
 }
