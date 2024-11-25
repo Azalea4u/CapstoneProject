@@ -5,11 +5,9 @@ using UnityEngine;
 public class LedgeDetection : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private BoxCollider2D wallCheck; // To verify wall above ledge
     [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private float radius; // Radius for ledge detection
-    [SerializeField] private float ceilingCheckDistance = 1f; // Distance to check for ceilings
-
+    [SerializeField] private float radius = 0.15f;
+    [SerializeField] private float ceilingCheckDistance = 1f;
     [SerializeField] private bool canDetectLedge = true;
 
     private Rigidbody2D rb;

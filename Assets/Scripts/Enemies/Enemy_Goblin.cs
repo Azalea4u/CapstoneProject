@@ -52,6 +52,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
         hasTarget = attackZone.DetectedColliders.Count > 0;
 
         CheckPlayerInRange();
+        
         if (hasTarget && canAttack && !playerHit)
         {
             Attack();
@@ -95,14 +96,14 @@ public class Enemy_Goblin : EnemyBase, IAttackable
 
     protected override void Move()
     {
-        if (!hasTarget)
+        if (!hasTarget && !GameManager.instance.isGamePaused)
         {
             base.Move();
         }
         else
         {
             // Stop moving when in attack range
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = new Vector2(0, 0);
         }
     }
 

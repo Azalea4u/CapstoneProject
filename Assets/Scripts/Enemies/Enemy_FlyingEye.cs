@@ -71,7 +71,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
     {
         if (isAlive)
         {
-            if (canMove)
+            if (canMove && !GameManager.instance.isGamePaused)
             {
                 canFlip = true;
                 if (!hasTarget)
@@ -82,7 +82,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
             }
             else
             {
-                rb.velocity = new Vector2(0, rb.velocity.y);
+                rb.velocity = new Vector2(0, 0);
                 canFlip = false;
             }
         }

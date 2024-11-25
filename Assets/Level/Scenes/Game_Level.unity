@@ -519,6 +519,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 173275113}
     - target: {fileID: 3923190678777436941, guid: 9fc0a677039bfae4f932570401dd6fc2, type: 3}
+      propertyPath: PausedMenu_Panel
+      value: 
+      objectReference: {fileID: 1424458498}
+    - target: {fileID: 3923190678777436941, guid: 9fc0a677039bfae4f932570401dd6fc2, type: 3}
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 223990617}
@@ -59066,6 +59070,11 @@ MonoBehaviour:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6590205253365238009, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
   m_PrefabInstance: {fileID: 223990614}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1424458498 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2788634454685858276, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
+  m_PrefabInstance: {fileID: 660522797}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1504455646
 GameObject:
