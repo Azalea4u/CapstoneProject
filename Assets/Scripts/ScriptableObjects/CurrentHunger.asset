@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d48db4a8414b9304f98fef21d5d61c88, type: 3}
-  m_Name: Tomato
+  m_Script: {fileID: 11500000, guid: 3f18f52bd73ee1340b59924bcccce642, type: 3}
+  m_Name: CurrentHunger
   m_EditorClassIdentifier: 
-  ItemName: Tomato
-  Icon: {fileID: 340058856, guid: 2bf3970fdb8a3804f9dd20db59f69085, type: 3}
-  BuyPrice: 0
-  SellPrice: 0
-  Description: Description of Item
+  Hunger: 100
+  HungerSpeed: 1
+  JustAte: 0

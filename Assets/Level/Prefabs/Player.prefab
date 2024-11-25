@@ -176,7 +176,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4593310991780854658}
   - component: {fileID: 2586898567413956349}
-  - component: {fileID: 5542241674619180282}
   m_Layer: 3
   m_Name: FrontCollision
   m_TagString: Untagged
@@ -193,7 +192,7 @@ Transform:
   m_GameObject: {fileID: 2891411068184673133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.721, z: 0}
+  m_LocalPosition: {x: 0.561, y: 0.721, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -231,7 +230,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07147133, y: -0.6880728}
+  m_Offset: {x: 0.25745898, y: -0.733204}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -242,21 +241,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.35358453, y: 1.5248744}
+  m_Size: {x: 0.8574213, y: 1.434612}
   m_EdgeRadius: 0
---- !u!114 &5542241674619180282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2891411068184673133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c30bd9d8a8ddb3047853aa3f41b1e985, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frontWallDetected: 0
 --- !u!1 &4534669147816550772
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +451,7 @@ Transform:
   m_GameObject: {fileID: 5896544121221884434}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.557, y: 0.782, z: 0}
+  m_LocalPosition: {x: 0.561, y: 0.745, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -488,7 +474,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
-  radius: 0.2
+  radius: 0.15
+  ceilingCheckDistance: 1
+  canDetectLedge: 1
 --- !u!61 &5214540971701567509
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -501,7 +489,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -637,7 +625,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 2424002686675013822}
   playerMovement: {fileID: 8961119042189131128}
   playerHealth: {fileID: 2931341396314028155}
-  inventoryMenu_UI: {fileID: 6590205253365238009}
+  inventoryMenu_UI: {fileID: 0}
 --- !u!114 &8961119042189131128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -788,7 +776,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

@@ -9,7 +9,7 @@ public class ShopManager : MonoBehaviour
 {
     [SerializeField] public int[,] shopItems = new int[4, 3]; // [ID, ItemID, Price
     // Buttons
-    [Header("Buttons")]
+    [Header("Buy")]
     [SerializeField] public Button[] buttons;
 
     [Header("Sell")]
@@ -55,7 +55,7 @@ public class ShopManager : MonoBehaviour
         if (GameManager.instance.Gold >= shopItems[6, itemID])
         {
             GameManager.instance.Gold -= shopItems[6, itemID];
-            shopItems[7, itemID]++;
+            shopItems[6, itemID]++;
 
             switch (itemID)
             {
@@ -80,18 +80,18 @@ public class ShopManager : MonoBehaviour
         {
             // get the item from the slot[0]
             Inventory.Slot slot = GameManager.instance.player.inventoryManager.sellSlot.slots[0];
-            if (slot.itemName.Contains("Tomato") || slot.itemName.Contains("Wheat"))
+            if (slot.ItemName.Contains("Tomato") || slot.ItemName.Contains("Wheat"))
             {
-                Item itemToSell = GameManager.instance.itemManager.GetItemByName(slot.itemName);
+                Item itemToSell = GameManager.instance.itemManager.GetItemByName(slot.ItemName);
                 if (itemToSell != null)
                 {
-                    int sellPrice = itemToSell.SellPrice;
-                    coins += sellPrice * slot.count;
+                    int SellPrice = itemToSell.SellPrice;
+                    coins += SellPrice * slot.count;
                     slot.count = 0;
                     if (slot.count == 0 )
                     {
-                        slot.itemName = "";
-                        slot.icon = null;
+                        slot.ItemName = "";
+                        slot.Icon = null;
                     }
                     coinsText.text = coins.ToString();
 

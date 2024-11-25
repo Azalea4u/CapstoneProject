@@ -9,17 +9,11 @@ public class Player : MonoBehaviour
 
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerHealth playerHealth;
-
-    [SerializeField] private GameObject inventoryMenu_UI;
+    [SerializeField] private InventoryMenu_UI inventoryMenu_UI;
 
     private void Awake()
     {
         inventoryManager = GetComponent<InventoryManager>();
-    }
-
-    private void Start()
-    {
-        inventoryMenu_UI.SetActive(false);
     }
 
     public void DropItem(Item item)

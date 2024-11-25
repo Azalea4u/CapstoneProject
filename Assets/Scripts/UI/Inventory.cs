@@ -52,8 +52,8 @@ public class Inventory
 
         public void AddItem(Item item)
         {
-            this.itemName = item.data.itemName;
-            this.icon = item.data.icon;
+            this.itemName = item.data.ItemName;
+            this.icon = item.data.Icon;
             count++;
         }
 
@@ -96,7 +96,7 @@ public class Inventory
         // Check if we already have the item in our inventoryManager
         foreach (Slot slot in slots)
         {
-            if (slot.itemName == item.data.itemName && slot.CanAddItem(item.data.itemName))
+            if (slot.itemName == item.data.ItemName && slot.CanAddItem(item.data.ItemName))
             {
                 slot.AddItem(item);
                 return;

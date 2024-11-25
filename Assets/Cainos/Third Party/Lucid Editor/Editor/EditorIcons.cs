@@ -415,10 +415,10 @@ namespace Cainos.LucidEditor
 		public static GUIContent HierarchyLock { get { return EditorGUIUtility.IconContent("hierarchylock"); } }
 		public static GUIContent HierarchyLock2x { get { return EditorGUIUtility.IconContent("hierarchylock@2x"); } }
 		public static GUIContent HorizontalSplit { get { return EditorGUIUtility.IconContent("horizontalsplit"); } }
-		public static GUIContent IconDropdownOpen { get { return EditorGUIUtility.IconContent("icon dropdown open"); } }
-		public static GUIContent IconDropdownOpen2x { get { return EditorGUIUtility.IconContent("icon dropdown open@2x"); } }
-		public static GUIContent IconDropdown { get { return EditorGUIUtility.IconContent("icon dropdown"); } }
-		public static GUIContent IconDropdown2x { get { return EditorGUIUtility.IconContent("icon dropdown@2x"); } }
+		public static GUIContent IconDropdownOpen { get { return EditorGUIUtility.IconContent("Icon dropdown open"); } }
+		public static GUIContent IconDropdownOpen2x { get { return EditorGUIUtility.IconContent("Icon dropdown open@2x"); } }
+		public static GUIContent IconDropdown { get { return EditorGUIUtility.IconContent("Icon dropdown"); } }
+		public static GUIContent IconDropdown2x { get { return EditorGUIUtility.IconContent("Icon dropdown@2x"); } }
 		public static GUIContent Import { get { return EditorGUIUtility.IconContent("import"); } }
 		public static GUIContent Import2x { get { return EditorGUIUtility.IconContent("import@2x"); } }
 		public static GUIContent InspectorLock { get { return EditorGUIUtility.IconContent("inspectorlock"); } }
@@ -552,83 +552,83 @@ namespace Cainos.LucidEditor
 		public static GUIContent PreviewPackageInUse { get { return EditorGUIUtility.IconContent("previewpackageinuse"); } }
 		public static GUIContent PreviewPackageInUse2x { get { return EditorGUIUtility.IconContent("previewpackageinuse@2x"); } }
 		public static GUIContent AreaLightGizmo { get { return EditorGUIUtility.IconContent("arealight gizmo"); } }
-		public static GUIContent AreaLightIcon { get { return EditorGUIUtility.IconContent("arealight icon"); } }
-		public static GUIContent AssemblyIcon { get { return EditorGUIUtility.IconContent("assembly icon"); } }
-		public static GUIContent AssetStoreIcon { get { return EditorGUIUtility.IconContent("assetstore icon"); } }
-		public static GUIContent AudioMixerViewIcon { get { return EditorGUIUtility.IconContent("audiomixerview icon"); } }
+		public static GUIContent AreaLightIcon { get { return EditorGUIUtility.IconContent("arealight Icon"); } }
+		public static GUIContent AssemblyIcon { get { return EditorGUIUtility.IconContent("assembly Icon"); } }
+		public static GUIContent AssetStoreIcon { get { return EditorGUIUtility.IconContent("assetstore Icon"); } }
+		public static GUIContent AudioMixerViewIcon { get { return EditorGUIUtility.IconContent("audiomixerview Icon"); } }
 		public static GUIContent AudioSourceGizmo { get { return EditorGUIUtility.IconContent("audiosource gizmo"); } }
-		public static GUIContent BooScriptIcon { get { return EditorGUIUtility.IconContent("boo script icon"); } }
+		public static GUIContent BooScriptIcon { get { return EditorGUIUtility.IconContent("boo script Icon"); } }
 		public static GUIContent CameraGizmo { get { return EditorGUIUtility.IconContent("camera gizmo"); } }
-		public static GUIContent ChorusFilterIcon { get { return EditorGUIUtility.IconContent("chorusfilter icon"); } }
-		public static GUIContent CollabChangesIcon { get { return EditorGUIUtility.IconContent("collabchanges icon"); } }
-		public static GUIContent CollabChangesConflictIcon { get { return EditorGUIUtility.IconContent("collabchangesconflict icon"); } }
-		public static GUIContent CollabChangesDeletedIcon { get { return EditorGUIUtility.IconContent("collabchangesdeleted icon"); } }
-		public static GUIContent CollabConflictIcon { get { return EditorGUIUtility.IconContent("collabconflict icon"); } }
-		public static GUIContent CollabCreateIcon { get { return EditorGUIUtility.IconContent("collabcreate icon"); } }
-		public static GUIContent CollabDeletedIcon { get { return EditorGUIUtility.IconContent("collabdeleted icon"); } }
-		public static GUIContent CollabEditIcon { get { return EditorGUIUtility.IconContent("collabedit icon"); } }
-		public static GUIContent CollabexcludeIcon { get { return EditorGUIUtility.IconContent("collabexclude icon"); } }
-		public static GUIContent CollabMovedIcon { get { return EditorGUIUtility.IconContent("collabmoved icon"); } }
-		public static GUIContent CsScriptIcon { get { return EditorGUIUtility.IconContent("cs script icon"); } }
-		public static GUIContent DefaultSlateIcon { get { return EditorGUIUtility.IconContent("defaultslate icon"); } }
+		public static GUIContent ChorusFilterIcon { get { return EditorGUIUtility.IconContent("chorusfilter Icon"); } }
+		public static GUIContent CollabChangesIcon { get { return EditorGUIUtility.IconContent("collabchanges Icon"); } }
+		public static GUIContent CollabChangesConflictIcon { get { return EditorGUIUtility.IconContent("collabchangesconflict Icon"); } }
+		public static GUIContent CollabChangesDeletedIcon { get { return EditorGUIUtility.IconContent("collabchangesdeleted Icon"); } }
+		public static GUIContent CollabConflictIcon { get { return EditorGUIUtility.IconContent("collabconflict Icon"); } }
+		public static GUIContent CollabCreateIcon { get { return EditorGUIUtility.IconContent("collabcreate Icon"); } }
+		public static GUIContent CollabDeletedIcon { get { return EditorGUIUtility.IconContent("collabdeleted Icon"); } }
+		public static GUIContent CollabEditIcon { get { return EditorGUIUtility.IconContent("collabedit Icon"); } }
+		public static GUIContent CollabexcludeIcon { get { return EditorGUIUtility.IconContent("collabexclude Icon"); } }
+		public static GUIContent CollabMovedIcon { get { return EditorGUIUtility.IconContent("collabmoved Icon"); } }
+		public static GUIContent CsScriptIcon { get { return EditorGUIUtility.IconContent("cs script Icon"); } }
+		public static GUIContent DefaultSlateIcon { get { return EditorGUIUtility.IconContent("defaultslate Icon"); } }
 		public static GUIContent DirectionalLightGizmo { get { return EditorGUIUtility.IconContent("directionallight gizmo"); } }
-		public static GUIContent DirectionalLightIcon { get { return EditorGUIUtility.IconContent("directionallight icon"); } }
+		public static GUIContent DirectionalLightIcon { get { return EditorGUIUtility.IconContent("directionallight Icon"); } }
 		public static GUIContent DiscLightGizmo { get { return EditorGUIUtility.IconContent("disclight gizmo"); } }
-		public static GUIContent DiscLightIcon { get { return EditorGUIUtility.IconContent("disclight icon"); } }
-		public static GUIContent DllScriptIcon { get { return EditorGUIUtility.IconContent("dll script icon"); } }
-		public static GUIContent EchoFilterIcon { get { return EditorGUIUtility.IconContent("echofilter icon"); } }
-		public static GUIContent FavoriteIcon { get { return EditorGUIUtility.IconContent("favorite icon"); } }
-		public static GUIContent FavoriteOnIcon { get { return EditorGUIUtility.IconContent("favorite on icon"); } }
-		public static GUIContent FolderIcon { get { return EditorGUIUtility.IconContent("folder icon"); } }
-		public static GUIContent FolderOnIcon { get { return EditorGUIUtility.IconContent("folder on icon"); } }
-		public static GUIContent FolderemptyIcon { get { return EditorGUIUtility.IconContent("folderempty icon"); } }
-		public static GUIContent FolderemptyOnIcon { get { return EditorGUIUtility.IconContent("folderempty on icon"); } }
-		public static GUIContent FolderfavoriteIcon { get { return EditorGUIUtility.IconContent("folderfavorite icon"); } }
-		public static GUIContent FolderfavoriteOnIcon { get { return EditorGUIUtility.IconContent("folderfavorite on icon"); } }
-		public static GUIContent FolderOpenedIcon { get { return EditorGUIUtility.IconContent("folderopened icon"); } }
-		public static GUIContent FolderOpenedOnIcon { get { return EditorGUIUtility.IconContent("folderopened on icon"); } }
-		public static GUIContent GameManagerIcon { get { return EditorGUIUtility.IconContent("gamemanager icon"); } }
-		public static GUIContent GridBrushIcon { get { return EditorGUIUtility.IconContent("gridbrush icon"); } }
-		public static GUIContent HighPassFilterIcon { get { return EditorGUIUtility.IconContent("highpassfilter icon"); } }
-		public static GUIContent HorizontalLayoutGroupIcon { get { return EditorGUIUtility.IconContent("horizontallayoutgroup icon"); } }
-		public static GUIContent JsScriptIcon { get { return EditorGUIUtility.IconContent("js script icon"); } }
+		public static GUIContent DiscLightIcon { get { return EditorGUIUtility.IconContent("disclight Icon"); } }
+		public static GUIContent DllScriptIcon { get { return EditorGUIUtility.IconContent("dll script Icon"); } }
+		public static GUIContent EchoFilterIcon { get { return EditorGUIUtility.IconContent("echofilter Icon"); } }
+		public static GUIContent FavoriteIcon { get { return EditorGUIUtility.IconContent("favorite Icon"); } }
+		public static GUIContent FavoriteOnIcon { get { return EditorGUIUtility.IconContent("favorite on Icon"); } }
+		public static GUIContent FolderIcon { get { return EditorGUIUtility.IconContent("folder Icon"); } }
+		public static GUIContent FolderOnIcon { get { return EditorGUIUtility.IconContent("folder on Icon"); } }
+		public static GUIContent FolderemptyIcon { get { return EditorGUIUtility.IconContent("folderempty Icon"); } }
+		public static GUIContent FolderemptyOnIcon { get { return EditorGUIUtility.IconContent("folderempty on Icon"); } }
+		public static GUIContent FolderfavoriteIcon { get { return EditorGUIUtility.IconContent("folderfavorite Icon"); } }
+		public static GUIContent FolderfavoriteOnIcon { get { return EditorGUIUtility.IconContent("folderfavorite on Icon"); } }
+		public static GUIContent FolderOpenedIcon { get { return EditorGUIUtility.IconContent("folderopened Icon"); } }
+		public static GUIContent FolderOpenedOnIcon { get { return EditorGUIUtility.IconContent("folderopened on Icon"); } }
+		public static GUIContent GameManagerIcon { get { return EditorGUIUtility.IconContent("gamemanager Icon"); } }
+		public static GUIContent GridBrushIcon { get { return EditorGUIUtility.IconContent("gridbrush Icon"); } }
+		public static GUIContent HighPassFilterIcon { get { return EditorGUIUtility.IconContent("highpassfilter Icon"); } }
+		public static GUIContent HorizontalLayoutGroupIcon { get { return EditorGUIUtility.IconContent("horizontallayoutgroup Icon"); } }
+		public static GUIContent JsScriptIcon { get { return EditorGUIUtility.IconContent("js script Icon"); } }
 		public static GUIContent LensFlareGizmo { get { return EditorGUIUtility.IconContent("lensflare gizmo"); } }
-		public static GUIContent LightingdataAssetparentIcon { get { return EditorGUIUtility.IconContent("lightingdataassetparent icon"); } }
+		public static GUIContent LightingdataAssetparentIcon { get { return EditorGUIUtility.IconContent("lightingdataassetparent Icon"); } }
 		public static GUIContent LightProbeGroupGizmo { get { return EditorGUIUtility.IconContent("lightprobegroup gizmo"); } }
 		public static GUIContent LightProbeProxyVolumeGizmo { get { return EditorGUIUtility.IconContent("lightprobeproxyvolume gizmo"); } }
-		public static GUIContent LowPassFilterIcon { get { return EditorGUIUtility.IconContent("lowpassfilter icon"); } }
+		public static GUIContent LowPassFilterIcon { get { return EditorGUIUtility.IconContent("lowpassfilter Icon"); } }
 		public static GUIContent MainLightGizmo { get { return EditorGUIUtility.IconContent("main light gizmo"); } }
-		public static GUIContent MaterialVariantIcon { get { return EditorGUIUtility.IconContent("materialvariant icon"); } }
-		public static GUIContent MetaFileIcon { get { return EditorGUIUtility.IconContent("metafile icon"); } }
-		public static GUIContent MicroPhoneIcon { get { return EditorGUIUtility.IconContent("microphone icon"); } }
-		public static GUIContent MuscleClipIcon { get { return EditorGUIUtility.IconContent("muscleclip icon"); } }
+		public static GUIContent MaterialVariantIcon { get { return EditorGUIUtility.IconContent("materialvariant Icon"); } }
+		public static GUIContent MetaFileIcon { get { return EditorGUIUtility.IconContent("metafile Icon"); } }
+		public static GUIContent MicroPhoneIcon { get { return EditorGUIUtility.IconContent("microphone Icon"); } }
+		public static GUIContent MuscleClipIcon { get { return EditorGUIUtility.IconContent("muscleclip Icon"); } }
 		public static GUIContent ParticleSystemGizmo { get { return EditorGUIUtility.IconContent("particlesystem gizmo"); } }
 		public static GUIContent ParticleSystemForceFieldGizmo { get { return EditorGUIUtility.IconContent("particlesystemforcefield gizmo"); } }
 		public static GUIContent PoIntLightGizmo { get { return EditorGUIUtility.IconContent("pointlight gizmo"); } }
-		public static GUIContent PrefabIcon { get { return EditorGUIUtility.IconContent("prefab icon"); } }
-		public static GUIContent PrefabOnIcon { get { return EditorGUIUtility.IconContent("prefab on icon"); } }
-		public static GUIContent PrefabModelIcon { get { return EditorGUIUtility.IconContent("prefabmodel icon"); } }
-		public static GUIContent PrefabModelOnIcon { get { return EditorGUIUtility.IconContent("prefabmodel on icon"); } }
-		public static GUIContent PrefabOverlayAddedIcon { get { return EditorGUIUtility.IconContent("prefaboverlayadded icon"); } }
-		public static GUIContent PrefabOverlayModifiedIcon { get { return EditorGUIUtility.IconContent("prefaboverlaymodified icon"); } }
-		public static GUIContent PrefabOverlayRemovedIcon { get { return EditorGUIUtility.IconContent("prefaboverlayremoved icon"); } }
-		public static GUIContent PrefabVariantIcon { get { return EditorGUIUtility.IconContent("prefabvariant icon"); } }
-		public static GUIContent PrefabVariantOnIcon { get { return EditorGUIUtility.IconContent("prefabvariant on icon"); } }
+		public static GUIContent PrefabIcon { get { return EditorGUIUtility.IconContent("prefab Icon"); } }
+		public static GUIContent PrefabOnIcon { get { return EditorGUIUtility.IconContent("prefab on Icon"); } }
+		public static GUIContent PrefabModelIcon { get { return EditorGUIUtility.IconContent("prefabmodel Icon"); } }
+		public static GUIContent PrefabModelOnIcon { get { return EditorGUIUtility.IconContent("prefabmodel on Icon"); } }
+		public static GUIContent PrefabOverlayAddedIcon { get { return EditorGUIUtility.IconContent("prefaboverlayadded Icon"); } }
+		public static GUIContent PrefabOverlayModifiedIcon { get { return EditorGUIUtility.IconContent("prefaboverlaymodified Icon"); } }
+		public static GUIContent PrefabOverlayRemovedIcon { get { return EditorGUIUtility.IconContent("prefaboverlayremoved Icon"); } }
+		public static GUIContent PrefabVariantIcon { get { return EditorGUIUtility.IconContent("prefabvariant Icon"); } }
+		public static GUIContent PrefabVariantOnIcon { get { return EditorGUIUtility.IconContent("prefabvariant on Icon"); } }
 		public static GUIContent ProjectorGizmo { get { return EditorGUIUtility.IconContent("projector gizmo"); } }
-		public static GUIContent RaycastColliderIcon { get { return EditorGUIUtility.IconContent("raycastcollider icon"); } }
+		public static GUIContent RaycastColliderIcon { get { return EditorGUIUtility.IconContent("raycastcollider Icon"); } }
 		public static GUIContent ReflectionProbeGizmo { get { return EditorGUIUtility.IconContent("reflectionprobe gizmo"); } }
-		public static GUIContent ReverbFilterIcon { get { return EditorGUIUtility.IconContent("reverbfilter icon"); } }
-		public static GUIContent SceneSetIcon { get { return EditorGUIUtility.IconContent("sceneset icon"); } }
-		public static GUIContent SearchIcon { get { return EditorGUIUtility.IconContent("search icon"); } }
-		public static GUIContent SearchOnIcon { get { return EditorGUIUtility.IconContent("search on icon"); } }
-		public static GUIContent SearchJumpIcon { get { return EditorGUIUtility.IconContent("searchjump icon"); } }
-		public static GUIContent SettingsIcon { get { return EditorGUIUtility.IconContent("settings icon"); } }
-		public static GUIContent ShortcutIcon { get { return EditorGUIUtility.IconContent("shortcut icon"); } }
-		public static GUIContent SoftLockprojectbrowserIcon { get { return EditorGUIUtility.IconContent("softlockprojectbrowser icon"); } }
-		public static GUIContent SpeedTreeModelIcon { get { return EditorGUIUtility.IconContent("speedtreemodel icon"); } }
+		public static GUIContent ReverbFilterIcon { get { return EditorGUIUtility.IconContent("reverbfilter Icon"); } }
+		public static GUIContent SceneSetIcon { get { return EditorGUIUtility.IconContent("sceneset Icon"); } }
+		public static GUIContent SearchIcon { get { return EditorGUIUtility.IconContent("search Icon"); } }
+		public static GUIContent SearchOnIcon { get { return EditorGUIUtility.IconContent("search on Icon"); } }
+		public static GUIContent SearchJumpIcon { get { return EditorGUIUtility.IconContent("searchjump Icon"); } }
+		public static GUIContent SettingsIcon { get { return EditorGUIUtility.IconContent("settings Icon"); } }
+		public static GUIContent ShortcutIcon { get { return EditorGUIUtility.IconContent("shortcut Icon"); } }
+		public static GUIContent SoftLockprojectbrowserIcon { get { return EditorGUIUtility.IconContent("softlockprojectbrowser Icon"); } }
+		public static GUIContent SpeedTreeModelIcon { get { return EditorGUIUtility.IconContent("speedtreemodel Icon"); } }
 		public static GUIContent SpotLightGizmo { get { return EditorGUIUtility.IconContent("spotlight gizmo"); } }
-		public static GUIContent SpotLightIcon { get { return EditorGUIUtility.IconContent("spotlight icon"); } }
-		public static GUIContent SpriteColliderIcon { get { return EditorGUIUtility.IconContent("spritecollider icon"); } }
+		public static GUIContent SpotLightIcon { get { return EditorGUIUtility.IconContent("spotlight Icon"); } }
+		public static GUIContent SpriteColliderIcon { get { return EditorGUIUtility.IconContent("spritecollider Icon"); } }
 		public static GUIContent SvIconDot0Pix16Gizmo { get { return EditorGUIUtility.IconContent("sv_icon_dot0_pix16_gizmo"); } }
 		public static GUIContent SvIconDot10Pix16Gizmo { get { return EditorGUIUtility.IconContent("sv_icon_dot10_pix16_gizmo"); } }
 		public static GUIContent SvIconDot11Pix16Gizmo { get { return EditorGUIUtility.IconContent("sv_icon_dot11_pix16_gizmo"); } }
@@ -645,81 +645,81 @@ namespace Cainos.LucidEditor
 		public static GUIContent SvIconDot7Pix16Gizmo { get { return EditorGUIUtility.IconContent("sv_icon_dot7_pix16_gizmo"); } }
 		public static GUIContent SvIconDot8Pix16Gizmo { get { return EditorGUIUtility.IconContent("sv_icon_dot8_pix16_gizmo"); } }
 		public static GUIContent SvIconDot9Pix16Gizmo { get { return EditorGUIUtility.IconContent("sv_icon_dot9_pix16_gizmo"); } }
-		public static GUIContent AnimatorControllerIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/animatorcontroller icon"); } }
-		public static GUIContent AnimatorControllerOnIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/animatorcontroller on icon"); } }
-		public static GUIContent AnimatorStateIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/animatorstate icon"); } }
-		public static GUIContent AnimatorStatemachineIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/animatorstatemachine icon"); } }
-		public static GUIContent AnimatorStateTransitionIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/animatorstatetransition icon"); } }
-		public static GUIContent BlendTreeIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/blendtree icon"); } }
-		public static GUIContent AnimationWindowEventIcon { get { return EditorGUIUtility.IconContent("unityeditor/animationwindowevent icon"); } }
-		public static GUIContent AudioMixerControllerIcon { get { return EditorGUIUtility.IconContent("unityeditor/audio/audiomixercontroller icon"); } }
-		public static GUIContent AudioMixerControllerOnIcon { get { return EditorGUIUtility.IconContent("unityeditor/audio/audiomixercontroller on icon"); } }
-		public static GUIContent AudioImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/audioimporter icon"); } }
-		public static GUIContent DefaultAssetIcon { get { return EditorGUIUtility.IconContent("unityeditor/defaultasset icon"); } }
-		public static GUIContent EditorSettingsIcon { get { return EditorGUIUtility.IconContent("unityeditor/editorsettings icon"); } }
-		public static GUIContent FilterIcon { get { return EditorGUIUtility.IconContent("unityeditor/filter icon"); } }
-		public static GUIContent HumantemPlateIcon { get { return EditorGUIUtility.IconContent("unityeditor/humantemplate icon"); } }
-		public static GUIContent IHVImageFormatImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/ihvimageformatimporter icon"); } }
-		public static GUIContent LightingdataAssetIcon { get { return EditorGUIUtility.IconContent("unityeditor/lightingdataasset icon"); } }
-		public static GUIContent LightmapParametersIcon { get { return EditorGUIUtility.IconContent("unityeditor/lightmapparameters icon"); } }
-		public static GUIContent LightmapParametersOnIcon { get { return EditorGUIUtility.IconContent("unityeditor/lightmapparameters on icon"); } }
-		public static GUIContent ModelImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/modelimporter icon"); } }
-		public static GUIContent PresetIcon { get { return EditorGUIUtility.IconContent("unityeditor/presets/preset icon"); } }
-		public static GUIContent SceneAssetIcon { get { return EditorGUIUtility.IconContent("unityeditor/sceneasset icon"); } }
-		public static GUIContent SceneAssetOnIcon { get { return EditorGUIUtility.IconContent("unityeditor/sceneasset on icon"); } }
-		public static GUIContent ShaderImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/shaderimporter icon"); } }
-		public static GUIContent ShaderIncludeIcon { get { return EditorGUIUtility.IconContent("unityeditor/shaderinclude icon"); } }
-		public static GUIContent SpeedTreeImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/speedtreeimporter icon"); } }
-		public static GUIContent SubstanceArchiveIcon { get { return EditorGUIUtility.IconContent("unityeditor/substancearchive icon"); } }
-		public static GUIContent TextScriptImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/textscriptimporter icon"); } }
-		public static GUIContent TextureImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/textureimporter icon"); } }
-		public static GUIContent TrueTypeFontImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/truetypefontimporter icon"); } }
-		public static GUIContent SpriteatlasAssetIcon { get { return EditorGUIUtility.IconContent("unityeditor/u2d/spriteatlasasset icon"); } }
-		public static GUIContent SpriteatlasImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/u2d/spriteatlasimporter icon"); } }
-		public static GUIContent VideoClipImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/videoclipimporter icon"); } }
-		public static GUIContent NetworkAnimatorIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkanimator icon"); } }
-		public static GUIContent NetworkdiscoveryIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkdiscovery icon"); } }
-		public static GUIContent NetworkidentityIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkidentity icon"); } }
-		public static GUIContent NetworklobByManagerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networklobbymanager icon"); } }
-		public static GUIContent NetworklobByPlayerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networklobbyplayer icon"); } }
-		public static GUIContent NetworkManagerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkmanager icon"); } }
-		public static GUIContent NetworkManagerhudIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkmanagerhud icon"); } }
-		public static GUIContent NetworkMigrationManagerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkmigrationmanager icon"); } }
-		public static GUIContent NetworkProximityCheckerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkproximitychecker icon"); } }
-		public static GUIContent NetworkStartPositionIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkstartposition icon"); } }
-		public static GUIContent NetworkTransformIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networktransform icon"); } }
-		public static GUIContent NetworkTransformchildIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networktransformchild icon"); } }
-		public static GUIContent NetworkTransformVisualizerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networktransformvisualizer icon"); } }
-		public static GUIContent AspectRatioFitterIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/aspectratiofitter icon"); } }
-		public static GUIContent ButtonIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/button icon"); } }
-		public static GUIContent CanvasScalerIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/canvasscaler icon"); } }
-		public static GUIContent ContentSizeFitterIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/contentsizefitter icon"); } }
-		public static GUIContent DropdownIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/dropdown icon"); } }
-		public static GUIContent FreeformLayoutGroupIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/freeformlayoutgroup icon"); } }
-		public static GUIContent GraphicRaycasterIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/graphicraycaster icon"); } }
-		public static GUIContent GridLayoutGroupIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/gridlayoutgroup icon"); } }
-		public static GUIContent ImageIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/image icon"); } }
-		public static GUIContent InputFieldIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/inputfield icon"); } }
-		public static GUIContent LayoutElementIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/layoutelement icon"); } }
-		public static GUIContent MaskIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/mask icon"); } }
-		public static GUIContent OutlineIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/outline icon"); } }
-		public static GUIContent PositionAsUV1Icon { get { return EditorGUIUtility.IconContent("unityengine/ui/positionasuv1 icon"); } }
-		public static GUIContent RawImageIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/rawimage icon"); } }
-		public static GUIContent RectMask2DIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/rectmask2d icon"); } }
-		public static GUIContent ScrollbarIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/scrollbar icon"); } }
-		public static GUIContent ScrollRectIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/scrollrect icon"); } }
-		public static GUIContent SelectableIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/selectable icon"); } }
-		public static GUIContent ShadowIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/shadow icon"); } }
-		public static GUIContent SliderIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/slider icon"); } }
-		public static GUIContent TextIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/text icon"); } }
-		public static GUIContent ToggleIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/toggle icon"); } }
-		public static GUIContent ToggleGroupIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/togglegroup icon"); } }
-		public static GUIContent VerticalLayoutGroupIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/verticallayoutgroup icon"); } }
-		public static GUIContent UssScriptIcon { get { return EditorGUIUtility.IconContent("ussscript icon"); } }
-		public static GUIContent UxmlScriptIcon { get { return EditorGUIUtility.IconContent("uxmlscript icon"); } }
-		public static GUIContent VideoEffectIcon { get { return EditorGUIUtility.IconContent("videoeffect icon"); } }
+		public static GUIContent AnimatorControllerIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/animatorcontroller Icon"); } }
+		public static GUIContent AnimatorControllerOnIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/animatorcontroller on Icon"); } }
+		public static GUIContent AnimatorStateIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/animatorstate Icon"); } }
+		public static GUIContent AnimatorStatemachineIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/animatorstatemachine Icon"); } }
+		public static GUIContent AnimatorStateTransitionIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/animatorstatetransition Icon"); } }
+		public static GUIContent BlendTreeIcon { get { return EditorGUIUtility.IconContent("unityeditor/animations/blendtree Icon"); } }
+		public static GUIContent AnimationWindowEventIcon { get { return EditorGUIUtility.IconContent("unityeditor/animationwindowevent Icon"); } }
+		public static GUIContent AudioMixerControllerIcon { get { return EditorGUIUtility.IconContent("unityeditor/audio/audiomixercontroller Icon"); } }
+		public static GUIContent AudioMixerControllerOnIcon { get { return EditorGUIUtility.IconContent("unityeditor/audio/audiomixercontroller on Icon"); } }
+		public static GUIContent AudioImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/audioimporter Icon"); } }
+		public static GUIContent DefaultAssetIcon { get { return EditorGUIUtility.IconContent("unityeditor/defaultasset Icon"); } }
+		public static GUIContent EditorSettingsIcon { get { return EditorGUIUtility.IconContent("unityeditor/editorsettings Icon"); } }
+		public static GUIContent FilterIcon { get { return EditorGUIUtility.IconContent("unityeditor/filter Icon"); } }
+		public static GUIContent HumantemPlateIcon { get { return EditorGUIUtility.IconContent("unityeditor/humantemplate Icon"); } }
+		public static GUIContent IHVImageFormatImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/ihvimageformatimporter Icon"); } }
+		public static GUIContent LightingdataAssetIcon { get { return EditorGUIUtility.IconContent("unityeditor/lightingdataasset Icon"); } }
+		public static GUIContent LightmapParametersIcon { get { return EditorGUIUtility.IconContent("unityeditor/lightmapparameters Icon"); } }
+		public static GUIContent LightmapParametersOnIcon { get { return EditorGUIUtility.IconContent("unityeditor/lightmapparameters on Icon"); } }
+		public static GUIContent ModelImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/modelimporter Icon"); } }
+		public static GUIContent PresetIcon { get { return EditorGUIUtility.IconContent("unityeditor/presets/preset Icon"); } }
+		public static GUIContent SceneAssetIcon { get { return EditorGUIUtility.IconContent("unityeditor/sceneasset Icon"); } }
+		public static GUIContent SceneAssetOnIcon { get { return EditorGUIUtility.IconContent("unityeditor/sceneasset on Icon"); } }
+		public static GUIContent ShaderImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/shaderimporter Icon"); } }
+		public static GUIContent ShaderIncludeIcon { get { return EditorGUIUtility.IconContent("unityeditor/shaderinclude Icon"); } }
+		public static GUIContent SpeedTreeImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/speedtreeimporter Icon"); } }
+		public static GUIContent SubstanceArchiveIcon { get { return EditorGUIUtility.IconContent("unityeditor/substancearchive Icon"); } }
+		public static GUIContent TextScriptImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/textscriptimporter Icon"); } }
+		public static GUIContent TextureImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/textureimporter Icon"); } }
+		public static GUIContent TrueTypeFontImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/truetypefontimporter Icon"); } }
+		public static GUIContent SpriteatlasAssetIcon { get { return EditorGUIUtility.IconContent("unityeditor/u2d/spriteatlasasset Icon"); } }
+		public static GUIContent SpriteatlasImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/u2d/spriteatlasimporter Icon"); } }
+		public static GUIContent VideoClipImporterIcon { get { return EditorGUIUtility.IconContent("unityeditor/videoclipimporter Icon"); } }
+		public static GUIContent NetworkAnimatorIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkanimator Icon"); } }
+		public static GUIContent NetworkdiscoveryIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkdiscovery Icon"); } }
+		public static GUIContent NetworkidentityIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkidentity Icon"); } }
+		public static GUIContent NetworklobByManagerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networklobbymanager Icon"); } }
+		public static GUIContent NetworklobByPlayerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networklobbyplayer Icon"); } }
+		public static GUIContent NetworkManagerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkmanager Icon"); } }
+		public static GUIContent NetworkManagerhudIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkmanagerhud Icon"); } }
+		public static GUIContent NetworkMigrationManagerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkmigrationmanager Icon"); } }
+		public static GUIContent NetworkProximityCheckerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkproximitychecker Icon"); } }
+		public static GUIContent NetworkStartPositionIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networkstartposition Icon"); } }
+		public static GUIContent NetworkTransformIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networktransform Icon"); } }
+		public static GUIContent NetworkTransformchildIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networktransformchild Icon"); } }
+		public static GUIContent NetworkTransformVisualizerIcon { get { return EditorGUIUtility.IconContent("unityengine/networking/networktransformvisualizer Icon"); } }
+		public static GUIContent AspectRatioFitterIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/aspectratiofitter Icon"); } }
+		public static GUIContent ButtonIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/button Icon"); } }
+		public static GUIContent CanvasScalerIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/canvasscaler Icon"); } }
+		public static GUIContent ContentSizeFitterIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/contentsizefitter Icon"); } }
+		public static GUIContent DropdownIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/dropdown Icon"); } }
+		public static GUIContent FreeformLayoutGroupIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/freeformlayoutgroup Icon"); } }
+		public static GUIContent GraphicRaycasterIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/graphicraycaster Icon"); } }
+		public static GUIContent GridLayoutGroupIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/gridlayoutgroup Icon"); } }
+		public static GUIContent ImageIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/image Icon"); } }
+		public static GUIContent InputFieldIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/inputfield Icon"); } }
+		public static GUIContent LayoutElementIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/layoutelement Icon"); } }
+		public static GUIContent MaskIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/mask Icon"); } }
+		public static GUIContent OutlineIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/outline Icon"); } }
+		public static GUIContent PositionAsUV1Icon { get { return EditorGUIUtility.IconContent("unityengine/ui/positionasuv1 Icon"); } }
+		public static GUIContent RawImageIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/rawimage Icon"); } }
+		public static GUIContent RectMask2DIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/rectmask2d Icon"); } }
+		public static GUIContent ScrollbarIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/scrollbar Icon"); } }
+		public static GUIContent ScrollRectIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/scrollrect Icon"); } }
+		public static GUIContent SelectableIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/selectable Icon"); } }
+		public static GUIContent ShadowIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/shadow Icon"); } }
+		public static GUIContent SliderIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/slider Icon"); } }
+		public static GUIContent TextIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/text Icon"); } }
+		public static GUIContent ToggleIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/toggle Icon"); } }
+		public static GUIContent ToggleGroupIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/togglegroup Icon"); } }
+		public static GUIContent VerticalLayoutGroupIcon { get { return EditorGUIUtility.IconContent("unityengine/ui/verticallayoutgroup Icon"); } }
+		public static GUIContent UssScriptIcon { get { return EditorGUIUtility.IconContent("ussscript Icon"); } }
+		public static GUIContent UxmlScriptIcon { get { return EditorGUIUtility.IconContent("uxmlscript Icon"); } }
+		public static GUIContent VideoEffectIcon { get { return EditorGUIUtility.IconContent("videoeffect Icon"); } }
 		public static GUIContent VisualEffectGizmo { get { return EditorGUIUtility.IconContent("visualeffect gizmo"); } }
-		public static GUIContent VisualEffectAssetIcon { get { return EditorGUIUtility.IconContent("visualeffectasset icon"); } }
+		public static GUIContent VisualEffectAssetIcon { get { return EditorGUIUtility.IconContent("visualeffectasset Icon"); } }
 		public static GUIContent WindzoneGizmo { get { return EditorGUIUtility.IconContent("windzone gizmo"); } }
 		public static GUIContent ProfilerAudio { get { return EditorGUIUtility.IconContent("profiler.audio"); } }
 		public static GUIContent ProfilerAudio2x { get { return EditorGUIUtility.IconContent("profiler.audio@2x"); } }

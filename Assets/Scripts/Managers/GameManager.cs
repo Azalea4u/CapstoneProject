@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] public GameObject GameOver_Panel;
+    [SerializeField] public GameObject PausedMenu_Panel;
     [SerializeField] public TMPro.TextMeshProUGUI LevelText;
     [SerializeField] private Int_SO currentLevel;
     [SerializeField] public TMPro.TextMeshProUGUI GoldText;
@@ -51,22 +52,18 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         
         itemManager = GetComponent<ItemManager>();
-        //timeManager = GetComponent<TimeManager>();
-
         player = FindAnyObjectByType<Player>();
     }
 
     public void Start()
     {
-        //startMenu.SetActive(true);
-        //PauseGame();
-
         if (firstGame)
         {
             //Level = 1; 
             //Gold = 200;
         }
         GameOver_Panel.SetActive(false);
+        PausedMenu_Panel.SetActive(false);
     }
 
     private void Update()
@@ -79,7 +76,21 @@ public class GameManager : MonoBehaviour
             LevelText.text = "Level " + Level;
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && !DialogueManager.GetInstance().dialogueIsPlaying)
+        {
+            isGamePaused = !isGamePaused;
+
+            if (isGamePaused)
+            {
+                PauseGame();
+            }
+            else
+            {
+                ResumeGame();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         if (SceneManager.GetActiveScene().name == "Rest_Level")
@@ -88,7 +99,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartOver()
+    public void StartMenu()
     {
         firstGame = true;
         Load_Level("Start_Menu");
@@ -111,21 +122,29 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
+        PausedMenu_Panel.SetActive(true);
         isGamePaused = true;
-        PlayerMovement.instance.canMove = false;
+
+        PlayerMovement.instance.StopMovement();
         PlayerMovement.instance.rb.velocity = Vector2.zero;
-        //EnemyBase.instance.rb.velocity = Vector2.zero;
-        //EnemyBase.instance.canMove = false;
-        //timeManager.PauseTime();
+        if (SceneManager.GetActiveScene().name == "Game_Level")
+        {
+            EnemyBase.instance.rb.velocity = Vector2.zero;
+            EnemyBase.instance.canMove = false;
+        }
         Debug.Log("Game Paused");
     }
 
     public void ResumeGame()
     {
+        PausedMenu_Panel.SetActive(false);
         isGamePaused = false;
-        //EnemyBase.instance.canMove = true;
-        PlayerMovement.instance.canMove = true;
-        //timeManager.ResumeTime();
+
+        PlayerMovement.instance.ContinueMovement();
+        if (SceneManager.GetActiveScene().name == "Game_Level")
+        {
+            EnemyBase.instance.canMove = true;
+        }
         Debug.Log("Game Resumed");
     }
 

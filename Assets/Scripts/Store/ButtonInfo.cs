@@ -6,6 +6,8 @@ using TMPro;
 public class ButtonInfo : MonoBehaviour
 {
     [SerializeField] public int ItemID;
+    [SerializeField] public TextMeshProUGUI NameText;
+    [SerializeField] public TextMeshProUGUI DescriptionText;
     [SerializeField] public TextMeshProUGUI PriceText;
     [SerializeField] public GameObject ShopManager;
 

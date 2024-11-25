@@ -96,10 +96,11 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        facingDirection = Input.GetAxis("Horizontal");
-        var dashInput = Input.GetButtonDown("Dash");
+        if (canMove)
+        {
+            facingDirection = Input.GetAxis("Horizontal");
+            var dashInput = Input.GetButtonDown("Dash");
 
-        CheckInputs();
 
         if (isGrounded)
         {
@@ -116,12 +117,16 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("IsClimbing", isClimbing);
         animator.SetBool("ClimbingAllowed", climbingAllowed);
         animator.SetBool("IsAttacking", isAttacking);
+        }
+
+        CheckInputs();
     }
 
     private void FixedUpdate()
     {
-        if (DialogueManager.GetInstance().dialogueIsPlaying)
+        if (DialogueManager.GetInstance().dialogueIsPlaying || GameManager.instance.isGamePaused)
         {
+            animator.Play("Idle");
             StopMovement();
             return;
         }
@@ -166,16 +171,17 @@ public class PlayerMovement : MonoBehaviour
         ApplyFallMultiplier();
     }
 
-    private void StopMovement()
+    public void StopMovement()
     {
-        rb.velocity = Vector2.zero;
-        rb.gravityScale = 1;
-        facingDirection = 0;
         canFlip = false;
         canMove = false;
+
+        facingDirection = 0;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 1;
     }
 
-    private void ContinueMovement()
+    public void ContinueMovement()
     {
         canFlip = true;
         canMove = true;
