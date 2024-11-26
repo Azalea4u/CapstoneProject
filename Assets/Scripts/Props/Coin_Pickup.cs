@@ -14,7 +14,7 @@ public class Coin_Pickup : MonoBehaviour
         if (other.tag == "Player")
         {
             playerGold.value += gold;
-            GameManager.instance.GoldText.text = playerGold.value.ToString();
+            //Player_UI.instance.GoldText.text = playerGold.value.ToString();
             Debug.Log("Player Gold: " + playerGold.value);
             //health.Heal(gold);
             StartCoroutine(LootDrop());

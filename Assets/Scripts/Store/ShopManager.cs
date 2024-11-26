@@ -18,7 +18,7 @@ public class ShopManager : MonoBehaviour
 
     // Items To Buy
     [Header("Items")]
-    [SerializeField] public Item[] SellingItems;
+    [SerializeField] public Item[] ItemsToBuy;
     [SerializeField] public Item WheatSeeds;
     [SerializeField] public Item TomateSeeds;
 
@@ -52,9 +52,9 @@ public class ShopManager : MonoBehaviour
 
     public void BuyItem(int itemID)
     {
-        if (GameManager.instance.Gold >= shopItems[6, itemID])
+        if (Player_UI.instance.Gold >= shopItems[6, itemID])
         {
-            GameManager.instance.Gold -= shopItems[6, itemID];
+            Player_UI.instance.Gold -= shopItems[6, itemID];
             shopItems[6, itemID]++;
 
             switch (itemID)

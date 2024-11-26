@@ -16,12 +16,12 @@ GameObject:
   - component: {fileID: 2454336011794886162}
   - component: {fileID: 2373157312347108199}
   m_Layer: 5
-  m_Name: HotBar
+  m_Name: HotBar_InGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &163240973620779704
 RectTransform:
   m_ObjectHideFlags: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d30750791722cd498db2e74cd738611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryName: Hotbar_Store
+  inventoryName: Hotbar
   inventoryUIs: []
   slots:
   - {fileID: 5010593117224639264}
@@ -82,7 +82,6 @@ MonoBehaviour:
   - {fileID: 3756988496773771605}
   - {fileID: 2592777632325433433}
   canvas: {fileID: 712383045590692036, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
-  inventoryPanel: {fileID: 0}
   dragSingle: 0
 --- !u!222 &7550207112006662377
 CanvasRenderer:
@@ -262,6 +261,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slot_UI_4
       objectReference: {fileID: 0}
+    - target: {fileID: 5479247790408800118, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8236728117018761396, guid: aa792ed565c178e499494c124ff2123f, type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -439,6 +462,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slot_UI_3
       objectReference: {fileID: 0}
+    - target: {fileID: 5479247790408800118, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8236728117018761396, guid: aa792ed565c178e499494c124ff2123f, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -592,6 +639,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slot_UI_1
       objectReference: {fileID: 0}
+    - target: {fileID: 5479247790408800118, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8236728117018761396, guid: aa792ed565c178e499494c124ff2123f, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -732,6 +803,30 @@ PrefabInstance:
     - target: {fileID: 842095039853277323, guid: aa792ed565c178e499494c124ff2123f, type: 3}
       propertyPath: m_Name
       value: Slot_UI_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5479247790408800118, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922682645337770547, guid: aa792ed565c178e499494c124ff2123f, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8236728117018761396, guid: aa792ed565c178e499494c124ff2123f, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target

@@ -17,7 +17,7 @@ public class Store_UI : MonoBehaviour
 
     private void Start()
     {
-        inventory = GameManager.instance.player.inventoryManager.GetInventoryByName(inventoryName);
+        //inventory = GameManager.instance.player.inventoryManager.GetInventoryByName(inventoryName);
         inventoryPanel.SetActive(false);
     }
 

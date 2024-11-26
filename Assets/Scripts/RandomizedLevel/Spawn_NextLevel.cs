@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class Spawn_NextLevel : MonoBehaviour
 {
@@ -23,7 +24,19 @@ public class Spawn_NextLevel : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Q) || Input.GetMouseButton(2))
             {
-                GameManager.instance.Load_Level(next_Scene);
+                //GameManager.instance.Load_Level(next_Scene);
+
+                if (next_Scene == "Game_Level")
+                {
+                    GameManager.instance.playerUI.Level++;
+                    //GameManager.instance.GameLevel_ON();
+                    GameManager.instance.Load_GameLevel();
+                }
+                else
+                {
+                    //GameManager.instance.playerUI.LevelText.text = "Rest Level";
+                    GameManager.instance.RestingLevel_ON();
+                }
             }
         }
     }

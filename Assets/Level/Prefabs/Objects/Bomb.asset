@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52ee4f3d3b04ee3438061ef2328eb8ad, type: 3}
-  m_Name: PlayerHealth
+  m_Script: {fileID: 11500000, guid: d48db4a8414b9304f98fef21d5d61c88, type: 3}
+  m_Name: Bomb
   m_EditorClassIdentifier: 
-  value: 4
+  ItemName: Bomb
+  Icon: {fileID: -1083275370, guid: f292403b968dabd41bb12f4645570d4a, type: 3}
+  BuyPrice: 15
+  SellPrice: 10
+  Description: A bomb that will destroy the terrain in case you get stuck!

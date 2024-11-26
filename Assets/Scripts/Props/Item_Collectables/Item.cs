@@ -8,7 +8,10 @@ public class Item : MonoBehaviour
     [SerializeField] public ItemData data;
     [HideInInspector] public Rigidbody2D rb2D;
 
+    public string ItemName => data.ItemName;
+    public string Description => data.Description;
     public int SellPrice => data.SellPrice;
+    public int BuyPrice => data.BuyPrice;
 
     private void Awake()
     {

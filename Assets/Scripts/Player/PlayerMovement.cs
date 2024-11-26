@@ -127,7 +127,8 @@ public class PlayerMovement : MonoBehaviour
         if (DialogueManager.GetInstance().dialogueIsPlaying || GameManager.instance.isGamePaused)
         {
             animator.Play("Idle");
-            StopMovement();
+            rb.gravityScale = 2;
+            //StopMovement();
             return;
         }
 
@@ -531,6 +532,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("IsAlive", false);
 
         yield return new WaitForSeconds(0.75f);
-        GameManager.instance.GameOver_Panel.SetActive(true);
+        Player_UI.instance.GameOver_Panel.SetActive(true);
     }
 }

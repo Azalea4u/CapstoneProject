@@ -76,6 +76,10 @@ public class Inventory_UI : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            Debug.Log("Slots are not the same amount");
+        }
     }
 
     public void Remove()

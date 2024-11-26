@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    public InventoryManager inventoryManager;
+    [HideInInspector] public InventoryManager inventoryManager;
 
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerHealth playerHealth;

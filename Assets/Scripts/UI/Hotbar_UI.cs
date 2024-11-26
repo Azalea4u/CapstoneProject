@@ -8,10 +8,37 @@ public class Hotbar_UI : MonoBehaviour
 
     private Slot_UI selectedSlot;
 
+    public void LoadHotBarFromData()
+    {
+        for (int i = 0; i < hotbar_Slots.Count; i++)
+        {
+            if (i < GameManager.instance.player.inventoryManager.hotbarData.slots.Count)
+            {
+                var slotData = GameManager.instance.player.inventoryManager.hotbarData.slots[i];
+                if (!string.IsNullOrEmpty(slotData.itemName))
+                {
+                    Inventory.Slot slot = new Inventory.Slot
+                    {
+                        itemName = slotData.itemName,
+                        count = slotData.count,
+                        icon = slotData.icon
+                    };
+                    hotbar_Slots[i].SetItem(slot);
+                }
+                else
+                {
+                    hotbar_Slots[i].SetEmpty();
+                }
+            }
+        }
+    }
+
     private void Start()
     {
+        LoadHotBarFromData();
         SelectSlot(0);
     }
+
 
     private void Update()
     {
@@ -33,7 +60,7 @@ public class Hotbar_UI : MonoBehaviour
             }
             selectedSlot = hotbar_Slots[index];
             selectedSlot.SetHighlight(true);
-            
+
             GameManager.instance.player.inventoryManager.hotbar.SelectSlot(index);
         }
     }

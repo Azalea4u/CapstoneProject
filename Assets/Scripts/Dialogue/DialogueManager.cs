@@ -140,15 +140,15 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
 
-        if (SceneManager.GetActiveScene().name == "Rest_Level")
+        //if (SceneManager.GetActiveScene().name == "Rest_Level")
         {
             currentStory.BindExternalFunction("ShowBuyMenu", ShowBuyMenu);
             currentStory.BindExternalFunction("CloseBuyMenu", CloseBuyMenu);
             currentStory.BindExternalFunction("ShowSellMenu", ShowSellMenu);
         }
-        else if (SceneManager.GetActiveScene().name == "Test_Level")
+        //else if (SceneManager.GetActiveScene().name == "Test_Level")
         {
-            currentStory.BindExternalFunction("StartMenu", StartMenu);
+            currentStory.BindExternalFunction("Load_StartMenu", StartMenu);
             currentStory.BindExternalFunction("QuitGame", QuitGame);
         }
 
@@ -159,12 +159,12 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
-        if (SceneManager.GetActiveScene().name == "Test_Level")
+        //if (SceneManager.GetActiveScene().name == "Test_Level")
         {
-            currentStory.UnbindExternalFunction("StartMenu");
+            currentStory.UnbindExternalFunction("Load_StartMenu");
             currentStory.UnbindExternalFunction("QuitGame");
         }
-        else if (SceneManager.GetActiveScene().name == "Rest_Level")
+        //else if (SceneManager.GetActiveScene().name == "Rest_Level")
         {
             currentStory.UnbindExternalFunction("ShowBuyMenu");
             currentStory.UnbindExternalFunction("CloseBuyMenu");
@@ -177,6 +177,7 @@ public class DialogueManager : MonoBehaviour
 
         // go back to default audio info
         SetCurrentAudioInfo(defaultAudioInfo.id);
+        GameManager.instance.ResumeGame();
     }
 
     private void ContinueStory()
@@ -445,7 +446,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartMenu()
     {
-        GameManager.instance.Load_Level("Start_Menu");
+        GameManager.instance.StartMenu_ON();
     }
 
     public void QuitGame()

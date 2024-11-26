@@ -5,10 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class InventoryMenu_UI : MonoBehaviour
 {
-    [SerializeField] public string inventoryName;
     [SerializeField] private Canvas canvas;
     [SerializeField] public GameObject storePanel;
-
 
     [Header("Hotbars")]
     [SerializeField] private GameObject inGame_Hotbar;
@@ -34,7 +32,6 @@ public class InventoryMenu_UI : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Rest_Level")
         {
-            inventory = GameManager.instance.player.inventoryManager.GetInventoryByName(inventoryName);
             storePanel.SetActive(false);
         }
     }
@@ -73,21 +70,39 @@ public class InventoryMenu_UI : MonoBehaviour
         List<Slot_UI> inGame_slots = inGame_Hotbar.GetComponent<Hotbar_UI>().hotbar_Slots;
         List<Slot_UI> store_slots = store_Hotbar.GetComponent<Hotbar_UI>().hotbar_Slots;
 
+        // Ensure both hotbar slot lists are the same size
+        int minSlots = Mathf.Min(inGame_slots.Count, store_slots.Count);
+
         if (isStoreActive)
         {
-            // sync store hotbar with store hotbar
-            for (int i = 0; i < store_Hotbar.transform.childCount; i++)
+            // Sync from in-game hotbar to store hotbar
+            for (int i = 0; i < minSlots; i++)
             {
-                store_slots[i].SetItem(inGame_slots[i].inventory.slots[i]);
+                if (inGame_slots[i].inventory != null && inGame_slots[i].inventory.slots.Count > i)
+                {
+                    store_slots[i].SetItem(inGame_slots[i].inventory.slots[i]);
+                }
+                else
+                {
+                    store_slots[i].SetEmpty();
+                }
             }
         }
         else
         {
-            // sync player hotbar with store hotbar
-            for (int i = 0; i < inGame_Hotbar.transform.childCount; i++)
+            // Sync from store hotbar to in-game hotbar
+            for (int i = 0; i < minSlots; i++)
             {
-                inGame_slots[i].SetItem(store_slots[i].inventory.slots[i]);
+                if (store_slots[i].inventory != null && store_slots[i].inventory.slots.Count > i)
+                {
+                    inGame_slots[i].SetItem(store_slots[i].inventory.slots[i]);
+                }
+                else
+                {
+                    inGame_slots[i].SetEmpty();
+                }
             }
         }
     }
+
 }

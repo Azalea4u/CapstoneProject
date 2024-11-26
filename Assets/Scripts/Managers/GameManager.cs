@@ -7,81 +7,64 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public ItemManager itemManager;
-    public InventoryManager inventoryManager;
-    public Player player;
 
+    [Header("Managers")]
+    public ShopManager shopManager;
+    public ItemManager itemManager;
+    public DialogueManager dialogueManager;
+    public InventoryManager inventoryManager;
+
+    public Player player;
+    public GameObject playerPrefab;
     public bool isGamePaused = false;
 
     [Header("Starting Game")]
-    [SerializeField] private bool firstGame = true;
-    [SerializeField] private Bool_SO FirstGame;
+    [SerializeField] public Bool_SO FirstGame;
 
     [Header("UI")]
-    [SerializeField] public GameObject GameOver_Panel;
-    [SerializeField] public GameObject PausedMenu_Panel;
-    [SerializeField] public TMPro.TextMeshProUGUI LevelText;
-    [SerializeField] private Int_SO currentLevel;
-    [SerializeField] public TMPro.TextMeshProUGUI GoldText;
-    [SerializeField] private Int_SO currentGold;
+    [SerializeField] public Player_UI playerUI;
+    [SerializeField] public GameObject player_UI;
+
+    [Header("Levels")]
+    [SerializeField] public GameObject Start_Menu;
+    [SerializeField] public GameObject Game_Level;
+    [SerializeField] public GameObject Resting_Level;
+    private GameObject currentGameLevel;
 
     private Vector3 crouchingOffset = new Vector3(0, -2, -10); // Adjust as needed for the crouch position
 
-    public int Level
-    {
-        get { return currentLevel.value; }
-        set { currentLevel.value = value; }
-    }
-
-    public int Gold
-    {
-        get { return currentGold.value; }
-        set { currentGold.value = value; }
-    }
-
     private void Awake()
     {
+        // Singleton pattern for GameManager
         if (instance != null && instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            instance = this;
-        }
-        DontDestroyOnLoad(this.gameObject);
-        
-        itemManager = GetComponent<ItemManager>();
-        player = FindAnyObjectByType<Player>();
-    }
 
-    public void Start()
-    {
-        if (firstGame)
-        {
-            //Level = 1; 
-            //Gold = 200;
-        }
-        GameOver_Panel.SetActive(false);
-        PausedMenu_Panel.SetActive(false);
+        instance = this;
+        //DontDestroyOnLoad(gameObject);
+
+        FirstGame.Value = true;
+
+        //shopManager = GetComponent<ShopManager>();
+        //dialogueManager = GetComponent<DialogueManager>();
+        //inventoryManager = GetComponent<InventoryManager>();
+        itemManager = GetComponent<ItemManager>();
+
+        player = FindAnyObjectByType<Player>();
     }
 
     private void Update()
     {
-        GoldText.text = currentGold.value.ToString();
-        firstGame = FirstGame.Value;
-
-        if (SceneManager.GetActiveScene().name == "Game_Level")
-        {
-            LevelText.text = "Level " + Level;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Tab) && !DialogueManager.GetInstance().dialogueIsPlaying)
+        if (Input.GetKeyDown(KeyCode.Tab) && !DialogueManager.instance.dialogueIsPlaying 
+            && SceneManager.GetActiveScene().name != "Start_Menu")
         {
             isGamePaused = !isGamePaused;
 
             if (isGamePaused)
             {
+                playerUI.PausedMenu_Panel.SetActive(true);
                 PauseGame();
             }
             else
@@ -90,24 +73,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-        if (SceneManager.GetActiveScene().name == "Rest_Level")
-        {
-            LevelText.text = "Rest Level";
-        }
-    }
-
-    public void StartMenu()
-    {
-        firstGame = true;
-        Load_Level("Start_Menu");
-    }
-
-    public void StartGame()
-    {
-        Load_Level("Game_Level");
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadScene("Game_Level");
     }
 
     public void Enter_Store()
@@ -120,13 +87,19 @@ public class GameManager : MonoBehaviour
         ResumeGame();
     }
 
+    public void Load_StartMenu()
+    {
+        FirstGame.Value = true;
+        Load_Level("Start_Menu");
+    }
+
+    #region PAUSE/RESUME
     public void PauseGame()
     {
-        PausedMenu_Panel.SetActive(true);
         isGamePaused = true;
 
         PlayerMovement.instance.StopMovement();
-        PlayerMovement.instance.rb.velocity = Vector2.zero;
+        //PlayerMovement.instance.rb.velocity = Vector2.zero;
         if (SceneManager.GetActiveScene().name == "Game_Level")
         {
             EnemyBase.instance.rb.velocity = Vector2.zero;
@@ -137,7 +110,7 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        PausedMenu_Panel.SetActive(false);
+        playerUI.PausedMenu_Panel.SetActive(false);
         isGamePaused = false;
 
         PlayerMovement.instance.ContinueMovement();
@@ -147,7 +120,9 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log("Game Resumed");
     }
+    #endregion
 
+    #region SCENES
     public void Load_RestLevel()
     {
         SceneManager.LoadScene("Rest_Level");
@@ -155,31 +130,69 @@ public class GameManager : MonoBehaviour
 
     public void Load_GameLevel()
     {
-        firstGame = false;
+        FirstGame.Value = false;
         SceneManager.LoadScene("Game_Level");
-
-        // update the level number
-        LevelText.text = "Level " + Level++;
     }
 
     public void Load_Level(string levelName)
     {
         SceneManager.LoadScene(levelName);
 
-        if (levelName == "Game_Level")
-        {
-            LevelText.text = "Level " + Level++;
-        }
-        else
-        {
-            LevelText.text = "Rest Level";
-        }
+        FirstGame.Value = false;
     }
 
-    public void Load_TestLevel()
+    private void Load_TestLevel()
     {
         Load_Level("Test_Level");
     }
+    #endregion
+
+    #region CHANGE_LEVEL
+    public void GameLevel_ON()
+    {
+        // Instantiate the Game_Level prefab if it doesn't already exist
+        if (currentGameLevel == null && Game_Level != null)
+        {
+            currentGameLevel = Instantiate(Game_Level);
+        }
+
+        player_UI.SetActive(true);
+        currentGameLevel.SetActive(true); // Activate the new Game_Level
+        Resting_Level.SetActive(false);
+        Start_Menu.SetActive(false);
+
+        playerPrefab.SetActive(true);
+        player_UI.GetComponent<Player_UI>().Level++;
+    }
+
+
+    public void RestingLevel_ON()
+    {
+        if (currentGameLevel != null)
+        {
+            Destroy(currentGameLevel); // Destroy the current Game_Level
+            currentGameLevel = null;
+        }
+
+        Resting_Level.SetActive(true);
+        Game_Level.SetActive(false);
+        Start_Menu.SetActive(false);
+
+        playerPrefab.SetActive(true);
+        Transform playerSpawn = Resting_Level.transform.Find("PlayerSpawn_RestLevel");
+        player.transform.position = playerSpawn.position;
+    }
+
+    public void StartMenu_ON()
+    {
+        player_UI.SetActive(false);
+        playerPrefab.SetActive(false);
+
+        Start_Menu.SetActive(true);
+        Game_Level.SetActive(false);
+        Resting_Level.SetActive(false);
+    }
+    #endregion
 
     public void Quit_Game()
     {
