@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
         if (canMove)
         {
             // JUMP
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && !DialogueManager.instance.dialogueIsPlaying)
             {
                 if (isGrounded)
                     Jump();
