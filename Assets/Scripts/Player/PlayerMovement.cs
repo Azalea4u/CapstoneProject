@@ -128,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.Play("Idle");
             rb.gravityScale = 2;
+            canMove = false;
             //StopMovement();
             return;
         }
@@ -193,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
         if (canMove)
         {
             // JUMP
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && !DialogueManager.instance.dialogueIsPlaying)
             {
                 if (isGrounded)
                     Jump();

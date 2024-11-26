@@ -36,19 +36,19 @@ public class PlayerAudio_Play : MonoBehaviour
 
     public void Play_Dash()
     {
-        if (player.activeSelf == true)
+        if (player.activeSelf == true && !GameManager.instance.isGamePaused)
             dashing_Audio.Play();
     }
 
     public void PlayJump()
     {
-        if (player.activeSelf == true)
+        if (player.activeSelf == true && !GameManager.instance.isGamePaused)
             jump_Audio.Play();
     }
 
     public void PlayLanding()
     {
-        if (player.activeSelf == true)
+        if (player.activeSelf == true && !GameManager.instance.isGamePaused)
             landing_Audio.Play();
     }
 
