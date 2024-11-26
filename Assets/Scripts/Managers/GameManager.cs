@@ -57,8 +57,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape)) 
-            && !DialogueManager.instance.dialogueIsPlaying && SceneManager.GetActiveScene().name != "Start_Menu")
+        if (Input.GetKeyDown(KeyCode.Tab) && !DialogueManager.instance.dialogueIsPlaying 
+            && SceneManager.GetActiveScene().name != "Start_Menu")
         {
             isGamePaused = !isGamePaused;
 
@@ -75,11 +75,6 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene("Game_Level");
-
-        if (SceneManager.GetActiveScene().name == "Game_Level")
-        {
-            Game_Level.SetActive(true);
-        }
     }
 
     public void Enter_Store()

@@ -140,12 +140,17 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
 
-        currentStory.BindExternalFunction("ShowBuyMenu", ShowBuyMenu);
-        currentStory.BindExternalFunction("CloseBuyMenu", CloseBuyMenu);
-        currentStory.BindExternalFunction("ShowSellMenu", ShowSellMenu);
-
-        currentStory.BindExternalFunction("Load_StartMenu", StartMenu);
-        currentStory.BindExternalFunction("QuitGame", QuitGame);
+        //if (SceneManager.GetActiveScene().name == "Rest_Level")
+        {
+            currentStory.BindExternalFunction("ShowBuyMenu", ShowBuyMenu);
+            currentStory.BindExternalFunction("CloseBuyMenu", CloseBuyMenu);
+            currentStory.BindExternalFunction("ShowSellMenu", ShowSellMenu);
+        }
+        //else if (SceneManager.GetActiveScene().name == "Test_Level")
+        {
+            currentStory.BindExternalFunction("Load_StartMenu", StartMenu);
+            currentStory.BindExternalFunction("QuitGame", QuitGame);
+        }
 
         ContinueStory();
     }
@@ -153,13 +158,18 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator ExitDialogueMode()
     {
         yield return new WaitForSeconds(0.2f);
-        
-        currentStory.UnbindExternalFunction("Load_StartMenu");
-        currentStory.UnbindExternalFunction("QuitGame");
-            
-        currentStory.UnbindExternalFunction("ShowBuyMenu");
-        currentStory.UnbindExternalFunction("CloseBuyMenu");
-        currentStory.UnbindExternalFunction("ShowSellMenu");
+
+        //if (SceneManager.GetActiveScene().name == "Test_Level")
+        {
+            currentStory.UnbindExternalFunction("Load_StartMenu");
+            currentStory.UnbindExternalFunction("QuitGame");
+        }
+        //else if (SceneManager.GetActiveScene().name == "Rest_Level")
+        {
+            currentStory.UnbindExternalFunction("ShowBuyMenu");
+            currentStory.UnbindExternalFunction("CloseBuyMenu");
+            currentStory.UnbindExternalFunction("ShowSellMenu");
+        }
 
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);

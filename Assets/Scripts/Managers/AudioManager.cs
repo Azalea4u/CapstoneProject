@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-       if (restingLevel.activeSelf)
+       if (startMenu.activeSelf || restingLevel.activeSelf)
        {
             if (!restingMusic.isPlaying)
             {
