@@ -48,6 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338e1718f95e0734f9d98f58670a919f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionDelay: 2
+  bombRange: {x: 2, y: 2}
+  damageAmount: 1
+  damageableLayer:
+    serializedVersion: 2
+    m_Bits: 8320
 --- !u!58 &1363253489524220351
 CircleCollider2D:
   m_ObjectHideFlags: 0

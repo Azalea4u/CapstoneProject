@@ -7,6 +7,8 @@ public class Bomb : MonoBehaviour
 {
     [SerializeField] private float explosionDelay = 2.0f;
     [SerializeField] private Vector2Int bombRange = new Vector2Int(2, 2);
+    [SerializeField] private int playerDamageAmount = 1;
+    [SerializeField] private int enemyDamageAmount = 3;
 
     private void Start()
     {
@@ -16,31 +18,27 @@ public class Bomb : MonoBehaviour
 
     public void TriggerExplosion()
     {
-        // Find all Tilemap instances in the scene
-        Tilemap[] tilemaps = FindObjectsOfType<Tilemap>();
+        // Find all colliders within the explosion radius
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, Mathf.Max(bombRange.x, bombRange.y));
 
-        foreach (Tilemap tilemap in tilemaps)
+        foreach (Collider2D collider in colliders)
         {
-            // Check if the Tilemap is tagged as destructible (or any other identifying method you use)
-            if (tilemap.CompareTag("Destructible"))
+            // Check if the collider belongs to a player
+            if (collider.CompareTag("Player"))
             {
-                // Convert bomb position from world coordinates to Tilemap coordinates
-                Vector3Int bombCell = tilemap.WorldToCell(transform.position);
-
-                // Iterate over the range around the bomb
-                for (int x = -bombRange.x; x <= bombRange.x; x++)
+                IDamageable damageable = collider.GetComponent<IDamageable>();
+                if (damageable != null)
                 {
-                    for (int y = -bombRange.y; y <= bombRange.y; y++)
-                    {
-                        Vector3Int currentCell = bombCell + new Vector3Int(x, y, 0);
-
-                        // Check if the tile exists at the current cell
-                        if (tilemap.HasTile(currentCell))
-                        {
-                            // Remove the tile
-                            tilemap.SetTile(currentCell, null);
-                        }
-                    }
+                    damageable.TakeDamage(playerDamageAmount);
+                }
+            }
+            // Check if the collider belongs to an enemy
+            else if (collider.CompareTag("Enemy"))
+            {
+                IDamageable damageable = collider.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(enemyDamageAmount);
                 }
             }
         }
