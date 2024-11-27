@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 6599231452247932254}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -627,6 +627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1427411300158478973}
   - component: {fileID: 5029076051770097723}
+  - component: {fileID: 3091052234221502278}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -664,6 +665,23 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &3091052234221502278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5253869493254504877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6f4d1ad1109784ba67602bf4a64a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemaps:
+  - {fileID: 4593717818613307840}
+  - {fileID: 4491678508380941068}
+  - {fileID: 5018125602448834225}
+  bombRange: {x: 2, y: 2}
 --- !u!1 &7662469449980669654
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,7 +695,7 @@ GameObject:
   - component: {fileID: 7278019287480002834}
   m_Layer: 0
   m_Name: Crystal
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -974,7 +992,7 @@ GameObject:
   - component: {fileID: 1034390283893438943}
   m_Layer: 10
   m_Name: Ground
-  m_TagString: Ground
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1303,16 +1321,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -7, y: 4, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 12
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: -5, y: 4, z: 0}
     second:
       serializedVersion: 2
@@ -1589,8 +1597,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: ac5b78b9416c91d46977c0799f5711db, type: 2}
   - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 4653ad83e0a729c4bad7f6c3c632ad7b, type: 2}
-  - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 148e40e6d789dc44fa2121ac3a1f39ea, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 40f1e46b2ed81c24dad6bd875a1e6922, type: 2}
   - m_RefCount: 1
@@ -1616,8 +1624,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: 772582836, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -1136628759, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
   - m_RefCount: 21
@@ -1659,7 +1667,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: -1564281970, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 56
+  - m_RefCount: 55
     m_Data:
       e00: 1
       e01: 0
@@ -1678,7 +1686,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 56
+  - m_RefCount: 55
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -1896,16 +1904,6 @@ CompositeCollider2D:
       - X: -60000000
         Y: 40000000
       - X: -60000000
-        Y: 50000000
-      - X: -69375000
-        Y: 50000000
-      - X: -70000000
-        Y: 49375000
-      - X: -70000000
-        Y: 40000000
-      - X: -60000000
-        Y: 40000000
-      - X: -60000000
         Y: 30000000
       - X: -80000000
         Y: 30000000
@@ -1951,11 +1949,6 @@ CompositeCollider2D:
       - {x: -9.00003, y: 3}
       - {x: -10, y: 2.999971}
       - {x: -9.99997, y: 0}
-    - - {x: -6.000029, y: 4}
-      - {x: -6.000029, y: 5}
-      - {x: -6.937507, y: 4.9999924}
-      - {x: -7, y: 4.937489}
-      - {x: -6.9999704, y: 4}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0

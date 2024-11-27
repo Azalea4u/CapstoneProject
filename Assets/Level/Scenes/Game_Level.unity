@@ -324,6 +324,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &399026387 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 790101629078760507, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
+  m_PrefabInstance: {fileID: 1570664287}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &439815501 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7935274067071104301, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
@@ -345,7 +350,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 19105959253860194, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 9
+      value: 8.999878
       objectReference: {fileID: 0}
     - target: {fileID: 19105959253860194, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1435,7 +1440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8315218987243838838, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -62.89984
+      value: -62.899902
       objectReference: {fileID: 0}
     - target: {fileID: 8416982947107308818, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1611,7 +1616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9071874521274136217, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -20.899841
+      value: -20.899902
       objectReference: {fileID: 0}
     - target: {fileID: 9156035145301897787, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2133,6 +2138,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1144413778}
     - target: {fileID: 2198610926142047384, guid: 026027653e7c2d5489a93f0daeb78d71, type: 3}
+      propertyPath: typingSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2198610926142047384, guid: 026027653e7c2d5489a93f0daeb78d71, type: 3}
       propertyPath: continueIcon
       value: 
       objectReference: {fileID: 660522806}
@@ -2217,38 +2226,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 698254764389833645, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2063931928921405977, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2891411068184673133, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-      propertyPath: m_TagString
-      value: Player
+    - target: {fileID: 2608979042549606953, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2931341396314028155, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
       propertyPath: healthText
       value: 
       objectReference: {fileID: 660522799}
-    - target: {fileID: 4534669147816550772, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 5128362105524759717, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
       propertyPath: inventoryMenu_UI
       value: 
       objectReference: {fileID: 1248525524}
-    - target: {fileID: 5163967370136832390, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5896544121221884434, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 6590205253365238009, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2257,14 +2246,10 @@ PrefabInstance:
       propertyPath: inventoryUI
       value: 
       objectReference: {fileID: 660522800}
-    - target: {fileID: 8666866536089839395, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8695169641154868356, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
+    - target: {fileID: 8961119042189131128, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
+      propertyPath: bombSpawnPoint
+      value: 
+      objectReference: {fileID: 399026387}
     - target: {fileID: 9196538709246006387, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.5
@@ -2560,6 +2545,10 @@ PrefabInstance:
       propertyPath: followTarget
       value: 
       objectReference: {fileID: 1648311444}
+    - target: {fileID: 856671882325792121, guid: 7e910a0701790714590c7bf761606e4a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1300324355, guid: 9cc2a5788d4b80b4eacbfa07e5354f88, type: 3}
     - target: {fileID: 2424837665782570469, guid: 7e910a0701790714590c7bf761606e4a, type: 3}
       propertyPath: camera
       value: 

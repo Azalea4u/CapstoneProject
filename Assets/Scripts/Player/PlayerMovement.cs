@@ -75,6 +75,11 @@ public class PlayerMovement : MonoBehaviour
     public bool ledgeDetected;
     private bool ledgePositionSet = false;
 
+    [Header("Bomb")]
+    [SerializeField] private GameObject bombPrefab;
+    [SerializeField] private Transform bombSpawnPoint;
+
+
     public Rigidbody2D rb;
 
     private void Awake()
@@ -193,7 +198,8 @@ public class PlayerMovement : MonoBehaviour
         if (canMove)
         {
             // JUMP
-            if (Input.GetKeyDown(KeyCode.Space) && !DialogueManager.instance.dialogueIsPlaying)
+            if (Input.GetKeyDown(KeyCode.Space) && !isCrouching
+                && !DialogueManager.instance.dialogueIsPlaying)
             {
                 if (isGrounded)
                     Jump();
@@ -214,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // CROUCH
-            if (!isClimbing)
+            if (!isClimbing && isGrounded)
             {
                 if (Input.GetButtonDown("Crouch"))
                 {
@@ -231,6 +237,15 @@ public class PlayerMovement : MonoBehaviour
                     crouchCollider.enabled = false;
 
                 } 
+            }
+
+            // BOMB PLACEMENT
+            if (isCrouching)
+            {
+                if (Input.GetMouseButtonDown(0) && isCrouching)
+                {
+                    PlaceBomb();
+                }
             }
         }
         else
@@ -501,6 +516,34 @@ public class PlayerMovement : MonoBehaviour
 
         standingCollider.enabled = true;
         crouchCollider.enabled = false;
+    }
+    #endregion
+
+    #region BOMB
+    private void PlaceBomb()
+    {
+        if (bombPrefab != null && bombSpawnPoint != null)
+        {
+            // Instantiate the bomb at the player's spawn point position
+            float bombSpawnY = bombSpawnPoint.position.y + 0.25f;
+
+            Vector3 bombSpawn = new Vector3(bombSpawnPoint.position.x, bombSpawnY);
+
+            GameObject bomb = Instantiate(bombPrefab, bombSpawn, Quaternion.identity);
+
+            // Set the DestructibleTerrain reference on the bomb
+            Bomb bombScript = bomb.GetComponent<Bomb>();
+            if (bombScript != null)
+            {
+                //bombScript.desctrubleTerrain = destructibleTerrain;
+            }
+
+            Debug.Log("Bomb placed!");
+        }
+        else
+        {
+            Debug.LogWarning("BombPrefab or BombSpawnPoint is not set!");
+        }
     }
     #endregion
 

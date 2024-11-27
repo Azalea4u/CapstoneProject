@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 3665475845324362853}
   m_Layer: 0
   m_Name: Crystal
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -395,7 +395,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
-  m_Mode: 0
+  m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!1 &4767074321620146161
@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 2039722321242167497}
   m_Layer: 10
   m_Name: Ground
-  m_TagString: Ground
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1152,7 +1152,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
-  m_Mode: 0
+  m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!19719996 &4525742401015468314
@@ -1420,6 +1420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3497353451519378732}
   - component: {fileID: 1852636751236580190}
+  - component: {fileID: 3697672246676866003}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Ground
@@ -1457,6 +1458,23 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &3697672246676866003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6705573602131935949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6f4d1ad1109784ba67602bf4a64a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemaps:
+  - {fileID: 5721714539554831467}
+  - {fileID: 4099014384717954635}
+  - {fileID: 8790425614465410712}
+  bombRange: {x: 2, y: 2}
 --- !u!1 &7638972361907588541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,7 +1550,7 @@ GameObject:
   - component: {fileID: 3198953208811868568}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1916,7 +1934,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
-  m_Mode: 0
+  m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!1001 &1153066252429798174

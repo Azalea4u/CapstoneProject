@@ -31,8 +31,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5798810062423111685}
   - {fileID: 6518913230072110472}
+  - {fileID: 5798810062423111685}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1158910187601074129
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 1859057471607503903}
   m_Layer: 10
   m_Name: Ground
-  m_TagString: Ground
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -954,6 +954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5798810062423111685}
   - component: {fileID: 1286156052639706377}
+  - component: {fileID: 597486968949207917}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -991,6 +992,23 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &597486968949207917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498990491186612877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6f4d1ad1109784ba67602bf4a64a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemaps:
+  - {fileID: 7029893889288876557}
+  - {fileID: 3903049461719355734}
+  - {fileID: 8723035121845791157}
+  bombRange: {x: 2, y: 2}
 --- !u!1 &2789735437253858433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,7 +1022,7 @@ GameObject:
   - component: {fileID: 8628548786173835978}
   m_Layer: 0
   m_Name: Crystal
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1282,7 +1300,7 @@ GameObject:
   - component: {fileID: 6497373166112505661}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

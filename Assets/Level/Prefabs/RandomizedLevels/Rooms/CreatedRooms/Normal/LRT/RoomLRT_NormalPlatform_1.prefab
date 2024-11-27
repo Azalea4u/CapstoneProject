@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 234375329061770193}
   m_Layer: 10
   m_Name: Ground
-  m_TagString: Ground
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -892,7 +892,7 @@ GameObject:
   - component: {fileID: 934994525835691550}
   m_Layer: 0
   m_Name: Crystal
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1214,7 +1214,7 @@ GameObject:
   - component: {fileID: 716291967108847208}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1296,8 +1296,8 @@ Tilemap:
   - first: {x: -8, y: 2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 18
-      m_TileSpriteIndex: 18
+      m_TileIndex: 9
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1693,7 +1693,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 4e1abfdc58493e148ab5cce798b94c98, type: 2}
-  - m_RefCount: 2
+  - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: d92b48f92b7cf7c4e815ada09808abf4, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 95a91aae508bc55499f120d115c4066f, type: 2}
@@ -1711,7 +1711,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 04a0e73fb67df5e49b04229737106158, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 8e635075c848c5b4f81795230161e4b6, type: 2}
-  - m_RefCount: 14
+  - m_RefCount: 13
     m_Data: {fileID: 11400000, guid: 4eae1f4b510035a43936b59ab20bb200, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
@@ -1732,7 +1732,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 1794787651, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
-  - m_RefCount: 2
+  - m_RefCount: 3
     m_Data: {fileID: -145614282, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: -1934818787, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
@@ -1750,7 +1750,7 @@ Tilemap:
     m_Data: {fileID: 734783700, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -193752526, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
-  - m_RefCount: 14
+  - m_RefCount: 13
     m_Data: {fileID: 1943598188, guid: 1d93733de14529048aa8d177a0ead1c5, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 43
@@ -1857,6 +1857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3267388113861278009}
   - component: {fileID: 3724686913202349690}
+  - component: {fileID: 2816427957996738979}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1894,6 +1895,23 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &2816427957996738979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013076083155227715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6f4d1ad1109784ba67602bf4a64a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemaps:
+  - {fileID: 2375140751136644888}
+  - {fileID: 8657015947502457354}
+  - {fileID: 3991023853425281375}
+  bombRange: {x: 2, y: 2}
 --- !u!1 &3515545514600618984
 GameObject:
   m_ObjectHideFlags: 0

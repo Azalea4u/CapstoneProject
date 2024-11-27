@@ -9,11 +9,16 @@ public class Player : MonoBehaviour
 
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerHealth playerHealth;
-    [SerializeField] private InventoryMenu_UI inventoryMenu_UI;
+
+    [SerializeField] private HotBar_Data hotBar_Data;
 
     private void Awake()
     {
         inventoryManager = GetComponent<InventoryManager>();
+    }
+
+    private void Update()
+    {
     }
 
     public void DropItem(Item item)

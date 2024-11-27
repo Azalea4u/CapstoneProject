@@ -22,10 +22,23 @@ public class PlayerAudio_Play : MonoBehaviour
     [SerializeField] public AudioSource attack02Miss_Audio;
     [SerializeField] public AudioSource attack03_Audio;
     [SerializeField] public AudioSource attack03Miss_Audio;
+    [SerializeField] public AudioSource death_Audio;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Update()
+    {
+        if (!GameManager.instance.isGamePaused && !DialogueManager.instance.dialogueIsPlaying)
+        {
+            // stop all audio
+            dashing_Audio.Stop();
+            jump_Audio.Stop();
+            landing_Audio.Stop();
+            clingCLimb_Audio.Stop();
+        }
     }
 
     public void PlayFootstep()
@@ -62,6 +75,12 @@ public class PlayerAudio_Play : MonoBehaviour
     {
         if (player.activeSelf == true && !GameManager.instance.isGamePaused)
             damage_Audio.Play();
+    }
+
+    public void PlayDeath()
+    {
+        if (player.activeSelf == true && !GameManager.instance.isGamePaused)
+            death_Audio.Play();
     }
 
     #region ATTACK

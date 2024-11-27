@@ -63,7 +63,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-
     public Inventory GetInventoryByName(string inventoryName)
     {
         if (inventoryByName.ContainsKey(inventoryName))

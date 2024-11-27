@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1243967892555727438}
   m_Layer: 3
   m_Name: AttackPoint_02
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 6566451130094213994}
   m_Layer: 3
   m_Name: GroundCollision
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 2586898567413956349}
   m_Layer: 3
   m_Name: FrontCollision
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 8837432252894973742}
   m_Layer: 0
   m_Name: Spotlight_2D
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 8648858716701393154}
   m_Layer: 3
   m_Name: AttackPoint_01
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 8708873942163387208}
   m_Layer: 3
   m_Name: LedgeCheck
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -579,6 +579,7 @@ GameObject:
   - component: {fileID: 7248870900417814294}
   - component: {fileID: 4337227908643115712}
   - component: {fileID: 9044708780398231832}
+  - component: {fileID: 2608979042549606953}
   m_Layer: 13
   m_Name: Player
   m_TagString: Player
@@ -624,7 +625,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 8366319577663036745}
   playerMovement: {fileID: 8961119042189131128}
   playerHealth: {fileID: 2931341396314028155}
-  inventoryMenu_UI: {fileID: 0}
+  hotBar_Data: {fileID: 0}
 --- !u!114 &8961119042189131128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,6 +675,7 @@ MonoBehaviour:
   isClimbing: 0
   climbingAllowed: 1
   ledgeDetected: 0
+  bombPrefab: {fileID: 6187737806003182847, guid: 6cb3d4b4ba950c84b8e8bafdf24f912b, type: 3}
   rb: {fileID: 659910686442138463}
 --- !u!114 &2931341396314028155
 MonoBehaviour:
@@ -1054,6 +1056,7 @@ MonoBehaviour:
   attack02Miss_Audio: {fileID: 7248870900417814294}
   attack03_Audio: {fileID: 9148399998768997420}
   attack03Miss_Audio: {fileID: 4337227908643115712}
+  death_Audio: {fileID: 2608979042549606953}
 --- !u!82 &3224838499450091423
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2110,6 +2113,102 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!82 &2608979042549606953
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6590205253365238009}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: dc7c3f5eb4932ba4fba3e8e37fe85c61, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8666866536089839395
 GameObject:
   m_ObjectHideFlags: 0
@@ -2123,7 +2222,7 @@ GameObject:
   - component: {fileID: 4577145456841782370}
   m_Layer: 3
   m_Name: AttackPoint_03
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2213,7 +2312,7 @@ GameObject:
   - component: {fileID: 2897118172316307446}
   m_Layer: 3
   m_Name: BackCollision
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

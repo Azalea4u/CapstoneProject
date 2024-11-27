@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Bool_SO FirstGame;
 
     [Header("UI")]
+    [SerializeField] private GameObject controlPanel;
     [SerializeField] public Player_UI playerUI;
     [SerializeField] public GameObject player_UI;
 
@@ -75,6 +76,11 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene("Game_Level");
+    }
+
+    public void ControlPanel()
+    {
+        controlPanel.SetActive(!controlPanel.activeSelf);
     }
 
     public void Enter_Store()

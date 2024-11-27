@@ -31,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3497353451519378732}
   - {fileID: 6203758218732746124}
   - {fileID: 2387277399662283141}
   - {fileID: 862415808452442677}
@@ -38,7 +39,6 @@ Transform:
   - {fileID: 5636145971143505139}
   - {fileID: 6200547271670858854}
   - {fileID: 7616233410747208347}
-  - {fileID: 3497353451519378732}
   - {fileID: 8705721853805554739}
   - {fileID: 2909754824118248497}
   m_Father: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 3665475845324362853}
   m_Layer: 0
   m_Name: Crystal
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -473,7 +473,7 @@ GameObject:
   - component: {fileID: 2039722321242167497}
   m_Layer: 9
   m_Name: Ground
-  m_TagString: Ground
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1417,6 +1417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3497353451519378732}
   - component: {fileID: 1852636751236580190}
+  - component: {fileID: 2575671139688614792}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1454,6 +1455,23 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &2575671139688614792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6705573602131935949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6f4d1ad1109784ba67602bf4a64a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemaps:
+  - {fileID: 5721714539554831467}
+  - {fileID: 4099014384717954635}
+  - {fileID: 8790425614465410712}
+  bombRange: {x: 2, y: 2}
 --- !u!1 &7638972361907588541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,7 +1547,7 @@ GameObject:
   - component: {fileID: 3198953208811868568}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
