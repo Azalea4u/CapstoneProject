@@ -6,6 +6,7 @@ public class Heart_Pickup : MonoBehaviour
 {
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private int heal = 1;
+    [SerializeField] private AudioSource pickupSFX;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,8 +16,16 @@ public class Heart_Pickup : MonoBehaviour
             if (health != null)
             {
                 health.Heal(heal);
-                Destroy(gameObject);
+                StartCoroutine(Heal());
             }
         }
+    }
+
+    private IEnumerator Heal()
+    {
+        pickupSFX.Play();
+
+        yield return new WaitForSeconds(0.25f);
+        Destroy(gameObject);
     }
 }

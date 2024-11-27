@@ -162,7 +162,6 @@ public class EnemyBase : MonoBehaviour
 
         coinDrop.GetComponent<Coin_Pickup>().gold = droppedGold;
         Instantiate(coinDrop, transform.position, Quaternion.identity);
-        Debug.Log("Coin Spawned");
 
         lootDropped = true;
     }

@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567b4a6721dbecf41b7783e0349180e5, type: 3}
   m_Name: HotBar_Data
   m_EditorClassIdentifier: 
-  hotbar_Slots: []
+  slots:
+  - itemName: Bomb
+    count: 1
+    icon: {fileID: 1300324355, guid: 9cc2a5788d4b80b4eacbfa07e5354f88, type: 3}
+  - itemName: 
+    count: 0
+    icon: {fileID: 0}
+  - itemName: 
+    count: 0
+    icon: {fileID: 0}
+  - itemName: 
+    count: 0
+    icon: {fileID: 0}
