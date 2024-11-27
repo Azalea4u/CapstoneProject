@@ -800,7 +800,7 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8200
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -849,8 +849,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 7
 --- !u!66 &4226802148932957931
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -884,7 +884,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:

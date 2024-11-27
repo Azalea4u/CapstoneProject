@@ -717,6 +717,7 @@ MonoBehaviour:
       count: 0
       MaxAllowed: 99
       icon: {fileID: 0}
+  hotbarData: {fileID: 11400000, guid: c4577c8b510d48c4e940c146e2a562f2, type: 2}
   hotbarStore_SlotCount: 4
   hotbar_Store:
     slots: []
@@ -764,10 +765,10 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: abc88b4e6bf1df7449486bb3dbbfe944, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -809,10 +810,10 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: abc88b4e6bf1df7449486bb3dbbfe944, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
