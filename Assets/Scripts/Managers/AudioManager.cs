@@ -14,23 +14,23 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-       if (startMenu.activeSelf || restingLevel.activeSelf)
-       {
+        if (gameLevel.activeSelf == true)
+        {
+            if (!gameMusic.isPlaying)
+            {
+                gameMusic.Play();
+                restingMusic.Stop();
+            }
+        }
+        else if (startMenu.activeSelf || restingLevel.activeSelf)
+        {
             if (!restingMusic.isPlaying)
             {
                 restingMusic.Play();
                 gameMusic.Stop();
             }
 
-       }
-       else if (gameLevel.activeSelf == true)
-       {
-            if (!gameMusic.isPlaying)
-            {
-                gameMusic.Play();
-                restingMusic.Stop();
-            }
-       }
+        }
     }
 
     private void ChangeMusic()

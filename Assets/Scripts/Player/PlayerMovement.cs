@@ -532,6 +532,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("IsAlive", false);
 
         yield return new WaitForSeconds(0.75f);
-        Player_UI.instance.GameOver_Panel.SetActive(true);
+        GameManager.instance.playerUI.GameOver_Panel.SetActive(true);
     }
 }

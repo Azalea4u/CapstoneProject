@@ -30,37 +30,37 @@ public class PlayerAudio_Play : MonoBehaviour
 
     public void PlayFootstep()
     {
-        if (player.activeSelf == true)
+        if (player.activeSelf == true && !GameManager.instance.isGamePaused)
             footstep_Audio.Play();
     }
 
     public void Play_Dash()
     {
-        if (player.activeSelf == true)
+        if (player.activeSelf == true && !GameManager.instance.isGamePaused)
             dashing_Audio.Play();
     }
 
     public void PlayJump()
     {
-        if (player.activeSelf == true)
+        if (player.activeSelf == true && !GameManager.instance.isGamePaused)
             jump_Audio.Play();
     }
 
     public void PlayLanding()
     {
-        if (player.activeSelf == true)
+        if (player.activeSelf == true && !GameManager.instance.isGamePaused)
             landing_Audio.Play();
     }
 
     public void PlayClingClimb()
     {
-        if (player.activeSelf == true)
+        if (player.activeSelf == true && !GameManager.instance.isGamePaused)
             clingCLimb_Audio.Play();
     }
 
     public void PlayDamage()
     {
-        if (player.activeSelf == true)
+        if (player.activeSelf == true && !GameManager.instance.isGamePaused)
             damage_Audio.Play();
     }
 

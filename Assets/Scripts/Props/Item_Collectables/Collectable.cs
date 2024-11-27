@@ -27,8 +27,6 @@ public class Collectable : MonoBehaviour
                     player.inventoryManager.Add("Hotbar", item);
                 }
                 collect.Play();
-                Debug.Log("Collected");
-
                 Destroy(this.gameObject);
             }
         }
