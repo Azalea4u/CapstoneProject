@@ -19,6 +19,55 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (playerMovement.isCrouching && Input.GetMouseButtonDown(0))
+        {
+            if (HasBombInHotbar())
+            {
+                UseBomb();
+                playerMovement.PlaceBomb();
+
+
+                // Save changes and refresh UI after using bomb
+                inventoryManager.LoadHotBarData();
+                inventoryManager.inventoryUI.Refresh();
+                //inventoryManager.RefreshHotBarData(); // Ensure UI updates
+            }
+            else
+            {
+                Debug.Log("No bombs available in the hotbar!");
+            }
+        }
+    }
+
+    private bool HasBombInHotbar()
+    {
+        foreach (var slot in hotBar_Data.slots)
+        {
+            if (slot.itemName == "Bomb" && slot.count > 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void UseBomb()
+    {
+        for (int i = 0; i < hotBar_Data.slots.Count; i++)
+        {
+            if (hotBar_Data.slots[i].itemName == "Bomb" && hotBar_Data.slots[i].count > 0)
+            {
+                hotBar_Data.slots[i].count--;
+
+                // Remove the slot if count drops to 0
+                if (hotBar_Data.slots[i].count <= 0)
+                {
+                    hotBar_Data.slots[i].itemName = null;
+                    hotBar_Data.slots[i].icon = null;
+                }
+                break;
+            }
+        }
     }
 
     public void DropItem(Item item)

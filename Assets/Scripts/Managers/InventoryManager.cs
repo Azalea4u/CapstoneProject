@@ -23,6 +23,7 @@ public class InventoryManager : MonoBehaviour
         LoadHotBarData();
     }
 
+    #region Hotbar
     public void LoadHotBarData()
     {
         // Sync hotbar inventory slots with loaded data
@@ -65,6 +66,30 @@ public class InventoryManager : MonoBehaviour
         EditorUtility.SetDirty(hotbarData);
         AssetDatabase.SaveAssets();
     }
+
+    public void ClearHotBarData()
+    {
+        if (hotbarData != null)
+        {
+            hotbarData.slots.Clear(); // Clear all slots
+            EditorUtility.SetDirty(hotbarData); // Mark the asset as dirty to enable saving
+            AssetDatabase.SaveAssets(); // Save the changes to the asset
+            Debug.Log("HotBar_Data has been cleared.");
+        }
+        else
+        {
+            Debug.LogWarning("HotBar_Data is not loaded and cannot be cleared.");
+        }
+
+        // Optionally clear the hotbar inventory as well
+        foreach (var slot in hotbar.slots)
+        {
+            slot.itemName = null;
+            slot.count = 0;
+            slot.icon = null;
+        }
+    }
+    #endregion
 
     // Call this in your Add and Remove methods
     public void Add(string inventoryName, Item item)

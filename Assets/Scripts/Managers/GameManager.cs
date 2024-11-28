@@ -54,6 +54,11 @@ public class GameManager : MonoBehaviour
         itemManager = GetComponent<ItemManager>();
 
         player = FindAnyObjectByType<Player>();
+
+        if (SceneManager.GetActiveScene().name == "Start_Menu")
+        {
+            //inventoryManager.ClearHotBarData();
+        }
     }
 
     private void Update()
@@ -95,6 +100,7 @@ public class GameManager : MonoBehaviour
 
     public void Load_StartMenu()
     {
+        inventoryManager.ClearHotBarData();
         FirstGame.Value = true;
         Load_Level("Start_Menu");
     }
@@ -136,7 +142,10 @@ public class GameManager : MonoBehaviour
 
     public void Load_GameLevel()
     {
-        inventoryManager.RefreshHotBarData();
+        if (SceneManager.GetActiveScene().name == "Game_Level")
+        {
+            inventoryManager.RefreshHotBarData();
+        }
         FirstGame.Value = false;
         SceneManager.LoadScene("Game_Level");
         //player_UI.GetComponent<Hotbar_UI>().LoadHotBarFromData();
@@ -212,10 +221,5 @@ public class GameManager : MonoBehaviour
     public void Quit_Game()
     {
         Application.Quit();
-    }
-
-    private void OnDestroy()
-    {
-        inventoryManager.SaveHotBarData();
     }
 }

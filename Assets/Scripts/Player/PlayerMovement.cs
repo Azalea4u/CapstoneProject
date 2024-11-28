@@ -237,15 +237,6 @@ public class PlayerMovement : MonoBehaviour
 
                 } 
             }
-
-            // BOMB PLACEMENT
-            if (isCrouching)
-            {
-                if (Input.GetMouseButtonDown(0) && isCrouching)
-                {
-                    PlaceBomb();
-                }
-            }
         }
         else
         {
@@ -519,7 +510,7 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region BOMB
-    private void PlaceBomb()
+    public void PlaceBomb()
     {
         if (bombPrefab != null && bombSpawnPoint != null)
         {

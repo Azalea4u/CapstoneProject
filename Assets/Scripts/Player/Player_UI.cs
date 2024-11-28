@@ -39,8 +39,12 @@ public class Player_UI : MonoBehaviour
             currentHealth.value = 3;
         }
 
-        GameOver_Panel.SetActive(false);
-        PausedMenu_Panel.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "Game_Level")
+        {
+            GameOver_Panel.SetActive(false);
+            PausedMenu_Panel.SetActive(false);
+        }
+
     }
 
     private void Update()
