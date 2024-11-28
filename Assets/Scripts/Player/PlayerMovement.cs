@@ -105,22 +105,21 @@ public class PlayerMovement : MonoBehaviour
             facingDirection = Input.GetAxis("Horizontal");
             var dashInput = Input.GetButtonDown("Dash");
 
+            if (isGrounded)
+            {
+                canDash = true;
+                canCrouch = true;
+                isClimbing = false;
+            }
 
-        if (isGrounded)
-        {
-            canDash = true;
-            canCrouch = true;
-            isClimbing = false;
-        }
-
-        // ANIMATOR
-        animator.SetBool("IsMoving", facingDirection != 0);
-        animator.SetBool("IsDashing", isDashing);
-        animator.SetBool("OnGround", isGrounded);
-        animator.SetBool("IsCrouching", isCrouching);
-        animator.SetBool("IsClimbing", isClimbing);
-        animator.SetBool("ClimbingAllowed", climbingAllowed);
-        animator.SetBool("IsAttacking", isAttacking);
+            // ANIMATOR
+            animator.SetBool("IsMoving", facingDirection != 0);
+            animator.SetBool("IsDashing", isDashing);
+            animator.SetBool("OnGround", isGrounded);
+            animator.SetBool("IsCrouching", isCrouching);
+            animator.SetBool("IsClimbing", isClimbing);
+            animator.SetBool("ClimbingAllowed", climbingAllowed);
+            animator.SetBool("IsAttacking", isAttacking);
         }
 
         CheckInputs();
@@ -130,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (DialogueManager.GetInstance().dialogueIsPlaying || GameManager.instance.isGamePaused)
         {
+            StopMovement();
             animator.Play("Idle");
             rb.gravityScale = 2;
             //StopMovement();

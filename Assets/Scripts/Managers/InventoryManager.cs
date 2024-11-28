@@ -62,9 +62,6 @@ public class InventoryManager : MonoBehaviour
             };
             hotbarData.slots.Add(slotData);
         }
-
-        EditorUtility.SetDirty(hotbarData);
-        AssetDatabase.SaveAssets();
     }
 
     public void ClearHotBarData()
@@ -72,8 +69,6 @@ public class InventoryManager : MonoBehaviour
         if (hotbarData != null)
         {
             hotbarData.slots.Clear(); // Clear all slots
-            EditorUtility.SetDirty(hotbarData); // Mark the asset as dirty to enable saving
-            AssetDatabase.SaveAssets(); // Save the changes to the asset
             Debug.Log("HotBar_Data has been cleared.");
         }
         else

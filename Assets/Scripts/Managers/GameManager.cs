@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab) && !DialogueManager.instance.dialogueIsPlaying 
-            && SceneManager.GetActiveScene().name != "Start_Menu")
+            && SceneManager.GetActiveScene().name != "Start_Menu" && !controlPanel.activeSelf)
         {
             isGamePaused = !isGamePaused;
 

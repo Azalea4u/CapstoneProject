@@ -47,7 +47,7 @@ public class InventoryMenu_UI : MonoBehaviour
         if (!storePanel.activeSelf)
         {
             //storePanel.SetActive(true);
-            inGame_Hotbar.SetActive(false);
+            //inGame_Hotbar.SetActive(false);
 
             // Enter the store when opening the inventory
             GameManager.instance.PauseGame();
@@ -62,7 +62,7 @@ public class InventoryMenu_UI : MonoBehaviour
         }
 
         isStoreActive = GameManager.instance.isGamePaused;
-        SyncHotbars_Store();
+        //SyncHotbars_Store();
     }
 
     public void SyncHotbars_Store()
