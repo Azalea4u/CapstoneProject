@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
 
         PlayerMovement.instance.StopMovement();
         //PlayerMovement.instance.rb.velocity = Vector2.zero;
-        if (SceneManager.GetActiveScene().name == "Game_Level")
+        if (!Game_Level.activeSelf)
         {
             EnemyBase.instance.rb.velocity = Vector2.zero;
             EnemyBase.instance.canMove = false;
@@ -136,8 +136,10 @@ public class GameManager : MonoBehaviour
 
     public void Load_GameLevel()
     {
+        inventoryManager.RefreshHotBarData();
         FirstGame.Value = false;
         SceneManager.LoadScene("Game_Level");
+        //player_UI.GetComponent<Hotbar_UI>().LoadHotBarFromData();
     }
 
     public void Load_Level(string levelName)
@@ -156,6 +158,12 @@ public class GameManager : MonoBehaviour
     #region CHANGE_LEVEL
     public void GameLevel_ON()
     {
+        if (SceneManager.GetActiveScene().name == "Game_Level")
+        {
+            inventoryManager.RefreshHotBarData();
+            player_UI.GetComponent<Hotbar_UI>().LoadHotBarFromData();
+        }
+
         // Instantiate the Game_Level prefab if it doesn't already exist
         if (currentGameLevel == null && Game_Level != null)
         {
@@ -180,6 +188,7 @@ public class GameManager : MonoBehaviour
             currentGameLevel = null;
         }
 
+
         Resting_Level.SetActive(true);
         Game_Level.SetActive(false);
         Start_Menu.SetActive(false);
@@ -203,5 +212,10 @@ public class GameManager : MonoBehaviour
     public void Quit_Game()
     {
         Application.Quit();
+    }
+
+    private void OnDestroy()
+    {
+        inventoryManager.SaveHotBarData();
     }
 }

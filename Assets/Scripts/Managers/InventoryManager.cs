@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -13,17 +15,36 @@ public class InventoryManager : MonoBehaviour
     public Inventory hotbar;
     public HotBar_Data hotbarData;
 
-    [Header("Store Hotbar")]
-    public int hotbarStore_SlotCount = 4;
-    public Inventory hotbar_Store;
-
     private void Awake()
     {
         hotbar = new Inventory(hotbar_SlotCount);
         inventoryByName.Add("Hotbar", hotbar);
 
-        hotbar_Store = new Inventory(hotbarStore_SlotCount);
-        inventoryByName.Add("Hotbar_Store", hotbar_Store);
+        LoadHotBarData();
+    }
+
+    public void LoadHotBarData()
+    {
+        // Sync hotbar inventory slots with loaded data
+        for (int i = 0; i < hotbarData.slots.Count; i++)
+        {
+            if (i < hotbar.slots.Count)
+            {
+                hotbar.slots[i].itemName = hotbarData.slots[i].itemName;
+                hotbar.slots[i].count = hotbarData.slots[i].count;
+                hotbar.slots[i].icon = hotbarData.slots[i].icon;
+            }
+        }
+    }
+
+    public void SaveHotBarData()
+    {
+        hotbarData.UpdateData(hotbar.slots.Select(slot => new HotBar_Data.SlotData
+        {
+            itemName = slot.itemName,
+            count = slot.count,
+            icon = slot.icon
+        }).ToList());
     }
 
     public void RefreshHotBarData()
@@ -40,6 +61,9 @@ public class InventoryManager : MonoBehaviour
             };
             hotbarData.slots.Add(slotData);
         }
+
+        EditorUtility.SetDirty(hotbarData);
+        AssetDatabase.SaveAssets();
     }
 
     // Call this in your Add and Remove methods

@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class ShopManager : MonoBehaviour
 {
     [SerializeField] public int[,] shopItems = new int[4, 3]; // [ID, ItemID, Price
+
+    [SerializeField] private Player_UI playerUI;
     // Buttons
     [Header("Buy")]
     [SerializeField] public Button[] buttons;
@@ -20,6 +22,7 @@ public class ShopManager : MonoBehaviour
     [Header("Items")]
     [SerializeField] public Item[] ItemsToBuy;
     [SerializeField] public Item WheatSeeds;
+    [SerializeField] public Item Bomb;
     [SerializeField] public Item TomateSeeds;
 
     public InventoryManager inventoryManager;
@@ -41,7 +44,7 @@ public class ShopManager : MonoBehaviour
         for (int i = 0; i < buttons.Length; i++)
         {
             int itemID = i + 1;
-            buttons[i].onClick.AddListener(() => BuyItem(itemID));
+            //buttons[i].onClick.AddListener(() => BuyItem(itemID));
         }
     }
 
@@ -50,6 +53,7 @@ public class ShopManager : MonoBehaviour
         //gold = GameManager.instance.Gold;
     }
 
+    /*
     public void BuyItem(int itemID)
     {
         if (Player_UI.instance.Gold >= shopItems[6, itemID])
@@ -66,6 +70,21 @@ public class ShopManager : MonoBehaviour
                     inventoryManager.Add("Hotbar", TomateSeeds);
                     break;
             }
+        }
+        else
+        {
+            Debug.Log("Not enough coins");
+        }
+    }
+    */
+
+    public void BuyBomb()
+    {
+        if (playerUI.Gold >= Bomb.BuyPrice)
+        {
+            Debug.Log("Bought Bomb");
+            playerUI.Gold -= Bomb.BuyPrice;
+            inventoryManager.Add("Hotbar", Bomb);
         }
         else
         {

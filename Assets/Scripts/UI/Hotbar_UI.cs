@@ -10,6 +10,8 @@ public class Hotbar_UI : MonoBehaviour
 
     public void LoadHotBarFromData()
     {
+        GameManager.instance.player.inventoryManager.LoadHotBarData();
+
         for (int i = 0; i < hotbar_Slots.Count; i++)
         {
             if (i < GameManager.instance.player.inventoryManager.hotbarData.slots.Count)

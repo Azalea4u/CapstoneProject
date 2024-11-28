@@ -14,4 +14,10 @@ public class HotBar_Data : ScriptableObject
     }
 
     [SerializeField] public List<SlotData> slots = new List<SlotData>();
+
+    public void UpdateData(List<SlotData> newData)
+    {
+        slots.Clear();
+        slots.AddRange(newData);
+    }
 }
