@@ -676,6 +676,7 @@ MonoBehaviour:
   climbingAllowed: 1
   ledgeDetected: 0
   bombPrefab: {fileID: 6187737806003182847, guid: 6cb3d4b4ba950c84b8e8bafdf24f912b, type: 3}
+  bombSpawnPoint: {fileID: 790101629078760507}
   rb: {fileID: 659910686442138463}
 --- !u!114 &2931341396314028155
 MonoBehaviour:
@@ -2124,7 +2125,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: dc7c3f5eb4932ba4fba3e8e37fe85c61, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

@@ -324,11 +324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &399026387 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 790101629078760507, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-  m_PrefabInstance: {fileID: 1570664287}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &439815501 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7935274067071104301, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
@@ -2081,17 +2076,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1194865440771266405, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
   m_PrefabInstance: {fileID: 660522797}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1248525524 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3322161044941818441, guid: b4311ec12c74dda419ebab4897148bf7, type: 3}
-  m_PrefabInstance: {fileID: 660522797}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025789129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 932a1076bb7c9634b94141ff5bf36e57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1338450226 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2198610926142047384, guid: 026027653e7c2d5489a93f0daeb78d71, type: 3}
@@ -2226,18 +2210,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2608979042549606953, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2931341396314028155, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
       propertyPath: healthText
       value: 
       objectReference: {fileID: 660522799}
-    - target: {fileID: 5128362105524759717, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-      propertyPath: inventoryMenu_UI
-      value: 
-      objectReference: {fileID: 1248525524}
     - target: {fileID: 6590205253365238009, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2246,10 +2222,6 @@ PrefabInstance:
       propertyPath: inventoryUI
       value: 
       objectReference: {fileID: 660522800}
-    - target: {fileID: 8961119042189131128, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
-      propertyPath: bombSpawnPoint
-      value: 
-      objectReference: {fileID: 399026387}
     - target: {fileID: 9196538709246006387, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.5

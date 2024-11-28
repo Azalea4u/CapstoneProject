@@ -79,8 +79,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private Transform bombSpawnPoint;
 
-
-    public Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
 
     private void Awake()
     {
@@ -524,21 +523,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (bombPrefab != null && bombSpawnPoint != null)
         {
-            // Instantiate the bomb at the player's spawn point position
-            float bombSpawnY = bombSpawnPoint.position.y + 0.25f;
+            Vector3 bombSpawn = new Vector3(bombSpawnPoint.position.x, (bombSpawnPoint.position.y + 0.25f));
 
-            Vector3 bombSpawn = new Vector3(bombSpawnPoint.position.x, bombSpawnY);
-
-            GameObject bomb = Instantiate(bombPrefab, bombSpawn, Quaternion.identity);
-
-            // Set the DestructibleTerrain reference on the bomb
-            Bomb bombScript = bomb.GetComponent<Bomb>();
-            if (bombScript != null)
-            {
-                //bombScript.desctrubleTerrain = destructibleTerrain;
-            }
-
-            Debug.Log("Bomb placed!");
+            Instantiate(bombPrefab, bombSpawn, Quaternion.identity);
         }
         else
         {
