@@ -47,10 +47,6 @@ public class GameManager : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
 
         FirstGame.Value = true;
-
-        //shopManager = GetComponent<ShopManager>();
-        //dialogueManager = GetComponent<DialogueManager>();
-        //inventoryManager = GetComponent<InventoryManager>();
         itemManager = GetComponent<ItemManager>();
 
         player = FindAnyObjectByType<Player>();
@@ -63,8 +59,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) && !DialogueManager.instance.dialogueIsPlaying 
-            && SceneManager.GetActiveScene().name != "Start_Menu" && !controlPanel.activeSelf)
+        if ((Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape)) && !controlPanel.activeSelf
+            && !DialogueManager.instance.dialogueIsPlaying && SceneManager.GetActiveScene().name != "Start_Menu")
         {
             isGamePaused = !isGamePaused;
 
@@ -112,7 +108,7 @@ public class GameManager : MonoBehaviour
 
         PlayerMovement.instance.StopMovement();
         //PlayerMovement.instance.rb.velocity = Vector2.zero;
-        if (!Game_Level.activeSelf)
+        if (Game_Level.activeSelf == true)
         {
             EnemyBase.instance.rb.velocity = Vector2.zero;
             EnemyBase.instance.canMove = false;

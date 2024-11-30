@@ -359,13 +359,7 @@ public class DialogueManager : MonoBehaviour
         // enable and initialize the choices up to the amount of choices for this line of dialogue
         foreach (Choice choice in currentChoices)
         {
-            if (currentChoices.Count == 3)
-            {
-                choices[index].gameObject.SetActive(true);
-                choicesText[index].text = choice.text;
-                index++;
-            }
-            else if (currentChoices.Count == 2)
+            if (currentChoices.Count == 2)
             {
                 choices[index].gameObject.SetActive(true);
                 choicesText[index].text = choice.text;
