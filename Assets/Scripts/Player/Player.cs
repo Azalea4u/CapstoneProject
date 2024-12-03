@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     {
         var selectedSlot = inventoryManager.hotbar.selectedSlot;
 
-        if (selectedSlot != null && !string.IsNullOrEmpty(selectedSlot.itemName))
+        if (selectedSlot != null && !string.IsNullOrEmpty(selectedSlot.itemName) && GameManager.instance.playerUI.Hunger < 100)
         {
             var itemData = GameManager.instance.itemManager.GetItemByName(selectedSlot.itemName);
 
@@ -97,23 +97,18 @@ public class Player : MonoBehaviour
                 hungerData.Hunger = Mathf.Min(100, hungerData.Hunger + itemData.HealHunger);
 
                 // Remove the food item
-                //hotBar_Data.slots[i].count--;
-
-                for (int i = 0; i < hotBar_Data.slots.Count; i++)
+                if (itemData.IsFood && hotBar_Data.slots[selectedSlot.count].count > 0)
                 {
-                    if (itemData.IsFood && hotBar_Data.slots[i].count > 0)
-                    {
-                        hotBar_Data.slots[i].count--;
+                    hotBar_Data.slots[selectedSlot.count].count--;
 
-                        // Remove the slot if count drops to 0
-                        if (hotBar_Data.slots[i].count <= 0)
-                        {
-                            hotBar_Data.slots[i].itemName = null;
-                            hotBar_Data.slots[i].icon = null;
-                        }
-                        break;
+                    // Remove the slot if count drops to 0
+                    if (hotBar_Data.slots[selectedSlot.count].count <= 0)
+                    {
+                        hotBar_Data.slots[selectedSlot.count].itemName = null;
+                        hotBar_Data.slots[selectedSlot.count].icon = null;
                     }
                 }
+
                 Debug.Log($"Consumed {itemData.ItemName}, Hunger: {hungerData.Hunger}");
             }
             else
