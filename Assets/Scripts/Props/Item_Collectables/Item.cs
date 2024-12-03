@@ -12,6 +12,8 @@ public class Item : MonoBehaviour
     public string Description => data.Description;
     public int SellPrice => data.SellPrice;
     public int BuyPrice => data.BuyPrice;
+    public bool IsFood => data.IsFood;
+    public float HealHunger => data.HungerHealed;
 
     private void Awake()
     {

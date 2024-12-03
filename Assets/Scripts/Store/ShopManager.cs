@@ -21,9 +21,10 @@ public class ShopManager : MonoBehaviour
     // Items To Buy
     [Header("Items")]
     [SerializeField] public Item[] ItemsToBuy;
-    [SerializeField] public Item WheatSeeds;
     [SerializeField] public Item Bomb;
-    [SerializeField] public Item TomateSeeds;
+    [SerializeField] public Item Apple;
+    [SerializeField] public Item Bread;
+    [SerializeField] public Item Meat;
 
     public InventoryManager inventoryManager;
 
@@ -85,6 +86,48 @@ public class ShopManager : MonoBehaviour
             Debug.Log("Bought Bomb");
             playerUI.Gold -= Bomb.BuyPrice;
             inventoryManager.Add("Hotbar", Bomb);
+        }
+        else
+        {
+            Debug.Log("Not enough coins");
+        }
+    }
+
+    public void BuyApple()
+    {
+        if (playerUI.Gold >= Apple.BuyPrice)
+        {
+            Debug.Log("Bought Apple");
+            playerUI.Gold -= Apple.BuyPrice;
+            inventoryManager.Add("Hotbar", Apple);
+        }
+        else
+        {
+            Debug.Log("Not enough coins");
+        }
+    }
+
+    public void BuyBread()
+    {
+        if (playerUI.Gold >= Bread.BuyPrice)
+        {
+            Debug.Log("Bought Bread");
+            playerUI.Gold -= Bread.BuyPrice;
+            inventoryManager.Add("Hotbar", Bread);
+        }
+        else
+        {
+            Debug.Log("Not enough coins");
+        }
+    }
+
+    public void BuyMeat()
+    {
+        if (playerUI.Gold >= Meat.BuyPrice)
+        {
+            Debug.Log("Bought Meat");
+            playerUI.Gold -= Meat.BuyPrice;
+            inventoryManager.Add("Hotbar", Meat);
         }
         else
         {

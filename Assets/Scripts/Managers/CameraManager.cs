@@ -15,7 +15,6 @@ public class CameraAnimations : MonoBehaviour
     void Update()
     {
         cameraAnimator.SetBool("IsCrouching", PlayerMovement.instance.isCrouching);
-        if (SceneManager.GetActiveScene().name != "Game_Level")
-            cameraAnimator.SetBool("IsTalking", DialogueManager.instance.dialogueIsPlaying);
+        cameraAnimator.SetBool("IsTalking", DialogueManager.instance.dialogueIsPlaying);
     }
 }

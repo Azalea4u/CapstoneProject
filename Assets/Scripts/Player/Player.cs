@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     {
         if (playerMovement.isCrouching && Input.GetMouseButtonDown(0))
         {
-            if (HasBombInHotbar())
+            if (HasBombInHotbar() && inventoryManager.hotbar.selectedSlot.itemName == "Bomb")
             {
                 UseBomb();
                 playerMovement.PlaceBomb();
@@ -36,6 +36,16 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("No bombs available in the hotbar!");
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && 
+            !GameManager.instance.isGamePaused && !DialogueManager.instance.dialogueIsPlaying)
+        { 
+            ConsumeFood();
+
+            // Refresh hotbar UI
+            inventoryManager.LoadHotBarData();
+            inventoryManager.inventoryUI.Refresh();
         }
     }
 
@@ -66,6 +76,49 @@ public class Player : MonoBehaviour
                     hotBar_Data.slots[i].icon = null;
                 }
                 break;
+            }
+        }
+    }
+
+    private void ConsumeFood()
+    {
+        var selectedSlot = inventoryManager.hotbar.selectedSlot;
+
+        if (selectedSlot != null && !string.IsNullOrEmpty(selectedSlot.itemName))
+        {
+            var itemData = GameManager.instance.itemManager.GetItemByName(selectedSlot.itemName);
+
+            //Debug.Log("Item food: "+ itemData.IsFood);
+
+            if (itemData != null && itemData.IsFood)
+            {
+                // Regenerate hunger
+                HungerData hungerData = GameManager.instance.playerUI.hungerData;
+                hungerData.Hunger = Mathf.Min(100, hungerData.Hunger + itemData.HealHunger);
+
+                // Remove the food item
+                //hotBar_Data.slots[i].count--;
+
+                for (int i = 0; i < hotBar_Data.slots.Count; i++)
+                {
+                    if (itemData.IsFood && hotBar_Data.slots[i].count > 0)
+                    {
+                        hotBar_Data.slots[i].count--;
+
+                        // Remove the slot if count drops to 0
+                        if (hotBar_Data.slots[i].count <= 0)
+                        {
+                            hotBar_Data.slots[i].itemName = null;
+                            hotBar_Data.slots[i].icon = null;
+                        }
+                        break;
+                    }
+                }
+                Debug.Log($"Consumed {itemData.ItemName}, Hunger: {hungerData.Hunger}");
+            }
+            else
+            {
+                Debug.Log("Selected item is not food.");
             }
         }
     }

@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject controlPanel;
     [SerializeField] public Player_UI playerUI;
-    [SerializeField] public GameObject player_UI;
+    [SerializeField] public GameObject playerUI_prefab;
 
     [Header("Levels")]
     [SerializeField] public GameObject Start_Menu;
@@ -50,11 +50,6 @@ public class GameManager : MonoBehaviour
         itemManager = GetComponent<ItemManager>();
 
         player = FindAnyObjectByType<Player>();
-
-        if (SceneManager.GetActiveScene().name == "Start_Menu")
-        {
-            //inventoryManager.ClearHotBarData();
-        }
     }
 
     private void Update()
@@ -108,10 +103,13 @@ public class GameManager : MonoBehaviour
 
         PlayerMovement.instance.StopMovement();
         //PlayerMovement.instance.rb.velocity = Vector2.zero;
-        if (Game_Level.activeSelf == true)
+        if (SceneManager.GetActiveScene().name == "Game_Level")
         {
-            EnemyBase.instance.rb.velocity = Vector2.zero;
-            EnemyBase.instance.canMove = false;
+            if (Game_Level.activeSelf == true)
+            {
+                EnemyBase.instance.rb.velocity = Vector2.zero;
+                EnemyBase.instance.canMove = false;
+            }
         }
         Debug.Log("Game Paused");
     }
@@ -144,7 +142,7 @@ public class GameManager : MonoBehaviour
         }
         FirstGame.Value = false;
         SceneManager.LoadScene("Game_Level");
-        //player_UI.GetComponent<Hotbar_UI>().LoadHotBarFromData();
+        //playerUI_prefab.GetComponent<Hotbar_UI>().LoadHotBarFromData();
     }
 
     public void Load_Level(string levelName)
@@ -166,7 +164,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Game_Level")
         {
             inventoryManager.RefreshHotBarData();
-            player_UI.GetComponent<Hotbar_UI>().LoadHotBarFromData();
+            playerUI_prefab.GetComponent<Hotbar_UI>().LoadHotBarFromData();
         }
 
         // Instantiate the Game_Level prefab if it doesn't already exist
@@ -175,13 +173,13 @@ public class GameManager : MonoBehaviour
             currentGameLevel = Instantiate(Game_Level);
         }
 
-        player_UI.SetActive(true);
+        playerUI_prefab.SetActive(true);
         currentGameLevel.SetActive(true); // Activate the new Game_Level
         Resting_Level.SetActive(false);
         Start_Menu.SetActive(false);
 
         playerPrefab.SetActive(true);
-        player_UI.GetComponent<Player_UI>().Level++;
+        playerUI_prefab.GetComponent<Player_UI>().Level++;
     }
 
 
@@ -205,7 +203,7 @@ public class GameManager : MonoBehaviour
 
     public void StartMenu_ON()
     {
-        player_UI.SetActive(false);
+        playerUI_prefab.SetActive(false);
         playerPrefab.SetActive(false);
 
         Start_Menu.SetActive(true);
