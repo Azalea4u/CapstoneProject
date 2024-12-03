@@ -28,7 +28,10 @@ public class Spawn_NextLevel : MonoBehaviour
 
                 if (next_Scene == "Game_Level")
                 {
+                    Debug.Log("Level: " + GameManager.instance.playerUI.Level);
+
                     GameManager.instance.playerUI.Level++;
+                    Debug.Log("Level: " + GameManager.instance.playerUI.Level);
                     //GameManager.instance.GameLevel_ON();
                     GameManager.instance.Load_GameLevel();
                 }

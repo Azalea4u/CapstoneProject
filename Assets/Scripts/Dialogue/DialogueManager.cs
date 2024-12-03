@@ -25,7 +25,6 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Shop UI")]
     [SerializeField] private GameObject buyPanel;
-    [SerializeField] private GameObject sellPanel;
 
     [Header("Audio")]
     [SerializeField] private DialogueAudioInfoSO defaultAudioInfo;
@@ -144,11 +143,10 @@ public class DialogueManager : MonoBehaviour
         {
             currentStory.BindExternalFunction("ShowBuyMenu", ShowBuyMenu);
             currentStory.BindExternalFunction("CloseBuyMenu", CloseBuyMenu);
-            currentStory.BindExternalFunction("ShowSellMenu", ShowSellMenu);
         }
         //else if (SceneManager.GetActiveScene().name == "Test_Level")
         {
-            currentStory.BindExternalFunction("Load_StartMenu", StartMenu);
+            //currentStory.BindExternalFunction("Load_StartMenu", StartMenu);
             currentStory.BindExternalFunction("QuitGame", QuitGame);
         }
 
@@ -168,7 +166,6 @@ public class DialogueManager : MonoBehaviour
         {
             currentStory.UnbindExternalFunction("ShowBuyMenu");
             currentStory.UnbindExternalFunction("CloseBuyMenu");
-            currentStory.UnbindExternalFunction("ShowSellMenu");
         }
 
         dialogueIsPlaying = false;
@@ -429,19 +426,7 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(true);
         //ContinueStory();
     }
-
-    public void CloseSellMenu()
-    {
-        sellPanel.SetActive(false);
-        dialoguePanel.SetActive(true);
-        //ContinueStory();
-    }
     #endregion
-
-    public void StartMenu()
-    {
-        GameManager.instance.StartMenu_ON();
-    }
 
     public void QuitGame()
     {

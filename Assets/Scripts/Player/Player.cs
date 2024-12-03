@@ -44,7 +44,8 @@ public class Player : MonoBehaviour
             ConsumeFood();
 
             // Refresh hotbar UI
-            inventoryManager.LoadHotBarData();
+            //inventoryManager.LoadHotBarData();
+            inventoryManager.SaveHotBarData();
             inventoryManager.inventoryUI.Refresh();
         }
     }
@@ -97,15 +98,15 @@ public class Player : MonoBehaviour
                 hungerData.Hunger = Mathf.Min(100, hungerData.Hunger + itemData.HealHunger);
 
                 // Remove the food item
-                if (itemData.IsFood && hotBar_Data.slots[selectedSlot.count].count > 0)
+                if (itemData.IsFood && selectedSlot.count > 0)
                 {
-                    hotBar_Data.slots[selectedSlot.count].count--;
+                    selectedSlot.count--;
 
                     // Remove the slot if count drops to 0
-                    if (hotBar_Data.slots[selectedSlot.count].count <= 0)
+                    if (selectedSlot.count <= 0)
                     {
-                        hotBar_Data.slots[selectedSlot.count].itemName = null;
-                        hotBar_Data.slots[selectedSlot.count].icon = null;
+                        selectedSlot.itemName = null;
+                        selectedSlot.icon = null;
                     }
                 }
 

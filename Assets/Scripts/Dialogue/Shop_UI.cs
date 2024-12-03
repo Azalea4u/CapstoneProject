@@ -19,21 +19,12 @@ public class Shop_UI : MonoBehaviour
         // Setup close button listeners
         if (closeBuyButton != null)
             closeBuyButton.onClick.AddListener(CloseBuyPanel);
-
-        if (closeSellButton != null)
-            closeSellButton.onClick.AddListener(CloseSellPanel);
     }
 
     private void CloseBuyPanel()
     {
         // Call the DialogueManager to handle closing the buy panel
         DialogueManager.GetInstance().CloseBuyMenu();
-    }
-
-    private void CloseSellPanel()
-    {
-        // Call the DialogueManager to handle closing the sell panel
-        DialogueManager.GetInstance().CloseSellMenu();
     }
 
     // Add methods to handle buying and selling items

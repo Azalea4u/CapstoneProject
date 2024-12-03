@@ -179,7 +179,9 @@ public class GameManager : MonoBehaviour
         Start_Menu.SetActive(false);
 
         playerPrefab.SetActive(true);
-        playerUI_prefab.GetComponent<Player_UI>().Level++;
+        Debug.Log("Level:" + playerUI.Level);
+        playerUI.Level++;
+        Debug.Log("Level:" + playerUI.Level);
     }
 
 
@@ -199,16 +201,6 @@ public class GameManager : MonoBehaviour
         playerPrefab.SetActive(true);
         Transform playerSpawn = Resting_Level.transform.Find("PlayerSpawn_RestLevel");
         player.transform.position = playerSpawn.position;
-    }
-
-    public void StartMenu_ON()
-    {
-        playerUI_prefab.SetActive(false);
-        playerPrefab.SetActive(false);
-
-        Start_Menu.SetActive(true);
-        Game_Level.SetActive(false);
-        Resting_Level.SetActive(false);
     }
     #endregion
 
