@@ -91,6 +91,4 @@ public class LedgeDetection : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position + Vector3.down * 0.1f, transform.position + Vector3.down * 0.3f);
     }
-
 }
-

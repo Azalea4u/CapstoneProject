@@ -159,7 +159,7 @@ public class DialogueManager : MonoBehaviour
 
         //if (SceneManager.GetActiveScene().name == "Test_Level")
         {
-            currentStory.UnbindExternalFunction("Load_StartMenu");
+            //currentStory.UnbindExternalFunction("Load_StartMenu");
             currentStory.UnbindExternalFunction("QuitGame");
         }
         //else if (SceneManager.GetActiveScene().name == "Rest_Level")
