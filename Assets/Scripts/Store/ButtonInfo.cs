@@ -5,7 +5,7 @@ using TMPro;
 
 public class ButtonInfo : MonoBehaviour
 {
-    [SerializeField] public int ItemID;
+    [SerializeField] public int ItemID;  // ID of the item
     [SerializeField] public TextMeshProUGUI NameText;
     [SerializeField] public TextMeshProUGUI DescriptionText;
     [SerializeField] public TextMeshProUGUI PriceText;
@@ -13,6 +13,15 @@ public class ButtonInfo : MonoBehaviour
 
     private void Update()
     {
-        PriceText.text = ShopManager.GetComponent<ShopManager>().shopItems[2, ItemID].ToString();
+        // Get the ShopManager component
+        ShopManager shopManager = ShopManager.GetComponent<ShopManager>();
+
+        // Access the item from the ItemsToBuy array using the ItemID
+        Item item = shopManager.ItemsToBuy[ItemID];
+
+        // Update UI elements with the item info
+        NameText.text = item.ItemName;
+        DescriptionText.text = item.Description;
+        PriceText.text = item.BuyPrice.ToString();
     }
 }

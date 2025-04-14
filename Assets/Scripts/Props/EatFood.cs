@@ -6,6 +6,4 @@ public class EatFood : MonoBehaviour
 {
     [SerializeField] public ItemData food;
     [SerializeField] public int HealHungerAmount;
-
-
 }

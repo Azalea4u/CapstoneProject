@@ -42,7 +42,7 @@ public class LedgeDetection : MonoBehaviour
         RaycastHit2D ceilingHit = Physics2D.Raycast(transform.position, Vector2.up, ceilingCheckDistance, whatIsGround);
         RaycastHit2D groundHit = Physics2D.Raycast(transform.position + Vector3.down * 0.1f, Vector2.down, 0.2f, whatIsGround);
 
-        Debug.Log($"Ceiling Above: {ceilingHit.collider != null}, Ground Below: {groundHit.collider != null}");
+        //Debug.Log($"Ceiling Above: {ceilingHit.collider != null}, Ground Below: {groundHit.collider != null}");
 
         return groundHit.collider != null && ceilingHit.collider == null;
     }

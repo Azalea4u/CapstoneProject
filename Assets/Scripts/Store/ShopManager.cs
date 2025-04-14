@@ -7,9 +7,10 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    [SerializeField] public int[,] shopItems = new int[4, 3]; // [ID, ItemID, Price
+    [SerializeField] public List<Item> shopItems = new List<Item>();
 
     [SerializeField] private Player_UI playerUI;
+
     // Buttons
     [Header("Buy")]
     [SerializeField] public Button[] buttons;
@@ -21,10 +22,6 @@ public class ShopManager : MonoBehaviour
     // Items To Buy
     [Header("Items")]
     [SerializeField] public Item[] ItemsToBuy;
-    [SerializeField] public Item Bomb;
-    [SerializeField] public Item Apple;
-    [SerializeField] public Item Bread;
-    [SerializeField] public Item Meat;
 
     public InventoryManager inventoryManager;
 
@@ -34,100 +31,23 @@ public class ShopManager : MonoBehaviour
     {
         SelectSlot(sellSlot);
 
-        // ID's
-       // shopItems[1, 1] = 1;
-        //shopItems[1, 2] = 2;
-
-        // Prices
-        //shopItems[2, 1] = 15;
-        //shopItems[2, 2] = 20;
-
         for (int i = 0; i < buttons.Length; i++)
         {
             int itemID = i + 1;
-            //buttons[i].onClick.AddListener(() => BuyItem(itemID));
+            buttons[i].onClick.AddListener(() => BuyItem(itemID));
         }
     }
 
-    private void Update()
-    {
-        //gold = GameManager.instance.Gold;
-    }
-
-    /*
     public void BuyItem(int itemID)
     {
-        if (Player_UI.instance.Gold >= shopItems[6, itemID])
-        {
-            Player_UI.instance.Gold -= shopItems[6, itemID];
-            shopItems[6, itemID]++;
+        if (itemID < 0 || itemID >= ItemsToBuy.Length) return;
 
-            switch (itemID)
-            {
-                case 1:
-                    inventoryManager.Add("Hotbar", WheatSeeds);
-                    break;
-                case 2:
-                    inventoryManager.Add("Hotbar", TomateSeeds);
-                    break;
-            }
-        }
-        else
+        Item selectedItem = ItemsToBuy[itemID];
+        if (playerUI.Gold >= selectedItem.BuyPrice)
         {
-            Debug.Log("Not enough coins");
-        }
-    }
-    */
-
-    public void BuyBomb()
-    {
-        if (playerUI.Gold >= Bomb.BuyPrice)
-        {
-            Debug.Log("Bought Bomb");
-            playerUI.Gold -= Bomb.BuyPrice;
-            inventoryManager.Add("Hotbar", Bomb);
-        }
-        else
-        {
-            Debug.Log("Not enough coins");
-        }
-    }
-
-    public void BuyApple()
-    {
-        if (playerUI.Gold >= Apple.BuyPrice)
-        {
-            Debug.Log("Bought Apple");
-            playerUI.Gold -= Apple.BuyPrice;
-            inventoryManager.Add("Hotbar", Apple);
-        }
-        else
-        {
-            Debug.Log("Not enough coins");
-        }
-    }
-
-    public void BuyBread()
-    {
-        if (playerUI.Gold >= Bread.BuyPrice)
-        {
-            Debug.Log("Bought Bread");
-            playerUI.Gold -= Bread.BuyPrice;
-            inventoryManager.Add("Hotbar", Bread);
-        }
-        else
-        {
-            Debug.Log("Not enough coins");
-        }
-    }
-
-    public void BuyMeat()
-    {
-        if (playerUI.Gold >= Meat.BuyPrice)
-        {
-            Debug.Log("Bought Meat");
-            playerUI.Gold -= Meat.BuyPrice;
-            inventoryManager.Add("Hotbar", Meat);
+            Debug.Log($"Bought {selectedItem.ItemName}");
+            playerUI.Gold -= selectedItem.BuyPrice;
+            inventoryManager.Add("Hotbar", selectedItem);
         }
         else
         {

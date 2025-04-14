@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d48db4a8414b9304f98fef21d5d61c88, type: 3}
-  m_Name: Apple
+  m_Name: DoubleGold_Item
   m_EditorClassIdentifier: 
-  ItemName: Apple
-  Icon: {fileID: -981233289, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
-  BuyPrice: 50
-  SellPrice: 35
-  IsFood: 1
-  healingType: 1
-  HealingAmount: 5
-  Description: An Apple that will help you recover a little bit of your hunger!!
+  ItemName: DoubleGold
+  Icon: {fileID: -2017961425, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
+  BuyPrice: 200
+  SellPrice: 0
+  IsFood: 0
+  healingType: 0
+  HungerHealed: 0
+  Description: When you enter the next level, every gold you earn will be doubled!

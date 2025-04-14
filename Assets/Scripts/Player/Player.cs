@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static ItemData;
 
 public class Player : MonoBehaviour
 {
@@ -26,11 +27,9 @@ public class Player : MonoBehaviour
                 UseBomb();
                 playerMovement.PlaceBomb();
 
-
                 // Save changes and refresh UI after using bomb
                 inventoryManager.LoadHotBarData();
                 inventoryManager.inventoryUI.Refresh();
-                //inventoryManager.RefreshHotBarData(); // Ensure UI updates
             }
             else
             {
@@ -38,13 +37,12 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && 
+        if (Input.GetKeyDown(KeyCode.E) &&
             !GameManager.instance.isGamePaused && !DialogueManager.instance.dialogueIsPlaying)
-        { 
-            ConsumeFood();
+        {
+            ConsumeItem();
 
             // Refresh hotbar UI
-            //inventoryManager.LoadHotBarData();
             inventoryManager.SaveHotBarData();
             inventoryManager.inventoryUI.Refresh();
         }
@@ -81,41 +79,86 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void ConsumeFood()
+    // New method to handle both food and potion consumption based on HealingType
+    private void ConsumeItem()
     {
         var selectedSlot = inventoryManager.hotbar.selectedSlot;
 
-        if (selectedSlot != null && !string.IsNullOrEmpty(selectedSlot.itemName) && GameManager.instance.playerUI.Hunger < 100)
+        if (selectedSlot != null && !string.IsNullOrEmpty(selectedSlot.itemName))
         {
-            var itemData = GameManager.instance.itemManager.GetItemByName(selectedSlot.itemName);
+            var item = GameManager.instance.itemManager.GetItemByName(selectedSlot.itemName);
 
-            //Debug.Log("Item food: "+ itemData.IsFood);
-
-            if (itemData != null && itemData.IsFood)
+            if (item != null && item.IsFood)
             {
-                // Regenerate hunger
-                HungerData hungerData = GameManager.instance.playerUI.hungerData;
-                hungerData.Hunger = Mathf.Min(100, hungerData.Hunger + itemData.HealHunger);
-
-                // Remove the food item
-                if (itemData.IsFood && selectedSlot.count > 0)
+                // Check the HealingType and call the appropriate method
+                if (item.HealingType == HealingType.Hunger)
                 {
-                    selectedSlot.count--;
-
-                    // Remove the slot if count drops to 0
-                    if (selectedSlot.count <= 0)
-                    {
-                        selectedSlot.itemName = null;
-                        selectedSlot.icon = null;
-                    }
+                    // If the item heals hunger, consume it as food
+                    ConsumeFood(item, selectedSlot);
                 }
+                else if (item.HealingType == HealingType.Health)
+                {
+                    // If the item heals health, consume it as a potion
+                    ConsumePotion(item, selectedSlot);
+                }
+            }
+        }
+    }
 
-                Debug.Log($"Consumed {itemData.ItemName}, Hunger: {hungerData.Hunger}");
-            }
-            else
+    // Consume food and heal hunger
+    private void ConsumeFood(Item item, Inventory.Slot selectedSlot)
+    {
+        if (GameManager.instance.playerUI.Hunger < 100)
+        {
+            HungerData hungerData = GameManager.instance.playerUI.hungerData;
+            hungerData.Hunger = Mathf.Min(100, hungerData.Hunger + item.HealingAmount);
+
+            // Remove the food item
+            if (selectedSlot.count > 0)
             {
-                Debug.Log("Selected item is not food.");
+                selectedSlot.count--;
+
+                // Remove the slot if count drops to 0
+                if (selectedSlot.count <= 0)
+                {
+                    selectedSlot.itemName = null;
+                    selectedSlot.icon = null;
+                }
             }
+
+            Debug.Log($"Consumed {item.ItemName}, Hunger: {hungerData.Hunger}");
+        }
+        else
+        {
+            Debug.Log("Hunger is already full.");
+        }
+    }
+
+    // Consume potion and heal health
+    private void ConsumePotion(Item itemData, Inventory.Slot selectedSlot)
+    {
+        if (playerHealth.Health < playerHealth.MaxHealth)
+        {
+            playerHealth.Health = Mathf.Min(playerHealth.MaxHealth, playerHealth.Health + (int)itemData.HealingAmount);
+
+            // Remove the potion item
+            if (selectedSlot.count > 0)
+            {
+                selectedSlot.count--;
+
+                // Remove the slot if count drops to 0
+                if (selectedSlot.count <= 0)
+                {
+                    selectedSlot.itemName = null;
+                    selectedSlot.icon = null;
+                }
+            }
+
+            Debug.Log($"Consumed {itemData.ItemName}, Health: {playerHealth.Health}");
+        }
+        else
+        {
+            Debug.Log("Health is already full.");
         }
     }
 

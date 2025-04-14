@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ItemData;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Item : MonoBehaviour
@@ -13,10 +14,24 @@ public class Item : MonoBehaviour
     public int SellPrice => data.SellPrice;
     public int BuyPrice => data.BuyPrice;
     public bool IsFood => data.IsFood;
-    public float HealHunger => data.HungerHealed;
+    public float HealingAmount => data.HealingAmount;
+    public HealingType HealingType => data.healingType;
 
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
+    }
+
+    // Method to display healing type based on IsFood
+    public void DisplayHealingEffect()
+    {
+        if (IsFood)
+        {
+            Debug.Log(data.GetHealingType());
+        }
+        else
+        {
+            Debug.Log("This item does not heal.");
+        }
     }
 }
