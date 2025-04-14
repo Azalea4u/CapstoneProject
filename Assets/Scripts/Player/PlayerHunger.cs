@@ -29,7 +29,7 @@ public class PlayerHunger : MonoBehaviour
                 hungerTimer = 0f;
             }
         }
-        else if (hungerData.Hunger == 0)
+        else if (hungerData.Hunger <= 20)
         {
             Debug.Log("Player is starving!");
             // Handle starvation effects here, e.g., damage or reduced movement.
