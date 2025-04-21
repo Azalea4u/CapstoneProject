@@ -6,17 +6,21 @@ public class Coin_Pickup : MonoBehaviour
 {
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] public int gold = 5;
-    [SerializeField] private Int_SO playerGold;
+    [SerializeField] private GoldData playerGold;
     [SerializeField] private AudioSource collectCoin;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            playerGold.value += gold;
-            //Player_UI.instance.GoldText.text = playerGold.value.ToString();
-            Debug.Log("Player Gold: " + playerGold.value);
-            //health.Heal(gold);
+            if (playerGold.IsDoubleGoldActive)
+            {
+                gold = gold * 2;
+            }
+
+            playerGold.CurrentGold += gold;
+            Debug.Log("Player got " + gold.ToString() + "gold!");
+            Debug.Log("Player Gold: " + playerGold.CurrentGold);
             StartCoroutine(LootDrop());
         }
     }

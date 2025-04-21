@@ -26,19 +26,21 @@ public class Spawn_NextLevel : MonoBehaviour
             {
                 //GameManager.instance.Load_Level(next_Scene);
 
-                if (next_Scene == "Game_Level")
+                if (next_Scene == "Game_Level") // WHEN LEAVING REST LEVEL
                 {
-                    Debug.Log("Level: " + GameManager.instance.playerUI.Level);
-
                     GameManager.instance.playerUI.Level++;
-                    Debug.Log("Level: " + GameManager.instance.playerUI.Level);
-                    //GameManager.instance.GameLevel_ON();
+                    if (GameManager.instance.shopManager.DoubleGold)
+                    {
+                        GameManager.instance.playerUI.IsDoubleGold = true;
+                    }
                     GameManager.instance.Load_GameLevel();
+                    //GameManager.instance.GameLevel_ON();
                 }
-                else
+                else // WHEN LEAVING GAME LEVEL
                 {
                     //GameManager.instance.playerUI.LevelText.text = "Rest Level";
                     GameManager.instance.RestingLevel_ON();
+                    GameManager.instance.playerUI.IsDoubleGold = false;
                 }
             }
         }

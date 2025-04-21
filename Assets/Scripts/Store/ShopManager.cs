@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
+    public ShopManager shopManager;
+
     [SerializeField] public List<Item> shopItems = new List<Item>();
 
     [SerializeField] private Player_UI playerUI;
@@ -24,8 +26,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] public Item[] ItemsToBuy;
 
     public InventoryManager inventoryManager;
-
-    private int gold;
+    public bool DoubleGold;
 
     private void Start()
     {
@@ -33,8 +34,9 @@ public class ShopManager : MonoBehaviour
 
         for (int i = 0; i < buttons.Length; i++)
         {
-            int itemID = i + 1;
+            int itemID = i;
             buttons[i].onClick.AddListener(() => BuyItem(itemID));
+            buttons[i].enabled = true;
         }
     }
 
@@ -48,12 +50,21 @@ public class ShopManager : MonoBehaviour
             Debug.Log($"Bought {selectedItem.ItemName}");
             playerUI.Gold -= selectedItem.BuyPrice;
             inventoryManager.Add("Hotbar", selectedItem);
+
+            // Check if DoubleGold_Item was bought
+            if (selectedItem.ItemName == "DoubleGold_Item")
+            {
+                DoubleGold = true;
+                buttons[itemID].enabled = false;
+                Debug.Log("Double gold activated for the next level!");
+            }
         }
         else
         {
             Debug.Log("Not enough coins");
         }
     }
+
 
     /*
     public void SellItem()

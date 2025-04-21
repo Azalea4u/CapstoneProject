@@ -52,8 +52,8 @@ namespace Cainos.LucidEditor
             LucidEditorGUILayout.BeginLayoutIndent(EditorGUI.indentLevel + indent);
             if (!isEditable) EditorGUI.BeginDisabledGroup(true);
             {
-                //object value = ReflectionUtil.GetValue(parentObject, name);
-                //LucidEditorGUILayout.ReadOnlyField(Name, value, value.GetType());
+                //object currentGold = ReflectionUtil.GetValue(parentObject, name);
+                //LucidEditorGUILayout.ReadOnlyField(Name, currentGold, currentGold.GetType());
                 if ( GetPropertyType(info, out SerializedPropertyType serialzedProertyType))
                 {
                     Draw_Internal( serialzedProertyType);

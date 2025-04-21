@@ -10,7 +10,7 @@ public class ParallaxEffect : MonoBehaviour
     //Starting Poisiotn for the parallax game object
     Vector2 startingPosition;
 
-    // Star Z value of the parallax game object
+    // Star Z currentGold of the parallax game object
     float startingZ;
     Vector2 cameraMoveSinceStart => (Vector2)camera.transform.position- startingPosition;
 

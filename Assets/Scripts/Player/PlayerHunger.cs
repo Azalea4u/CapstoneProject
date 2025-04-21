@@ -39,7 +39,7 @@ public class PlayerHunger : MonoBehaviour
     private void ReduceHunger()
     {
         hungerData.Hunger = Mathf.Max(0, hungerData.Hunger - 1);
-        Debug.Log($"Hunger: {hungerData.Hunger}");
+        //Debug.Log($"Hunger: {hungerData.Hunger}");
     }
 
     public void Eat(float foodValue)

@@ -13,7 +13,7 @@ public class Player_UI : MonoBehaviour
     [SerializeField] public TMPro.TextMeshProUGUI LevelText;
     [SerializeField] private Int_SO currentLevel;
     [SerializeField] public TMPro.TextMeshProUGUI GoldText;
-    [SerializeField] private Int_SO currentGold;
+    [SerializeField] private GoldData currentGold;
     [SerializeField] private Int_SO currentHealth;
 
     [Header("Hunger")]
@@ -29,8 +29,14 @@ public class Player_UI : MonoBehaviour
 
     public int Gold
     {
-        get { return currentGold.value; }
-        set { currentGold.value = value; }
+        get { return currentGold.CurrentGold; }
+        set { currentGold.CurrentGold = value; }
+    }
+
+    public bool IsDoubleGold
+    {
+        get { return currentGold.IsDoubleGoldActive; }
+        set { currentGold.IsDoubleGoldActive = value; }
     }
 
     public float Hunger
@@ -59,7 +65,7 @@ public class Player_UI : MonoBehaviour
 
     private void Update()
     {
-        GoldText.text = currentGold.value.ToString();
+        GoldText.text = currentGold.CurrentGold.ToString();
         LevelText.text = "Level " + Level;
 
         if (SceneManager.GetActiveScene().name == "Rest_Level")

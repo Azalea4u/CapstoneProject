@@ -13,7 +13,7 @@ public class HungerBar_UI : MonoBehaviour
         if (hungerBar != null && playerHunger != null &&
             (!DialogueManager.instance.dialogueIsPlaying || !GameManager.instance.isGamePaused))
         {
-            hungerBar.value = playerHunger.GetHungerPercentage(); // Set slider value
+            hungerBar.value = playerHunger.GetHungerPercentage(); // Set slider currentGold
         }
     }
 }

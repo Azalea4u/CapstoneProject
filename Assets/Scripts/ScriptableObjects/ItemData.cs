@@ -36,7 +36,7 @@ public class ItemData : ScriptableObject
         switch (healingType)
         {
             case HealingType.Health:
-                return $"Health Healed: {HealingAmount}";  // Use HealingAmount to store healing value for health
+                return $"Health Healed: {HealingAmount}";  // Use HealingAmount to store healing currentGold for health
             case HealingType.Hunger:
                 return $"Hunger Restored: {HealingAmount}";
             default:

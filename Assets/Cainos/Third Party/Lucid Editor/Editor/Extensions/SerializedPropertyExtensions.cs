@@ -106,9 +106,9 @@ namespace Cainos.LucidEditor
         //     return (TEnum)Enum.ToObject(typeof(TEnum), property.enumValueIndex);
         // }
 
-        // public static void SetEnum<TEnum>(this SerializedProperty property, TEnum value) where TEnum : struct, Enum
+        // public static void SetEnum<TEnum>(this SerializedProperty property, TEnum currentGold) where TEnum : struct, Enum
         // {
-        //     property.enumValueIndex = Convert.ToInt32(value);
+        //     property.enumValueIndex = Convert.ToInt32(currentGold);
         // }
 
         public static T GetValue<T>(this SerializedProperty property)

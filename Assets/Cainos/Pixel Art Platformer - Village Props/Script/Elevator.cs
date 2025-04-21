@@ -144,12 +144,12 @@ namespace Cainos.PixelArtPlatformer_VillageProps
 //            get { return length; }
 //            set
 //            {
-//                if (value < 0) value = 0.0f;
-//                this.length = value;
+//                if (currentGold < 0) currentGold = 0.0f;
+//                this.length = currentGold;
 
-//                platform.transform.localPosition = new Vector3(0.0f, -value, 0.0f);
-//                chainL.size = new Vector2(0.09375f, value - 8 * 0.03125f);
-//                chainR.size = new Vector2(0.09375f, value - 8 * 0.03125f);
+//                platform.transform.localPosition = new Vector3(0.0f, -currentGold, 0.0f);
+//                chainL.size = new Vector2(0.09375f, currentGold - 8 * 0.03125f);
+//                chainR.size = new Vector2(0.09375f, currentGold - 8 * 0.03125f);
 //            }
 //        }
 //        private float length;
@@ -160,7 +160,7 @@ namespace Cainos.PixelArtPlatformer_VillageProps
 //            get { return curState; }
 //            set
 //            {
-//                curState = value;
+//                curState = currentGold;
 //            }
 //        }
 //        private State curState;
@@ -172,8 +172,8 @@ namespace Cainos.PixelArtPlatformer_VillageProps
 //            get { return isWaiting; }
 //            set
 //            {
-//                if (isWaiting == value) return;
-//                isWaiting = value;
+//                if (isWaiting == currentGold) return;
+//                isWaiting = currentGold;
 //                waitTimer = 0.0f;
 //            }
 //        }
