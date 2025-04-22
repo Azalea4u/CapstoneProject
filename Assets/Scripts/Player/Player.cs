@@ -137,9 +137,9 @@ public class Player : MonoBehaviour
     // Consume potion and heal health
     private void ConsumePotion(Item itemData, Inventory.Slot selectedSlot)
     {
-        if (playerHealth.Health < playerHealth.MaxHealth)
+        //if (playerHealth.Health < playerHealth.MaxHealth)
         {
-            playerHealth.Health = Mathf.Min(playerHealth.MaxHealth, playerHealth.Health + (int)itemData.HealingAmount);
+            playerHealth.Health = Mathf.Min(99, playerHealth.Health + (int)itemData.HealingAmount);
 
             // Remove the potion item
             if (selectedSlot.count > 0)
@@ -155,10 +155,6 @@ public class Player : MonoBehaviour
             }
 
             Debug.Log($"Consumed {itemData.ItemName}, Health: {playerHealth.Health}");
-        }
-        else
-        {
-            Debug.Log("Health is already full.");
         }
     }
 

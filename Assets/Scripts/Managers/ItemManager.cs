@@ -31,6 +31,9 @@ public class ItemManager : MonoBehaviour
         {
             return nameToItemDict[type];
         }
-        return null;
+        else
+        {
+            return null;
+        }
     }
 }
