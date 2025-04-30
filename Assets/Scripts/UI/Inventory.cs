@@ -107,7 +107,7 @@ public class Inventory
         // add it to the first empty slot
         foreach (Slot slot in slots)
         {
-            if (slot.itemName == "")
+            if (slot.itemName == "" || slot.itemName == null)
             {
                 slot.AddItem(item);
                 return;
@@ -159,7 +159,7 @@ public class Inventory
         // Check if we have any empty slots
         foreach (Slot slot in slots)
         {
-            if (slot.IsEmpty)
+            if (slot.itemName == "" || slot.itemName == null)
             {
                 return false;
             }

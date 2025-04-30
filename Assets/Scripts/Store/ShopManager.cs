@@ -7,10 +7,6 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    public ShopManager shopManager;
-
-    [SerializeField] public List<Item> shopItems = new List<Item>();
-
     [SerializeField] private Player_UI playerUI;
 
     // Buttons
@@ -47,12 +43,17 @@ public class ShopManager : MonoBehaviour
         Item selectedItem = ItemsToBuy[itemID];
         if (playerUI.Gold >= selectedItem.BuyPrice)
         {
+            if (selectedItem.IsFood && inventoryManager.hotbar.IsFull())
+            {
+                return;
+            }
+
             Debug.Log($"Bought {selectedItem.ItemName}");
             playerUI.Gold -= selectedItem.BuyPrice;
             inventoryManager.Add("Hotbar", selectedItem);
 
             // Check if DoubleGold_Item was bought
-            if (selectedItem.ItemName == "DoubleGold_Item")
+            if (itemID == 5)
             {
                 DoubleGold = true;
                 buttons[itemID].enabled = false;
@@ -61,7 +62,7 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough coins");
+            Debug.Log("Not enough coins or your hotbar is full!");
         }
     }
 

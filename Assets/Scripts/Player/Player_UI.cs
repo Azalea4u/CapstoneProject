@@ -65,8 +65,11 @@ public class Player_UI : MonoBehaviour
 
     private void Update()
     {
-        GoldText.text = currentGold.CurrentGold.ToString();
-        LevelText.text = "Level " + Level;
+        if (SceneManager.GetActiveScene().name == "Game_Level")
+        {
+            GoldText.text = currentGold.CurrentGold.ToString();
+            LevelText.text = "Level " + Level;
+        }
 
         if (SceneManager.GetActiveScene().name == "Rest_Level")
         {

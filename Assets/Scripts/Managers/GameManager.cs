@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene("Game_Level");
+
+
     }
 
     public void ControlPanel()
@@ -136,18 +138,25 @@ public class GameManager : MonoBehaviour
 
     public void Load_GameLevel()
     {
+
+        FirstGame.Value = false;
+        SceneManager.LoadScene("Game_Level");
         if (SceneManager.GetActiveScene().name == "Game_Level")
         {
             inventoryManager.RefreshHotBarData();
         }
-        FirstGame.Value = false;
-        SceneManager.LoadScene("Game_Level");
+        inventoryManager.Add("Hotbar", GameManager.instance.itemManager.GetItemByName("Bomb"));
         //playerUI_prefab.GetComponent<Hotbar_UI>().LoadHotBarFromData();
     }
 
     public void Load_Level(string levelName)
     {
         SceneManager.LoadScene(levelName);
+        if (FirstGame.Value)
+        {
+            inventoryManager.Add("Hotbar", GameManager.instance.itemManager.GetItemByName("Bomb"));
+            playerUI.IsDoubleGold = false; 
+        }
 
         FirstGame.Value = false;
     }
