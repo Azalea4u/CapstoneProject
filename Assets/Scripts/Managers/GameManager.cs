@@ -72,8 +72,6 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene("Game_Level");
-
-
     }
 
     public void ControlPanel()
@@ -211,6 +209,27 @@ public class GameManager : MonoBehaviour
         Transform playerSpawn = Resting_Level.transform.Find("PlayerSpawn_RestLevel");
         player.transform.position = playerSpawn.position;
     }
+    #endregion
+
+    #region UPDATE_UI
+
+    public void Update_GoldText()
+    {
+        playerUI.GoldText.text = playerUI.Gold.ToString();
+    }
+
+    public void Update_LevelText()
+    {
+        if (SceneManager.GetActiveScene().name == "Game_Level")
+        {
+            playerUI.LevelText.text = "Level " + playerUI.Level;
+        }
+        if (SceneManager.GetActiveScene().name == "Rest_Level")
+        {
+            playerUI.LevelText.text = "Rest Level";
+        }
+    }
+
     #endregion
 
     public void Quit_Game()

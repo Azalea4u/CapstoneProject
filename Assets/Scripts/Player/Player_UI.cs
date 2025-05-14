@@ -24,13 +24,29 @@ public class Player_UI : MonoBehaviour
     public int Level
     {
         get { return currentLevel.value; }
-        set { currentLevel.value = value; }
+        set 
+        {
+            currentLevel.value = value;
+            if (SceneManager.GetActiveScene().name == "Game_Level")
+            {
+                LevelText.text = "Level " + Level;
+            }
+
+            if (SceneManager.GetActiveScene().name == "Rest_Level")
+            {
+                LevelText.text = "Rest Level";
+            }
+        }
     }
 
     public int Gold
     {
         get { return currentGold.CurrentGold; }
-        set { currentGold.CurrentGold = value; }
+        set 
+        {
+            currentGold.CurrentGold = value;
+            GoldText.text = currentGold.CurrentGold.ToString();
+        }
     }
 
     public bool IsDoubleGold
@@ -63,6 +79,7 @@ public class Player_UI : MonoBehaviour
         }
     }
 
+    /*
     private void Update()
     {
         if (SceneManager.GetActiveScene().name == "Game_Level")
@@ -76,4 +93,5 @@ public class Player_UI : MonoBehaviour
             LevelText.text = "Rest Level";
         }
     }
+    */
 }

@@ -69,7 +69,7 @@ public class InventoryManager : MonoBehaviour
         if (hotbarData != null)
         {
             hotbarData.slots.Clear(); // Clear all slots
-            Debug.Log("HotBar_Data has been cleared.");
+            //Debug.Log("HotBar_Data has been cleared.");
         }
         else
         {

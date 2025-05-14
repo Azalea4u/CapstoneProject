@@ -18,6 +18,7 @@ public class DialogueTrigger : MonoBehaviour
         visualCue.SetActive(false);
     }
     
+    /*
     private void Update()
     {
         if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
@@ -37,12 +38,33 @@ public class DialogueTrigger : MonoBehaviour
             visualCue.SetActive(false);
         }
     }
+    */
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             playerInRange = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
+        {
+            visualCue.SetActive(true);
+            //if gameManger isn't paused
+            if (!GameManager.instance.isGamePaused)
+            {
+                if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButtonDown(0))
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                }
+            }
+        }
+        else
+        {
+            visualCue.SetActive(false);
         }
     }
 

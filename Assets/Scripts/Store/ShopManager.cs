@@ -50,7 +50,8 @@ public class ShopManager : MonoBehaviour
 
             Debug.Log($"Bought {selectedItem.ItemName}");
             playerUI.Gold -= selectedItem.BuyPrice;
-            inventoryManager.Add("Hotbar", selectedItem);
+            if (selectedItem.IsFood)
+                inventoryManager.Add("Hotbar", selectedItem);
 
             // Check if DoubleGold_Item was bought
             if (itemID == 5)
