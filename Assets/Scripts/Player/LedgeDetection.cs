@@ -52,7 +52,7 @@ public class LedgeDetection : MonoBehaviour
         if (rb != null)
         {
             rb.gravityScale = 0; // Disable gravity
-            rb.velocity = Vector2.zero; // Stop all movement
+            rb.linearVelocity = Vector2.zero; // Stop all movement
         }
     }
 

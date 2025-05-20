@@ -6,6 +6,7 @@ using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -78,6 +79,19 @@ public class PlayerMovement : MonoBehaviour
     [Header("Bomb")]
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private Transform bombSpawnPoint;
+
+    [Header("Input Actions")]
+    [SerializeField] private InputActionMap controls;
+
+    [HideInInspector] public InputAction primaryAction;     // LEFT MOUSE BUTTON
+    [HideInInspector] public InputAction secondaryAction;   // RIGHT MOUSE BUTTON
+    [HideInInspector] public InputAction movementAction;    // AD
+    [HideInInspector] public InputAction jumpAction;        // SPACE
+    [HideInInspector] public InputAction dashAction;        // LEFT SHIFT
+    [HideInInspector] public InputAction crouchAction;      // LEFT CONTROL
+    [HideInInspector] public InputAction bombAction;        // LEFT CONTROL + LEFT MOUSE BUTTON
+    [HideInInspector] public InputAction ledgeAction;       // LEFT MOUSE BUTTON or LEFT SHIFT
+    [HideInInspector] public InputAction pauseAction;       // TAB or ESCAPE
 
     [HideInInspector] public Rigidbody2D rb;
 
@@ -160,19 +174,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isDashing && !isCrouching)
         {
-            rb.velocity = new Vector2(facingDirection * speed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(facingDirection * speed, rb.linearVelocity.y);
         }
         else if (isDashing)
         {
             // Set the x velocity to the dashing speed
-            rb.velocity = dashingDirection * dashSpeed;
+            rb.linearVelocity = dashingDirection * dashSpeed;
         }
         else if (isCrouching)
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
 
-        animator.SetFloat("yVelocity", rb.velocity.y);
+        animator.SetFloat("yVelocity", rb.linearVelocity.y);
         ApplyFallMultiplier();
     }
 
@@ -182,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
         canMove = false;
 
         facingDirection = 0;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         rb.gravityScale = 1;
     }
 
@@ -190,6 +204,51 @@ public class PlayerMovement : MonoBehaviour
     {
         canFlip = true;
         canMove = true;
+    }
+
+    private void SetupControls()
+    {
+        // PRIMARY - LEFT MOUSE BUTTON
+        primaryAction = controls.FindAction("Primary");
+        if (primaryAction == null)
+        {
+            primaryAction = controls.AddAction("Primary");
+            primaryAction.AddBinding("<Mouse>/leftButton");
+        }
+
+        // SECONDARY - RIGHT MOUSE BUTTON
+        // for interacting with objects or npcs
+        secondaryAction = controls.FindAction("Secondary");
+        if (secondaryAction == null)
+        {
+            secondaryAction = controls.AddAction("Secondary");
+            secondaryAction.AddBinding("<Mouse>/rightButton");
+        }
+
+        movementAction = controls.FindAction("Movement");
+        if (movementAction == null)
+        {
+            movementAction = controls.AddAction("Movement");
+            // A for left, D for right
+            movementAction.AddCompositeBinding("2DVector")
+                .With("Left", "<Keyboard>/a")
+                .With("Right", "<Keyboard>/d");
+        }
+
+        jumpAction = controls.FindAction("Jump");
+        if (jumpAction == null)
+        {
+            jumpAction = controls.AddAction("Jump");
+            jumpAction.AddBinding("<Keyboard>/space");
+        }
+
+        dashAction = controls.FindAction("Dash");
+        if (dashAction == null)
+        {
+            dashAction = controls.AddAction("Dash");
+            dashAction.AddBinding("<Keyboard>/leftShift");
+        }
+
     }
 
     private void CheckInputs()
@@ -240,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
 
         // LEDGE
@@ -279,15 +338,15 @@ public class PlayerMovement : MonoBehaviour
     #region JUMP
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
         isGrounded = false;
 
-        rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
     }
 
     private void ApplyFallMultiplier()
     {
-        if (!isGrounded && rb.velocity.y < 0)
+        if (!isGrounded && rb.linearVelocity.y < 0)
         {
             // Player is falling
             float multiplier = fallMultiplier;
@@ -297,11 +356,11 @@ public class PlayerMovement : MonoBehaviour
                 multiplier *= 10.0f;
             }
 
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (multiplier - 1) * Time.deltaTime;
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (multiplier - 1) * Time.deltaTime;
         }
-        else if (rb.velocity.y > 0)
+        else if (rb.linearVelocity.y > 0)
         {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
     #endregion
@@ -489,7 +548,7 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = 1;
 
         // Apply a small downward force to initiate the fall
-        rb.velocity = new Vector2(rb.velocity.x, -0.5f);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -0.5f);
 
         // Reset the player's position slightly away from the wall to avoid getting stuck
         transform.position -= new Vector3(facingRight ? 0.3f : -0.3f, 0.3f, 0f);
@@ -531,7 +590,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isAlive) return; // Don't stagger if the enemy is dead
 
         // Apply knockback force in the specified direction
-        rb.velocity = new Vector2(knockbackDirection.x * knockbackForce, rb.velocity.y);
+        rb.linearVelocity = new Vector2(knockbackDirection.x * knockbackForce, rb.linearVelocity.y);
         PlayerAudio_Play.instance.PlayDamage();
         // Start stagger coroutine to disable movement for a duration
         StartCoroutine(StaggerCoroutine());

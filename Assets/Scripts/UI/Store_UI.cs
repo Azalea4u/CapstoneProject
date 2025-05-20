@@ -21,11 +21,6 @@ public class Store_UI : MonoBehaviour
         inventoryPanel.SetActive(false);
     }
 
-    private void Update()
-    {
-
-    }
-
     /*
     public void ToggleInventory()
     {
