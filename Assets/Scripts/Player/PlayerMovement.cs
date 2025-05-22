@@ -81,18 +81,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform bombSpawnPoint;
 
     [Header("Input Actions")]
+    [SerializeField] private InputActionAsset inputActions;
     [SerializeField] private InputActionMap movement;
     [SerializeField] private InputActionMap crouching;
     [SerializeField] private InputActionMap ledge;
+    private InputActionMap currentInputMap;
 
+    // MOVEMENT
     [HideInInspector] public InputAction primaryAction;     // LEFT MOUSE BUTTON
     [HideInInspector] public InputAction secondaryAction;   // RIGHT MOUSE BUTTON
     [HideInInspector] public InputAction movementAction;    // AD
     [HideInInspector] public InputAction jumpAction;        // SPACE
     [HideInInspector] public InputAction dashAction;        // LEFT SHIFT
     [HideInInspector] public InputAction crouchAction;      // LEFT CONTROL
+    // CROUCHING
     [HideInInspector] public InputAction bombAction;        // LEFT CONTROL + LEFT MOUSE BUTTON
-    [HideInInspector] public InputAction ledgeAction;       // LEFT MOUSE BUTTON or LEFT SHIFT
+    // LEDGE
+    [HideInInspector] public InputAction climbLedgeAction;  // LEFT MOUSE BUTTON or LEFT SHIFT
+    [HideInInspector] public InputAction dropLedgeAction;   // LEFT CONTROL
+    //UI
     [HideInInspector] public InputAction pauseAction;       // TAB or ESCAPE
 
     [HideInInspector] public Rigidbody2D rb;
@@ -104,6 +111,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
+        SetupControls();
+        SwitchInputMap(movement);
         crouchCollider.enabled = false;
     }
 
@@ -118,8 +127,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (canMove)
         {
-            facingDirection = Input.GetAxis("Horizontal");
-            var dashInput = Input.GetButtonDown("Dash");
+            //facingDirection = Input.GetAxis("Horizontal");
+            //var dashInput = Input.GetButtonDown("Dash");
 
             if (isGrounded)
             {
@@ -138,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsAttacking", isAttacking);
         }
 
-        CheckInputs();
+        //CheckInputs();
     }
 
     private void FixedUpdate()
@@ -174,6 +183,7 @@ public class PlayerMovement : MonoBehaviour
             ContinueMovement();
         }
 
+        /*
         if (!isDashing && !isCrouching)
         {
             rb.linearVelocity = new Vector2(facingDirection * speed, rb.linearVelocity.y);
@@ -186,6 +196,14 @@ public class PlayerMovement : MonoBehaviour
         else if (isCrouching)
         {
             rb.linearVelocity = Vector2.zero;
+        }
+        */
+
+        if (!isDashing && !isCrouching)
+        {
+            Vector2 input = movementAction.ReadValue<Vector2>();
+            facingDirection = input.x;
+            rb.linearVelocity = new Vector2(facingDirection * speed, rb.linearVelocity.y);
         }
 
         animator.SetFloat("yVelocity", rb.linearVelocity.y);
@@ -210,14 +228,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetupControls()
     {
+        movement = inputActions.FindActionMap("Movement");
+        crouching = inputActions.FindActionMap("Crouching");
+        ledge = inputActions.FindActionMap("Ledge");
+
+
         #region MOVEMENT
         // PRIMARY - LEFT MOUSE BUTTON
         primaryAction = movement.FindAction("Primary");
-        if (primaryAction == null)
+        primaryAction.performed += ctx =>
         {
-            primaryAction = movement.AddAction("Primary");
-            primaryAction.AddBinding("<Mouse>/leftButton");
-        }
+            if (isGrounded && !isCrouching && !DialogueManager.instance.dialogueIsPlaying)
+                Attack();
+        };
 
         // SECONDARY - RIGHT MOUSE BUTTON
         // for interacting with objects or npcs
@@ -241,12 +264,23 @@ public class PlayerMovement : MonoBehaviour
 
         // JUMP - SPACE
         jumpAction = movement.FindAction("Jump");
-        if (jumpAction == null)
-        {
-            jumpAction = movement.AddAction("Jump");
-            jumpAction.AddBinding("<Keyboard>/space");
-        }
+        jumpAction.performed += ctx => {
+            if (isGrounded && !isCrouching && !DialogueManager.instance.dialogueIsPlaying)
+                Jump();
+        };
 
+        // DASH - LEFT SHIFT
+        dashAction = movement.FindAction("Dash");
+        dashAction.performed += ctx =>
+        {
+            if (canDash && !isClimbing)
+            {
+                Dash();
+            }
+        };
+        #endregion
+
+        #region CROUCHING
         // CROUCH - LEFT CONTROL
         crouchAction = movement.FindAction("Crouch");
         if (crouchAction == null)
@@ -255,21 +289,52 @@ public class PlayerMovement : MonoBehaviour
             crouchAction.AddBinding("<Keyboard>/leftCtrl");
         }
 
-        // DASH - LEFT SHIFT
-        dashAction = movement.FindAction("Dash");
-        if (dashAction == null)
-        {
-            dashAction = movement.AddAction("Dash");
-            dashAction.AddBinding("<Keyboard>/leftShift");
-        }
+        crouchAction.started += ctx => {
+            if (!isClimbing && isGrounded && canCrouch)
+            {
+                isCrouching = true;
+                animator.SetTrigger("Crouch");
+                standingCollider.enabled = false;
+                crouchCollider.enabled = true;
+            }
+        };
+
+        crouchAction.canceled += ctx => {
+            if (isCrouching)
+            {
+                isCrouching = false;
+                animator.SetTrigger("Stand");
+                standingCollider.enabled = true;
+                crouchCollider.enabled = false;
+            }
+        };
+
+
         #endregion
 
-        #region CROUCHING
+        #region LEDGE
+        climbLedgeAction = ledge.FindAction("Climb");
+        climbLedgeAction.performed += ctx => {
+            if (isClimbing) animator.SetTrigger("Climbing");
+        };
 
-
+        dropLedgeAction = ledge.FindAction("Drop");
+        dropLedgeAction.performed += ctx => {
+            if (isClimbing) LedgeFallDown();
+        };
         #endregion
     }
 
+    private void SwitchInputMap(InputActionMap newMap)
+    {
+        if (currentInputMap == newMap) return;
+
+        if (currentInputMap != null) currentInputMap.Disable();
+        currentInputMap = newMap;
+        currentInputMap.Enable();
+    }
+
+    /*
     private void CheckInputs()
     {
         if (canMove)
@@ -335,6 +400,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    */
 
     private void Attack()
     {
@@ -343,15 +409,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Crouch()
     {
-        isCrouching = !isCrouching;
-
-        if (isCrouching)
-        {
-            animator.SetTrigger("Crouch");
-
-            standingCollider.enabled = false;
-            crouchCollider.enabled = true;
-        }
+        isCrouching = true;
+        animator.SetTrigger("Crouch");
+        standingCollider.enabled = false;
+        crouchCollider.enabled = true;
     }
 
     #region JUMP
@@ -392,7 +453,7 @@ public class PlayerMovement : MonoBehaviour
         dashStartTime = Time.time;
         dashStartPosition = transform.position;
         trailRenderer.emitting = true;
-        dashingDirection = new Vector2(facingDirection, Input.GetAxisRaw("Vertical"));
+        dashingDirection = movementAction.ReadValue<Vector2>();
 
         // if pressing up at all, don't dash up
         if (dashingDirection.y > 0)
@@ -533,9 +594,12 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
             transform.position = climbBeginPosition;
             ledgeDetected = false;
+            SwitchInputMap(ledge);
+        }
+        else {
+            SwitchInputMap(movement);
         }
     }
-
 
     public void LedgeClimbOver()
     {

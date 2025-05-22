@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (playerMovement.isCrouching && Input.GetMouseButtonDown(0))
+        if (playerMovement.isCrouching && playerMovement.primaryAction.IsPressed())
         {
             if (HasBombInHotbar() && inventoryManager.hotbar.selectedSlot.itemName == "Bomb")
             {
