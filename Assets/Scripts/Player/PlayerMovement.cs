@@ -81,7 +81,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform bombSpawnPoint;
 
     [Header("Input Actions")]
-    [SerializeField] private InputActionMap controls;
+    [SerializeField] private InputActionMap movement;
+    [SerializeField] private InputActionMap crouching;
+    [SerializeField] private InputActionMap ledge;
 
     [HideInInspector] public InputAction primaryAction;     // LEFT MOUSE BUTTON
     [HideInInspector] public InputAction secondaryAction;   // RIGHT MOUSE BUTTON
@@ -208,47 +210,64 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetupControls()
     {
+        #region MOVEMENT
         // PRIMARY - LEFT MOUSE BUTTON
-        primaryAction = controls.FindAction("Primary");
+        primaryAction = movement.FindAction("Primary");
         if (primaryAction == null)
         {
-            primaryAction = controls.AddAction("Primary");
+            primaryAction = movement.AddAction("Primary");
             primaryAction.AddBinding("<Mouse>/leftButton");
         }
 
         // SECONDARY - RIGHT MOUSE BUTTON
         // for interacting with objects or npcs
-        secondaryAction = controls.FindAction("Secondary");
+        secondaryAction = movement.FindAction("Secondary");
         if (secondaryAction == null)
         {
-            secondaryAction = controls.AddAction("Secondary");
+            secondaryAction = movement.AddAction("Secondary");
             secondaryAction.AddBinding("<Mouse>/rightButton");
         }
 
-        movementAction = controls.FindAction("Movement");
+        // MOVEMENT - AD
+        movementAction = movement.FindAction("Movement");
         if (movementAction == null)
         {
-            movementAction = controls.AddAction("Movement");
+            movementAction = movement.AddAction("Movement");
             // A for left, D for right
             movementAction.AddCompositeBinding("2DVector")
                 .With("Left", "<Keyboard>/a")
                 .With("Right", "<Keyboard>/d");
         }
 
-        jumpAction = controls.FindAction("Jump");
+        // JUMP - SPACE
+        jumpAction = movement.FindAction("Jump");
         if (jumpAction == null)
         {
-            jumpAction = controls.AddAction("Jump");
+            jumpAction = movement.AddAction("Jump");
             jumpAction.AddBinding("<Keyboard>/space");
         }
 
-        dashAction = controls.FindAction("Dash");
-        if (dashAction == null)
+        // CROUCH - LEFT CONTROL
+        crouchAction = movement.FindAction("Crouch");
+        if (crouchAction == null)
         {
-            dashAction = controls.AddAction("Dash");
-            dashAction.AddBinding("<Keyboard>/leftShift");
+            crouchAction = movement.AddAction("Crouch");
+            crouchAction.AddBinding("<Keyboard>/leftCtrl");
         }
 
+        // DASH - LEFT SHIFT
+        dashAction = movement.FindAction("Dash");
+        if (dashAction == null)
+        {
+            dashAction = movement.AddAction("Dash");
+            dashAction.AddBinding("<Keyboard>/leftShift");
+        }
+        #endregion
+
+        #region CROUCHING
+
+
+        #endregion
     }
 
     private void CheckInputs()
