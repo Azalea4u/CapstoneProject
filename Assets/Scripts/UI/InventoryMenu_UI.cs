@@ -36,11 +36,6 @@ public class InventoryMenu_UI : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        //isStoreActive = storePanel.activeSelf;
-    }
-
     public void ToggleStore()
     {
         // check if the inventory is active
