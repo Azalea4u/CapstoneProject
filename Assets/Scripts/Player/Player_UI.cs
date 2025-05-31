@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Player_UI : MonoBehaviour
 {
@@ -10,9 +11,9 @@ public class Player_UI : MonoBehaviour
     [SerializeField] public GameObject PausedMenu_Panel;
 
     [Header("UI")]
-    [SerializeField] public TMPro.TextMeshProUGUI LevelText;
+    [SerializeField] public TextMeshProUGUI LevelText;
     [SerializeField] private Int_SO currentLevel;
-    [SerializeField] public TMPro.TextMeshProUGUI GoldText;
+    [SerializeField] public TextMeshProUGUI GoldText;
     [SerializeField] private GoldData currentGold;
     [SerializeField] private Int_SO currentHealth;
 
@@ -27,15 +28,7 @@ public class Player_UI : MonoBehaviour
         set 
         {
             currentLevel.value = value;
-            if (SceneManager.GetActiveScene().name == "Game_Level")
-            {
-                LevelText.text = "Level " + Level;
-            }
-
-            if (SceneManager.GetActiveScene().name == "Rest_Level")
-            {
-                LevelText.text = "Rest Level";
-            }
+            LevelText.text = "Level " + currentLevel.value.ToString();
         }
     }
 
@@ -61,11 +54,29 @@ public class Player_UI : MonoBehaviour
         set { hungerData.Hunger = value; }
     }
 
+    private int savedLevel = -1;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+
+        // Cache level early to preserve it
+        if (this != null)
+            savedLevel = Level;
+    }
+
+
     private void Start()
     {
         if (SceneManager.GetActiveScene().name == "Start_Menu")
         {
-            Level = 1;
+            Level = 0;
             Gold = 200;
             Hunger = 100;
 
@@ -76,6 +87,8 @@ public class Player_UI : MonoBehaviour
         {
             GameOver_Panel.SetActive(false);
             PausedMenu_Panel.SetActive(false);
+
+            Level = currentLevel.value;
         }
     }
 

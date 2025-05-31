@@ -19,7 +19,7 @@ public class Coin_Pickup : MonoBehaviour
             }
 
             playerGold.CurrentGold += gold;
-            GameManager.instance.Update_GoldText();
+            GameManager.instance.playerUI.Gold = playerGold.currentGold;
             Debug.Log("Player got " + gold.ToString() + " gold!");
             Debug.Log("Player Gold: " + playerGold.CurrentGold);
             StartCoroutine(LootDrop());

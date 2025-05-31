@@ -136,14 +136,17 @@ public class GameManager : MonoBehaviour
 
     public void Load_GameLevel()
     {
-
+        if (FirstGame.Value && SceneManager.GetActiveScene().name == "Start_Menu")
+        {
+            inventoryManager.Add("Hotbar", GameManager.instance.itemManager.GetItemByName("Bomb"));
+        }
         FirstGame.Value = false;
         SceneManager.LoadScene("Game_Level");
         if (SceneManager.GetActiveScene().name == "Game_Level")
         {
+            playerUI.Level++;
             inventoryManager.RefreshHotBarData();
         }
-        inventoryManager.Add("Hotbar", GameManager.instance.itemManager.GetItemByName("Bomb"));
         //playerUI_prefab.GetComponent<Hotbar_UI>().LoadHotBarFromData();
     }
 
@@ -220,14 +223,7 @@ public class GameManager : MonoBehaviour
 
     public void Update_LevelText()
     {
-        if (SceneManager.GetActiveScene().name == "Game_Level")
-        {
-            playerUI.LevelText.text = "Level " + playerUI.Level;
-        }
-        if (SceneManager.GetActiveScene().name == "Rest_Level")
-        {
-            playerUI.LevelText.text = "Rest Level";
-        }
+        playerUI.LevelText.text = "Level " + playerUI.Level;
     }
 
     #endregion

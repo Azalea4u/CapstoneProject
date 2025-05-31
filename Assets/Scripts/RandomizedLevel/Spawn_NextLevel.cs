@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class Spawn_NextLevel : MonoBehaviour
 {
@@ -11,38 +10,43 @@ public class Spawn_NextLevel : MonoBehaviour
     [Header("Visual Cue")]
     [SerializeField] private GameObject visualCue;
 
+    private bool playerInRange = false;
+
     private void Start()
     {
-        visualCue.SetActive(false);   
+        visualCue.SetActive(false);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void Update()
+    {
+        if (playerInRange && Input.GetKeyDown(KeyCode.Q))
+        {
+            if (next_Scene == "Game_Level") // WHEN LEAVING REST LEVEL
+            {
+                Debug.Log("Current Level: " + GameManager.instance.playerUI.Level);
+                GameManager.instance.playerUI.Level++;
+                Debug.Log("Updated Level: " + GameManager.instance.playerUI.Level);
+                GameManager.instance.Update_LevelText();
+                if (GameManager.instance.shopManager.DoubleGold)
+                {
+                    GameManager.instance.playerUI.IsDoubleGold = true;
+                }
+                GameManager.instance.Load_GameLevel();
+            }
+            else // WHEN LEAVING GAME LEVEL
+            {
+                GameManager.instance.RestingLevel_ON();
+                GameManager.instance.playerUI.IsDoubleGold = false;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            playerInRange = true;
             visualCue.SetActive(true);
-
-            if (Input.GetKey(KeyCode.Q) || Input.GetMouseButton(2))
-            {
-                //GameManager.instance.Load_Level(next_Scene);
-
-                if (next_Scene == "Game_Level") // WHEN LEAVING REST LEVEL
-                {
-                    GameManager.instance.playerUI.Level++;
-                    if (GameManager.instance.shopManager.DoubleGold)
-                    {
-                        GameManager.instance.playerUI.IsDoubleGold = true;
-                    }
-                    GameManager.instance.Load_GameLevel();
-                    //GameManager.instance.GameLevel_ON();
-                }
-                else // WHEN LEAVING GAME LEVEL
-                {
-                    //GameManager.instance.playerUI.LevelText.text = "Rest Level";
-                    GameManager.instance.RestingLevel_ON();
-                    GameManager.instance.playerUI.IsDoubleGold = false;
-                }
-            }
         }
     }
 
@@ -50,6 +54,7 @@ public class Spawn_NextLevel : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            playerInRange = false;
             visualCue.SetActive(false);
         }
     }

@@ -234,7 +234,6 @@ public class PlayerMovement : MonoBehaviour
         crouching = inputActions.FindActionMap("Crouching");
         ledge = inputActions.FindActionMap("Ledge");
 
-
         #region MOVEMENT
         // PRIMARY - LEFT MOUSE BUTTON
         primaryAction = movement.FindAction("Primary");
