@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         inventoryManager = GetComponent<InventoryManager>();
+        playerMovement = GetComponent<PlayerMovement>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void Update()
