@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private PlayerMovement player;
+    [SerializeField] private HitEffect hitEffect;
     [SerializeField] private Animator animator;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private Int_SO _currentHealthSO;
@@ -17,6 +18,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [SerializeField] public bool isInvincible = false;
     [SerializeField] private float invincibilityTime = 0.25f;
     private float timeSinceHit = 0.0f;
+
 
     public int MaxHealth
     {
@@ -84,6 +86,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             {
                 player.Stagger(new Vector2(-1, 0));
                 animator.SetTrigger("TakeDamage");
+                hitEffect.TriggerHitEffect(); // Trigger the hit effect
             }
             return true;
         }

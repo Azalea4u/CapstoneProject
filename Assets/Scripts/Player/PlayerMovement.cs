@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float knockbackForce = 10.0f;
     [SerializeField] private float staggerDuration = 0.5f;
     [SerializeField] private float facingDirection;
+    private float inputHorizontal;
 
     // REQUIRED TO BE PUBLIC
     public bool isAttacking = false;
@@ -168,6 +170,7 @@ public class PlayerMovement : MonoBehaviour
         CheckCollision();
         CheckDash();
         CheckForLedge();
+        facingDirection = inputHorizontal;
 
         canFlip = !isAttacking;
 
@@ -489,7 +492,8 @@ public class PlayerMovement : MonoBehaviour
                 {
                     EndDash(targetPosition);
                 }
-                transform.position = targetPosition;
+
+                rb.MovePosition(targetPosition);
             }
         }
         else
@@ -511,7 +515,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         currentDashRechargeTime = dashRechargeTime;
         trailRenderer.emitting = false;
-        transform.position = endPosition; // Set the enemy's position to the collision point
+        rb.MovePosition(endPosition);
     }
     #endregion
 
