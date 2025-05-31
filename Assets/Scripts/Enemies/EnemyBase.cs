@@ -77,7 +77,7 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void UpdateFacingDirection()
     {
-        facingDirection = rb.velocity.x;
+        facingDirection = rb.linearVelocity.x;
     }
 
     protected virtual void CheckCollision()
@@ -112,17 +112,17 @@ public class EnemyBase : MonoBehaviour
         if (canMove)
         {
             float direction = facingRight ? 1 : -1;
-            rb.velocity = new Vector2(movementSpeed * direction, rb.velocity.y);
+            rb.linearVelocity = new Vector2(movementSpeed * direction, rb.linearVelocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
     }
 
     protected virtual void StopMovement()
     {
-        rb.velocity = new Vector2(0, rb.velocity.y);
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         canFlip = false;
     }
 
@@ -140,7 +140,7 @@ public class EnemyBase : MonoBehaviour
 
         isHit = true;
         EnemyAudio_Play.instance.Play_IsHit();
-        rb.velocity = new Vector2(knockbackDirection.x * knockbackForce, rb.velocity.y);
+        rb.linearVelocity = new Vector2(knockbackDirection.x * knockbackForce, rb.linearVelocity.y);
         StartCoroutine(StaggerCoroutine());
     }
 

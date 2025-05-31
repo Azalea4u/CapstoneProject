@@ -163,19 +163,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isDashing && !isCrouching)
         {
-            rb.velocity = new Vector2(facingDirection * speed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(facingDirection * speed, rb.linearVelocity.y);
         }
         else if (isDashing)
         {
             // Set the x velocity to the dashing speed
-            rb.velocity = dashingDirection * dashSpeed;
+            rb.linearVelocity = dashingDirection * dashSpeed;
         }
         else if (isCrouching)
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
 
-        animator.SetFloat("yVelocity", rb.velocity.y);
+        animator.SetFloat("yVelocity", rb.linearVelocity.y);
         ApplyFallMultiplier();
     }
 
@@ -185,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
         canMove = false;
 
         facingDirection = 0;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         rb.gravityScale = 1;
     }
 
@@ -243,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
 
         // LEDGE
@@ -282,15 +282,15 @@ public class PlayerMovement : MonoBehaviour
     #region JUMP
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
         isGrounded = false;
 
-        rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
     }
 
     private void ApplyFallMultiplier()
     {
-        if (!isGrounded && rb.velocity.y < 0)
+        if (!isGrounded && rb.linearVelocity.y < 0)
         {
             // Player is falling
             float multiplier = fallMultiplier;
@@ -300,11 +300,11 @@ public class PlayerMovement : MonoBehaviour
                 multiplier *= 10.0f;
             }
 
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (multiplier - 1) * Time.deltaTime;
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (multiplier - 1) * Time.deltaTime;
         }
-        else if (rb.velocity.y > 0)
+        else if (rb.linearVelocity.y > 0)
         {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
     #endregion
@@ -493,7 +493,7 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = 1;
 
         // Apply a small downward force to initiate the fall
-        rb.velocity = new Vector2(rb.velocity.x, -0.5f);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -0.5f);
 
         // Reset the player's position slightly away from the wall to avoid getting stuck
         transform.position -= new Vector3(facingRight ? 0.3f : -0.3f, 0.3f, 0f);
@@ -535,7 +535,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isAlive) return; // Don't stagger if the enemy is dead
 
         // Apply knockback force in the specified direction
-        rb.velocity = new Vector2(knockbackDirection.x * knockbackForce, rb.velocity.y);
+        rb.linearVelocity = new Vector2(knockbackDirection.x * knockbackForce, rb.linearVelocity.y);
         PlayerAudio_Play.instance.PlayDamage();
         // Start stagger coroutine to disable movement for a duration
         StartCoroutine(StaggerCoroutine());

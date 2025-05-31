@@ -66,7 +66,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
 
         if (!canAttack)
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             canFlip = false;
         }
         else
@@ -103,7 +103,7 @@ public class Enemy_Goblin : EnemyBase, IAttackable
         else
         {
             // Stop moving when in attack range
-            rb.velocity = new Vector2(0, 0);
+            rb.linearVelocity = new Vector2(0, 0);
         }
     }
 

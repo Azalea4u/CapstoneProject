@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         {
             if (Game_Level.activeSelf == true)
             {
-                EnemyBase.instance.rb.velocity = Vector2.zero;
+                EnemyBase.instance.rb.linearVelocity = Vector2.zero;
                 EnemyBase.instance.canMove = false;
             }
         }
