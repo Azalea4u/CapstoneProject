@@ -82,7 +82,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
             }
             else
             {
-                rb.velocity = new Vector2(0, 0);
+                rb.linearVelocity = new Vector2(0, 0);
                 canFlip = false;
             }
         }
@@ -96,7 +96,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
         // check if we have reached the waypoint
         float distance = Vector2.Distance(nextWaypoint.position, transform.position);
 
-        rb.velocity = directionToWaypoint * movementSpeed;
+        rb.linearVelocity = directionToWaypoint * movementSpeed;
         UpdateDirection();
 
         // see if we need to switch waypoints
@@ -117,11 +117,11 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
     private void UpdateDirection()
     {
         // if going right
-        if (rb.velocity.x > 0)
+        if (rb.linearVelocity.x > 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
-        else if (rb.velocity.x < 0)
+        else if (rb.linearVelocity.x < 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
@@ -154,7 +154,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
         Vector2 directionToPlayer = (player.position - transform.position).normalized;
 
         // Move toward the player
-        rb.velocity = directionToPlayer * movementSpeed;
+        rb.linearVelocity = directionToPlayer * movementSpeed;
 
         // Flip the sprite to face the player
         UpdateDirection();
@@ -184,7 +184,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
             yield return new WaitForSeconds(0.5f);
             // move away from player
             Vector2 directionAwayFromPlayer = ((Vector2)(transform.position - player.position).normalized + Vector2.up).normalized;
-            rb.velocity = directionAwayFromPlayer * movementSpeed;
+            rb.linearVelocity = directionAwayFromPlayer * movementSpeed;
         }
 
         yield return new WaitForSeconds(AttackCooldown);

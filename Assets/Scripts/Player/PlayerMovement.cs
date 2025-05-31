@@ -7,6 +7,7 @@ using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -34,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Dash")]
     [SerializeField] private float dashDistance = 3.0f;
-    [SerializeField] private float dashSpeed = 20.0f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashRechargeTime = 1.0f;
     public bool isDashing;
@@ -81,6 +81,28 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private Transform bombSpawnPoint;
 
+    [Header("Input Actions")]
+    [SerializeField] private InputActionAsset inputActions;
+    [SerializeField] private InputActionMap movement;
+    [SerializeField] private InputActionMap crouching;
+    [SerializeField] private InputActionMap ledge;
+    private InputActionMap currentInputMap;
+
+    // MOVEMENT
+    [HideInInspector] public InputAction primaryAction;     // LEFT MOUSE BUTTON
+    [HideInInspector] public InputAction secondaryAction;   // RIGHT MOUSE BUTTON
+    [HideInInspector] public InputAction movementAction;    // AD
+    [HideInInspector] public InputAction jumpAction;        // SPACE
+    [HideInInspector] public InputAction dashAction;        // LEFT SHIFT
+    [HideInInspector] public InputAction crouchAction;      // LEFT CONTROL
+    // CROUCHING
+    [HideInInspector] public InputAction bombAction;        // LEFT CONTROL + LEFT MOUSE BUTTON
+    // LEDGE
+    [HideInInspector] public InputAction climbLedgeAction;  // LEFT MOUSE BUTTON or LEFT SHIFT
+    [HideInInspector] public InputAction dropLedgeAction;   // LEFT CONTROL
+    //UI
+    [HideInInspector] public InputAction pauseAction;       // TAB or ESCAPE
+
     [HideInInspector] public Rigidbody2D rb;
 
     private void Awake()
@@ -90,6 +112,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
+        SetupControls();
+        SwitchInputMap(movement);
         crouchCollider.enabled = false;
     }
 
@@ -104,8 +128,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (canMove)
         {
-            inputHorizontal = Input.GetAxis("Horizontal");
-            var dashInput = Input.GetButtonDown("Dash");
+            //facingDirection = Input.GetAxis("Horizontal");
+            //var dashInput = Input.GetButtonDown("Dash");
 
             if (isGrounded)
             {
@@ -124,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsAttacking", isAttacking);
         }
 
-        CheckInputs();
+        //CheckInputs();
     }
 
     private void FixedUpdate()
@@ -161,21 +185,30 @@ public class PlayerMovement : MonoBehaviour
             ContinueMovement();
         }
 
+        /*
         if (!isDashing && !isCrouching)
         {
-            rb.velocity = new Vector2(facingDirection * speed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(facingDirection * speed, rb.linearVelocity.y);
         }
         else if (isDashing)
         {
             // Set the x velocity to the dashing speed
-            rb.velocity = dashingDirection * dashSpeed;
+            rb.linearVelocity = dashingDirection * dashSpeed;
         }
         else if (isCrouching)
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
+        }
+        */
+
+        if (!isDashing && !isCrouching)
+        {
+            Vector2 input = movementAction.ReadValue<Vector2>();
+            facingDirection = input.x;
+            rb.linearVelocity = new Vector2(facingDirection * speed, rb.linearVelocity.y);
         }
 
-        animator.SetFloat("yVelocity", rb.velocity.y);
+        animator.SetFloat("yVelocity", rb.linearVelocity.y);
         ApplyFallMultiplier();
     }
 
@@ -185,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
         canMove = false;
 
         facingDirection = 0;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         rb.gravityScale = 1;
     }
 
@@ -195,6 +228,115 @@ public class PlayerMovement : MonoBehaviour
         canMove = true;
     }
 
+    private void SetupControls()
+    {
+        movement = inputActions.FindActionMap("Movement");
+        crouching = inputActions.FindActionMap("Crouching");
+        ledge = inputActions.FindActionMap("Ledge");
+
+
+        #region MOVEMENT
+        // PRIMARY - LEFT MOUSE BUTTON
+        primaryAction = movement.FindAction("Primary");
+        primaryAction.performed += ctx =>
+        {
+            if (isGrounded && !isCrouching && !DialogueManager.instance.dialogueIsPlaying)
+                Attack();
+        };
+
+        // SECONDARY - RIGHT MOUSE BUTTON
+        // for interacting with objects or npcs
+        secondaryAction = movement.FindAction("Secondary");
+        if (secondaryAction == null)
+        {
+            secondaryAction = movement.AddAction("Secondary");
+            secondaryAction.AddBinding("<Mouse>/rightButton");
+        }
+
+        // MOVEMENT - AD
+        movementAction = movement.FindAction("Movement");
+        if (movementAction == null)
+        {
+            movementAction = movement.AddAction("Movement");
+            // A for left, D for right
+            movementAction.AddCompositeBinding("2DVector")
+                .With("Left", "<Keyboard>/a")
+                .With("Right", "<Keyboard>/d");
+        }
+
+        // JUMP - SPACE
+        jumpAction = movement.FindAction("Jump");
+        jumpAction.performed += ctx => {
+            if (isGrounded && !isCrouching && !DialogueManager.instance.dialogueIsPlaying)
+                Jump();
+        };
+
+        // DASH - LEFT SHIFT
+        dashAction = movement.FindAction("Dash");
+        dashAction.performed += ctx =>
+        {
+            if (canDash && !isClimbing)
+            {
+                Dash();
+            }
+        };
+        #endregion
+
+        #region CROUCHING
+        // CROUCH - LEFT CONTROL
+        crouchAction = movement.FindAction("Crouch");
+        if (crouchAction == null)
+        {
+            crouchAction = movement.AddAction("Crouch");
+            crouchAction.AddBinding("<Keyboard>/leftCtrl");
+        }
+
+        crouchAction.started += ctx => {
+            if (!isClimbing && isGrounded && canCrouch)
+            {
+                isCrouching = true;
+                animator.SetTrigger("Crouch");
+                standingCollider.enabled = false;
+                crouchCollider.enabled = true;
+            }
+        };
+
+        crouchAction.canceled += ctx => {
+            if (isCrouching)
+            {
+                isCrouching = false;
+                animator.SetTrigger("Stand");
+                standingCollider.enabled = true;
+                crouchCollider.enabled = false;
+            }
+        };
+
+
+        #endregion
+
+        #region LEDGE
+        climbLedgeAction = ledge.FindAction("Climb");
+        climbLedgeAction.performed += ctx => {
+            if (isClimbing) animator.SetTrigger("Climbing");
+        };
+
+        dropLedgeAction = ledge.FindAction("Drop");
+        dropLedgeAction.performed += ctx => {
+            if (isClimbing) LedgeFallDown();
+        };
+        #endregion
+    }
+
+    private void SwitchInputMap(InputActionMap newMap)
+    {
+        if (currentInputMap == newMap) return;
+
+        if (currentInputMap != null) currentInputMap.Disable();
+        currentInputMap = newMap;
+        currentInputMap.Enable();
+    }
+
+    /*
     private void CheckInputs()
     {
         if (canMove)
@@ -243,7 +385,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
 
         // LEDGE
@@ -260,6 +402,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    */
 
     private void Attack()
     {
@@ -268,29 +411,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void Crouch()
     {
-        isCrouching = !isCrouching;
-
-        if (isCrouching)
-        {
-            animator.SetTrigger("Crouch");
-
-            standingCollider.enabled = false;
-            crouchCollider.enabled = true;
-        }
+        isCrouching = true;
+        animator.SetTrigger("Crouch");
+        standingCollider.enabled = false;
+        crouchCollider.enabled = true;
     }
 
     #region JUMP
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
         isGrounded = false;
 
-        rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
     }
 
     private void ApplyFallMultiplier()
     {
-        if (!isGrounded && rb.velocity.y < 0)
+        if (!isGrounded && rb.linearVelocity.y < 0)
         {
             // Player is falling
             float multiplier = fallMultiplier;
@@ -300,11 +438,11 @@ public class PlayerMovement : MonoBehaviour
                 multiplier *= 10.0f;
             }
 
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (multiplier - 1) * Time.deltaTime;
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (multiplier - 1) * Time.deltaTime;
         }
-        else if (rb.velocity.y > 0)
+        else if (rb.linearVelocity.y > 0)
         {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
     #endregion
@@ -317,7 +455,7 @@ public class PlayerMovement : MonoBehaviour
         dashStartTime = Time.time;
         dashStartPosition = transform.position;
         trailRenderer.emitting = true;
-        dashingDirection = new Vector2(facingDirection, Input.GetAxisRaw("Vertical"));
+        dashingDirection = movementAction.ReadValue<Vector2>();
 
         // if pressing up at all, don't dash up
         if (dashingDirection.y > 0)
@@ -459,9 +597,12 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
             transform.position = climbBeginPosition;
             ledgeDetected = false;
+            SwitchInputMap(ledge);
+        }
+        else {
+            SwitchInputMap(movement);
         }
     }
-
 
     public void LedgeClimbOver()
     {
@@ -493,7 +634,7 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = 1;
 
         // Apply a small downward force to initiate the fall
-        rb.velocity = new Vector2(rb.velocity.x, -0.5f);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -0.5f);
 
         // Reset the player's position slightly away from the wall to avoid getting stuck
         transform.position -= new Vector3(facingRight ? 0.3f : -0.3f, 0.3f, 0f);
@@ -535,7 +676,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isAlive) return; // Don't stagger if the enemy is dead
 
         // Apply knockback force in the specified direction
-        rb.velocity = new Vector2(knockbackDirection.x * knockbackForce, rb.velocity.y);
+        rb.linearVelocity = new Vector2(knockbackDirection.x * knockbackForce, rb.linearVelocity.y);
         PlayerAudio_Play.instance.PlayDamage();
         // Start stagger coroutine to disable movement for a duration
         StartCoroutine(StaggerCoroutine());

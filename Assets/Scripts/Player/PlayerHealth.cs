@@ -98,7 +98,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public void Death()
     {
         animator.SetBool("IsAlive", IsAlive);
-        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
     }
 
     public void Heal(int amount)
