@@ -48,7 +48,7 @@ namespace Ink.UnityIntegration {
 					}
 					// Oh gosh Unity never unloads ScriptableObjects once created! This fixes it but is more of an expensive call than I like.
 					// I've commented this out in favour of a callback approach - see OnEnable. Left this for posterity in case we need to return to this. 
-					// foreach (var settings in Resources.FindObjectsOfTypeAll<InkSettings>()) {
+					// foreach (var settings in Resources.FindFirstObjectByTypeAll<InkSettings>()) {
 					// 	if(settings == instance) continue;
 					// 	DestroyImmediate(settings);
 					// }

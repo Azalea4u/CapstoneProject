@@ -450,12 +450,13 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Air_Attack
+  m_Name: Air_Attack_01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 3137964536269391773}
-  m_StateMachineBehaviours: []
+  - {fileID: -2330677203469758890}
+  m_StateMachineBehaviours:
+  - {fileID: 6527812734276656894}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -589,6 +590,33 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: be13351965185904abe6b689625a8f38, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &-3440992744698667924
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Air_Attack_02
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions:
+  - {fileID: 2764179676617201544}
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: e4deda9f12ac9dd48a239e881a0eeb39, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -745,6 +773,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16cca1d0eb0c596478e94d58fd7fe2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1101 &-2330677203469758890
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -3440992744698667924}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 1
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-2309977780318897036
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1119,7 +1169,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: Air_Attacking
+  - m_Name: IsAirAttacking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -1288,7 +1338,7 @@ AnimatorStateMachine:
     m_Position: {x: -340, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3576222820863241705}
-    m_Position: {x: -380, y: 110, z: 0}
+    m_Position: {x: -420, y: 100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4681530638680048846}
     m_Position: {x: -330, y: 480, z: 0}
@@ -1339,7 +1389,10 @@ AnimatorStateMachine:
     m_Position: {x: -940, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5026189684238363763}
-    m_Position: {x: -550, y: 220, z: 0}
+    m_Position: {x: -640, y: 270, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -3440992744698667924}
+    m_Position: {x: -640, y: 170, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 4941011242361895677}
@@ -1465,6 +1518,28 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &2764179676617201544
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 0}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 1
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 1
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!114 &2765762384353804140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1477,28 +1552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62beddd4e302b2f408e2c554f20ff4c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1101 &3137964536269391773
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 5005437948650249426}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0
-  m_TransitionOffset: 0
-  m_ExitTime: 1
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!1101 &3520782526544653774
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1707,6 +1760,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsAttacking
+    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: IsAlive
     m_EventTreshold: 0
@@ -1720,10 +1776,7 @@ AnimatorStateTransition:
     m_ConditionEvent: IsClimbing
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: IsAttacking
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Air_Attacking
+    m_ConditionEvent: IsAirAttacking
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: ClimbingAllowed
@@ -1755,7 +1808,6 @@ AnimatorState:
   m_Transitions:
   - {fileID: -8096495397611479816}
   - {fileID: -4558574136337380434}
-  - {fileID: 5776062233750885381}
   - {fileID: -8287174647658460821}
   m_StateMachineBehaviours:
   - {fileID: -4317107331469783592}
@@ -1792,31 +1844,6 @@ AnimatorStateTransition:
   m_ExitTime: 0.7
   m_HasExitTime: 1
   m_HasFixedDuration: 0
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
---- !u!1101 &5776062233750885381
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Air_Attacking
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -5026189684238363763}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.19999999
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -1896,6 +1923,18 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &6527812734276656894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e023e85d21e87479dd570d7a4fad69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1101 &6551928406757919106
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

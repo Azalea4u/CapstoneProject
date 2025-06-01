@@ -54,24 +54,6 @@ public class Player_UI : MonoBehaviour
         set { hungerData.Hunger = value; }
     }
 
-    private int savedLevel = -1;
-
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        instance = this;
-
-        // Cache level early to preserve it
-        if (this != null)
-            savedLevel = Level;
-    }
-
-
     private void Start()
     {
         if (SceneManager.GetActiveScene().name == "Start_Menu")

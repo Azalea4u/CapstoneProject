@@ -48,8 +48,6 @@ public class GameManager : MonoBehaviour
 
         FirstGame.Value = true;
         itemManager = GetComponent<ItemManager>();
-
-        player = FindAnyObjectByType<Player>();
     }
 
     private void Update()
@@ -138,10 +136,10 @@ public class GameManager : MonoBehaviour
     {
         if (FirstGame.Value && SceneManager.GetActiveScene().name == "Start_Menu")
         {
-            inventoryManager.Add("Hotbar", GameManager.instance.itemManager.GetItemByName("Bomb"));
+            inventoryManager.Add("Hotbar", itemManager.GetItemByName("Bomb"));
         }
-        FirstGame.Value = false;
         SceneManager.LoadScene("Game_Level");
+        FirstGame.Value = false;
         if (SceneManager.GetActiveScene().name == "Game_Level")
         {
             playerUI.Level++;
@@ -153,18 +151,14 @@ public class GameManager : MonoBehaviour
     public void Load_Level(string levelName)
     {
         SceneManager.LoadScene(levelName);
+
         if (FirstGame.Value)
         {
-            inventoryManager.Add("Hotbar", GameManager.instance.itemManager.GetItemByName("Bomb"));
+            inventoryManager.Add("Hotbar", itemManager.GetItemByName("Bomb"));
             playerUI.IsDoubleGold = false; 
         }
 
         FirstGame.Value = false;
-    }
-
-    private void Load_TestLevel()
-    {
-        Load_Level("Test_Level");
     }
     #endregion
 

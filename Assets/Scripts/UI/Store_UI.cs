@@ -12,7 +12,7 @@ public class Store_UI : MonoBehaviour
 
     private void Awake()
     {
-        canvas = FindObjectOfType<Canvas>();
+        canvas = FindFirstObjectByType<Canvas>();
     }
 
     private void Start()

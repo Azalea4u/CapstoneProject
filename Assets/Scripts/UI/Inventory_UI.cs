@@ -22,7 +22,7 @@ public class Inventory_UI : MonoBehaviour
     private void Awake()
     {
         Initialize();
-        canvas = FindObjectOfType<Canvas>();
+        canvas = FindAnyObjectByType<Canvas>();
     }
 
     private void Start()

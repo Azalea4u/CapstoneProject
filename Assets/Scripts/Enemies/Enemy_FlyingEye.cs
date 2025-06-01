@@ -7,7 +7,7 @@ public class Enemy_FlyingEye : EnemyBase, IAttackable
 {
     [Header("FlyingEye Specific")]
     [SerializeField] DetectionZone attackZone;
-    [SerializeField] private float attackCooldown = 2.5f;
+    [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private Collider2D attackPoint;

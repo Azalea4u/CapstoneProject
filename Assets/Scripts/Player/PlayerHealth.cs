@@ -72,7 +72,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             Death();
         }
-        UpdateHealthDisplay();
+        //UpdateHealthDisplay();
     }
 
     public bool TakeDamage(int damage)

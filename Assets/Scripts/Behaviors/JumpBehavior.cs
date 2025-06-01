@@ -14,8 +14,11 @@ public class JumpBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerMovement.instance.isAttacking || (!PlayerMovement.instance.isGrounded && Input.GetKeyDown(KeyCode.Mouse0)))
+        if (PlayerMovement.instance.isAttacking && (!PlayerMovement.instance.isGrounded))
         {
+            PlayerMovement.instance.IsAirAttacking = true;
+            PlayerMovement.instance.animator.Play("Air_Attack_01");
+
             //PlayerMovement.instance.animator.Play("Air_Attack");
             //PlayerMovement.instance.animator.SetBool("Air_Attacking", true);
             //PlayerMovement.instance.inputReceived = false;
@@ -25,7 +28,8 @@ public class JumpBehavior : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //PlayerMovement.instance.isAttacking = false;
+        //PlayerMovement.instance.isAttacking = false; 
+
         PlayerAudio_Play.instance.PlayLanding();
     }
 

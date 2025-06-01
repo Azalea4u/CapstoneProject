@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
@@ -844,7 +844,7 @@ MonoBehaviour:
     m_Left: 350
     m_Right: 350
     m_Top: 10
-    m_Bottom: 200
+    m_Bottom: 170
   m_ChildAlignment: 0
   m_Spacing: 20
   m_ChildForceExpandWidth: 1
@@ -13758,7 +13758,7 @@ PrefabInstance:
     - target: {fileID: 9004839523696976448, guid: 8d3c1512b1775854084719d4c3ab292f, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 5128362105604076044}
+      objectReference: {fileID: 5128362105524759717, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
     - target: {fileID: 9004839523696976448, guid: 8d3c1512b1775854084719d4c3ab292f, type: 3}
       propertyPath: closeUI
       value: 
@@ -13782,7 +13782,7 @@ PrefabInstance:
     - target: {fileID: 9004839523696976448, guid: 8d3c1512b1775854084719d4c3ab292f, type: 3}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 6590205253181101648}
+      objectReference: {fileID: 6590205253365238009, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
     - target: {fileID: 9004839523696976448, guid: 8d3c1512b1775854084719d4c3ab292f, type: 3}
       propertyPath: currentHealth
       value: 
@@ -13802,7 +13802,7 @@ PrefabInstance:
     - target: {fileID: 9004839523696976448, guid: 8d3c1512b1775854084719d4c3ab292f, type: 3}
       propertyPath: inventoryManager
       value: 
-      objectReference: {fileID: 8366319577855558624}
+      objectReference: {fileID: 8366319577663036745, guid: c9525f3ca6b1c6546929aaea71ac6b0c, type: 3}
     - target: {fileID: 9021685980806239745, guid: 8d3c1512b1775854084719d4c3ab292f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 65.85443
@@ -14615,6 +14615,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 375055108}
     - target: {fileID: 2326384207971664090, guid: 86da79edddabe554481dab90d135b205, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 375055108}
+    - target: {fileID: 2326384207971664090, guid: 86da79edddabe554481dab90d135b205, type: 3}
       propertyPath: followTarget
       value: 
       objectReference: {fileID: 1591733334}
@@ -14683,11 +14687,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 375055108}
     - target: {fileID: 5824743399165783260, guid: 86da79edddabe554481dab90d135b205, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 375055108}
+    - target: {fileID: 5824743399165783260, guid: 86da79edddabe554481dab90d135b205, type: 3}
       propertyPath: followTarget
       value: 
       objectReference: {fileID: 1591733334}
     - target: {fileID: 8806959265214229597, guid: 86da79edddabe554481dab90d135b205, type: 3}
       propertyPath: camera
+      value: 
+      objectReference: {fileID: 375055108}
+    - target: {fileID: 8806959265214229597, guid: 86da79edddabe554481dab90d135b205, type: 3}
+      propertyPath: _camera
       value: 
       objectReference: {fileID: 375055108}
     - target: {fileID: 8806959265214229597, guid: 86da79edddabe554481dab90d135b205, type: 3}
@@ -21749,6 +21761,7 @@ MonoBehaviour:
   isAttacking: 0
   isAlive: 1
   canMove: 0
+  IsAirAttacking: 0
   dashDistance: 3
   dashDuration: 0.2
   dashRechargeTime: 1
@@ -21778,20 +21791,20 @@ MonoBehaviour:
   bombSpawnPoint: {fileID: 790101628694311570}
   inputActions: {fileID: 0}
   movement:
-    m_Name: 
-    m_Id: 
+    m_Name: Movement
+    m_Id: a45c7976-db4a-4274-9277-5a462cac404e
     m_Asset: {fileID: 0}
     m_Actions: []
     m_Bindings: []
   crouching:
-    m_Name: 
-    m_Id: 
+    m_Name: Crouching
+    m_Id: aada0315-4bd4-41d1-b094-85be553c7ca4
     m_Asset: {fileID: 0}
     m_Actions: []
     m_Bindings: []
   ledge:
-    m_Name: 
-    m_Id: 
+    m_Name: Ledge
+    m_Id: 020961ce-af81-4af2-a6c9-25ac185d1b03
     m_Asset: {fileID: 0}
     m_Actions: []
     m_Bindings: []

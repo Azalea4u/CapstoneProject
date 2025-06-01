@@ -19,7 +19,7 @@ public class InventoryMenu_UI : MonoBehaviour
 
     private void Awake()
     {
-        canvas = FindObjectOfType<Canvas>();
+        canvas = FindFirstObjectByType<Canvas>();
         instance = this;
     }
 

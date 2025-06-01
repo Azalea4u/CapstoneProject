@@ -15,9 +15,18 @@ public class TransitionOneBehavior : StateMachineBehaviour
     {
         if (PlayerMovement.instance.isAttacking)
         {
+            if (PlayerMovement.instance.isGrounded)
+            {
+                PlayerMovement.instance.animator.Play("Attack2");
+            }
+
             //animator.SetTrigger("AttackTwo");
-            PlayerMovement.instance.animator.Play("Attack2");
+            //PlayerMovement.instance.animator.Play("Attack2");
             //CombatManager.instance.inputReceived = false;
+        }
+        else if (PlayerMovement.instance.IsAirAttacking && !PlayerMovement.instance.isGrounded)
+        {
+            PlayerMovement.instance.animator.Play("Air_Attack_02");
         }
     }
 
@@ -25,6 +34,7 @@ public class TransitionOneBehavior : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         PlayerMovement.instance.isAttacking = false;
+        PlayerMovement.instance.IsAirAttacking = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

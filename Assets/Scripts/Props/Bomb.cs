@@ -47,7 +47,7 @@ public class Bomb : MonoBehaviour
         }
 
         // Find all Tilemap instances in the scene
-        Tilemap[] tilemaps = FindObjectsOfType<Tilemap>();
+        Tilemap[] tilemaps = FindObjectsOfType<Tilemap>(); // Corrected the method to return an array of Tilemap objects
 
         foreach (Tilemap tilemap in tilemaps)
         {

@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isAlive = true;
     public bool canMove = true;
 
+    public bool IsAirAttacking = false;
     private bool isStaggered = false;
     private bool canFlip = true;
     private bool facingRight = true;
@@ -146,6 +147,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsClimbing", isClimbing);
             animator.SetBool("ClimbingAllowed", climbingAllowed);
             animator.SetBool("IsAttacking", isAttacking);
+            animator.SetBool("IsAirAttacking", IsAirAttacking);
         }
 
         //CheckInputs();
@@ -239,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
         primaryAction = movement.FindAction("Primary");
         primaryAction.performed += ctx =>
         {
-            if (isGrounded && !isCrouching && !DialogueManager.instance.dialogueIsPlaying)
+            if (!isCrouching && !DialogueManager.instance.dialogueIsPlaying)
                 Attack();
         };
 
