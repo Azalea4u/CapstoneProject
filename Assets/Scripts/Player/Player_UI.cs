@@ -67,6 +67,11 @@ public class Player_UI : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Game_Level")
         {
+            Level = 1;
+            Gold = 200;
+            Hunger = 100;
+            currentHealth.value = 3;
+
             GameOver_Panel.SetActive(false);
             PausedMenu_Panel.SetActive(false);
 

@@ -10,6 +10,7 @@ public class ItemData : ScriptableObject
     [SerializeField] public Sprite Icon;
     [SerializeField] public int BuyPrice;
     [SerializeField] public int SellPrice;
+    [SerializeField] public bool IsConsumeable;
     [SerializeField] public bool IsFood;
 
     [SerializeField, ConditionalField("IsFood", true)] // Custom attribute to show based on IsFood

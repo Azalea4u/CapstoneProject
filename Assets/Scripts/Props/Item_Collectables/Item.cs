@@ -13,6 +13,7 @@ public class Item : MonoBehaviour
     public string Description => data.Description;
     public int SellPrice => data.SellPrice;
     public int BuyPrice => data.BuyPrice;
+    public bool IsConsumeable => data.IsConsumeable;
     public bool IsFood => data.IsFood;
     public float HealingAmount => data.HealingAmount;
     public HealingType HealingType => data.healingType;
