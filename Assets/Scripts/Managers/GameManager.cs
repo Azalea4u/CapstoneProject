@@ -97,8 +97,8 @@ public class GameManager : MonoBehaviour
 
     public void Load_StartMenu()
     {
-        inventoryManager.ClearHotBarData();
         FirstGame = true;
+        inventoryManager.ClearHotBarData();
         Load_Level("Start_Menu");
     }
 
@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
         {
             inventoryManager.Add("Hotbar", itemManager.GetItemByName("Bomb"));
             playerUI.IsDoubleGold = false; 
-            FirstGame = false;
+            //FirstGame = false;
         }
     }
     #endregion
