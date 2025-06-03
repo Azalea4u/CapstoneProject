@@ -23,10 +23,7 @@ public class Spawn_NextLevel : MonoBehaviour
         {
             if (next_Scene == "Game_Level") // WHEN LEAVING REST LEVEL
             {
-                Debug.Log("Current Level: " + GameManager.instance.playerUI.Level);
                 GameManager.instance.playerUI.Level++;
-                Debug.Log("Updated Level: " + GameManager.instance.playerUI.Level);
-                GameManager.instance.Update_LevelText();
                 if (GameManager.instance.shopManager.DoubleGold)
                 {
                     GameManager.instance.playerUI.IsDoubleGold = true;

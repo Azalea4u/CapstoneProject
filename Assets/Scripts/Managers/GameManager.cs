@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public bool isGamePaused = false;
 
     [Header("Starting Game")]
-    [SerializeField] public Bool_SO FirstGame;
+    [SerializeField] private Bool_SO firstGame;
 
     [Header("UI")]
     [SerializeField] private GameObject controlPanel;
@@ -34,6 +34,14 @@ public class GameManager : MonoBehaviour
 
     private Vector3 crouchingOffset = new Vector3(0, -2, -10); // Adjust as needed for the crouch position
 
+    public bool FirstGame { 
+        get { return firstGame.Value; }
+        set
+        {
+            firstGame.Value = value;
+        }
+    }
+
     private void Awake()
     {
         // Singleton pattern for GameManager
@@ -46,7 +54,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         //DontDestroyOnLoad(gameObject);
 
-        FirstGame.Value = true;
+        //FirstGame = true;
         itemManager = GetComponent<ItemManager>();
     }
 
@@ -90,7 +98,7 @@ public class GameManager : MonoBehaviour
     public void Load_StartMenu()
     {
         inventoryManager.ClearHotBarData();
-        FirstGame.Value = true;
+        FirstGame = true;
         Load_Level("Start_Menu");
     }
 
@@ -134,31 +142,31 @@ public class GameManager : MonoBehaviour
 
     public void Load_GameLevel()
     {
-        if (FirstGame.Value && SceneManager.GetActiveScene().name == "Start_Menu")
+        if (FirstGame) // && SceneManager.GetActiveScene().name == "Start_Menu")
         {
             inventoryManager.Add("Hotbar", itemManager.GetItemByName("Bomb"));
+            playerUI.SetUp();
+            FirstGame = false;
         }
         SceneManager.LoadScene("Game_Level");
-        FirstGame.Value = false;
         if (SceneManager.GetActiveScene().name == "Game_Level")
         {
             playerUI.Level++;
-            inventoryManager.RefreshHotBarData();
+            //inventoryManager.RefreshHotBarData();
         }
-        //playerUI_prefab.GetComponent<Hotbar_UI>().LoadHotBarFromData();
+        playerUI_prefab.GetComponent<Hotbar_UI>().LoadHotBarFromData();
     }
 
     public void Load_Level(string levelName)
     {
         SceneManager.LoadScene(levelName);
 
-        if (FirstGame.Value)
+        if (FirstGame)
         {
             inventoryManager.Add("Hotbar", itemManager.GetItemByName("Bomb"));
             playerUI.IsDoubleGold = false; 
+            FirstGame = false;
         }
-
-        FirstGame.Value = false;
     }
     #endregion
 
@@ -184,7 +192,7 @@ public class GameManager : MonoBehaviour
 
         playerPrefab.SetActive(true);
         Debug.Log("Level:" + playerUI.Level);
-        playerUI.Level++;
+        //playerUI.Level++;
         Debug.Log("Level:" + playerUI.Level);
     }
 

@@ -56,30 +56,25 @@ public class Player_UI : MonoBehaviour
 
     private void Start()
     {
+        /*
         if (SceneManager.GetActiveScene().name == "Start_Menu")
-        {
-            Level = 0;
-            Gold = 200;
-            Hunger = 100;
-
-            currentHealth.value = 3;
-        }
-
-        if (SceneManager.GetActiveScene().name == "Game_Level")
         {
             Level = 1;
             Gold = 200;
             Hunger = 100;
+
             currentHealth.value = 3;
+        }
+        */
+
+        if (SceneManager.GetActiveScene().name == "Game_Level")
+        {
 
             GameOver_Panel.SetActive(false);
             PausedMenu_Panel.SetActive(false);
-
-            Level = currentLevel.value;
         }
     }
-
-    /*
+    
     private void Update()
     {
         if (SceneManager.GetActiveScene().name == "Game_Level")
@@ -87,11 +82,14 @@ public class Player_UI : MonoBehaviour
             GoldText.text = currentGold.CurrentGold.ToString();
             LevelText.text = "Level " + Level;
         }
-
-        if (SceneManager.GetActiveScene().name == "Rest_Level")
-        {
-            LevelText.text = "Rest Level";
-        }
     }
-    */
+
+    public void SetUp()
+    {
+        Level = 1;
+        Gold = 200;
+        Hunger = 100;
+        currentHealth.value = 3;
+    }
+    
 }
