@@ -20,18 +20,23 @@ public class Player : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
     }
 
+    private float bombCooldown = 0.25f;
+    private float lastBombTime = -1f;
+
     private void Update()
     {
         if (playerMovement.isCrouching && playerMovement.primaryAction.IsPressed())
         {
-            if (HasBombInHotbar() && inventoryManager.hotbar.selectedSlot.itemName == "Bomb")
+            if (Time.time - lastBombTime > bombCooldown)
             {
-                UseBomb();
-                playerMovement.PlaceBomb();
-
-                // Save changes and refresh UI after using bomb
-                inventoryManager.LoadHotBarData();
-                inventoryManager.inventoryUI.Refresh();
+                if (HasBombInHotbar() && inventoryManager.hotbar.selectedSlot.itemName == "Bomb")
+                {
+                    UseBomb();
+                    playerMovement.PlaceBomb();
+                    inventoryManager.LoadHotBarData();
+                    inventoryManager.inventoryUI.Refresh();
+                    lastBombTime = Time.time;
+                }
             }
             else
             {
